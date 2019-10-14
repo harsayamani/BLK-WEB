@@ -14,8 +14,9 @@ class CreateGaleriTable extends Migration
     public function up()
     {
         Schema::create('galeri', function (Blueprint $table) {
-            $table->increments('kd_foto')->primary();
-            $table->string('foto');
+            $table->increments('kd_galeri');
+            $table->string('url_galeri');
+            $table->integer('kd_media');
             $table->timestamps();
         });
     }

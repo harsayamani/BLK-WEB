@@ -17,8 +17,9 @@ class CreateSkemaPelatihanTable extends Migration
             $table->integer('kd_skema')->primary();
             $table->integer('kd_program');
             $table->integer('kd_gelombang');
-            $table->string('tgl_buka');
-            $table->string('tgl_tutup');
+            $table->string('waktu_buka');
+            $table->string('waktu_tutup');
+            $table->string('waktu_seleksi');
             $table->integer('kuota');
             $table->timestamps();
         });

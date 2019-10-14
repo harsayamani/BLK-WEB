@@ -14,7 +14,7 @@ class CreateKontenTable extends Migration
     public function up()
     {
         Schema::create('konten', function (Blueprint $table) {
-            $table->increments('kd_konten')->primary();
+            $table->increments('kd_konten');
             $table->string('judul_konten');
             $table->integer('kd_kategori');
             $table->string('foto');

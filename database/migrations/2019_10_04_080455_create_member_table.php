@@ -17,7 +17,8 @@ class CreateMemberTable extends Migration
             $table->integer('kd_pengguna')->primary();
             $table->integer('nomor_ktp');
             $table->string('nama_lengkap', 30);
-            $table->string('ttl', 30);
+            $table->string('tempat_lahir');
+            $table->string('tgl_lahir');
             $table->string('jenis_kelamin');
             $table->string('pend_terakhir');
             $table->integer('thn_ijazah');

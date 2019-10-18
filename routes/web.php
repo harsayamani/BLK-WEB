@@ -11,14 +11,26 @@
 |
 */
 
+//Route Admin
+
 Route::get('/admin/login', 'AdminController@login_index');
 
 Route::post('/admin/login/proses', 'AdminController@login_post');
 
 Route::get('/admin/dashboard', 'AdminController@dashboard');
 
+//Route Member
+
 Route::get('/admin/dataMember/akunMember', 'MemberController@akun_member');
 
 Route::get('/admin/dataMember/kabupatenKota/{id}', 'MemberController@dynamic_select');
 
 Route::get('/ajax-kota/{id}', 'MemberController@ajax');
+
+Route::post('/ajax-kodepos', 'MemberController@ajax2');
+
+Route::post('/admin/dataMember/akunMember/tambahAkun', 'MemberController@tambah_akun_member');
+
+Route::post('/admin/dataMember/akunMember/ubahAkun', 'MemberController@ubah_akun_member');
+
+Route::get('/admin/dataMember/akunMember/hapusAkun/{kd_pengguna}', 'MemberController@hapus_akun_member');

@@ -18,6 +18,8 @@ class CreateSertifikatTable extends Migration
             $table->string('gambar_sertifikat');
             $table->integer('kd_pengguna');
             $table->integer('kd_program');
+            $table->string('tgl_terbit', 10);
+            $table->string('tgl_kadaluarsa', 10);
             $table->timestamps();
         });
     }

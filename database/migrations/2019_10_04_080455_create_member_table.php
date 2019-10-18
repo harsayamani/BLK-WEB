@@ -15,7 +15,7 @@ class CreateMemberTable extends Migration
     {
         Schema::create('member', function (Blueprint $table) {
             $table->integer('kd_pengguna')->primary();
-            $table->integer('nomor_ktp');
+            $table->bigInteger('nomor_ktp');
             $table->string('nama_lengkap', 30);
             $table->string('tempat_lahir');
             $table->string('tgl_lahir');
@@ -23,8 +23,8 @@ class CreateMemberTable extends Migration
             $table->string('pend_terakhir');
             $table->integer('thn_ijazah');
             $table->longText('alamat_lengkap');
-            $table->string('provinsi');
-            $table->string('kabupaten_kota');
+            $table->integer('provinsi');
+            $table->integer('kabupaten_kota');
             $table->string('desa_kelurahan');
             $table->string('rt', 2);
             $table->string('rw', 2);

@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="/assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
 
@@ -36,7 +35,7 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="@yield('active_menu_dashboard')">
-                        <a href="#"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a href="/admin/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
 
                     <li class="menu-title">Data Member</li><!-- /.menu-title -->
@@ -141,16 +140,6 @@
             </div>
         @endif
 
-        @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{$error}}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         @if (session()->has('alert success'))
             <div class="alert alert-success" role="alert">
                 {{session()->get('alert success')}}
@@ -196,14 +185,14 @@
 
     <script src="/assets/js/lib/data-table/datatables.min.js"></script>
     <script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script> 
+    <!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script> 
     <script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script> 
     <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script> 
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script> -->
     <script type="text/javascript">
         $(document).ready(function() {
             $('#bootstrap-data-table').DataTable( {
@@ -213,11 +202,6 @@
                 ]
             } );
         } );
-    </script>
-
-    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
-    <script>
-        $('#tgl_lahir').datepicker();
     </script>
     
     @yield('script')   

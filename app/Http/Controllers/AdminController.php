@@ -10,7 +10,11 @@ use App\Admin;
 class AdminController extends Controller
 {
     public function login_index(){
-        return view('/Admin/loginAdmin');
+        if(Session::get('loginAdmin')){
+            return redirect('/admin/dashboard');
+        }else{
+            return view('/Admin/loginAdmin');
+        }
     }
 
     public function login_post(Request $request){
@@ -18,9 +22,6 @@ class AdminController extends Controller
         $password = $request->password;
 
         $data = Admin::where('username', $username)->first();
-
-        echo $data->password;
-        echo $password;
         
         if($data){
             if(Hash::check($password, $data->password)){
@@ -33,7 +34,6 @@ class AdminController extends Controller
         }else{
             return redirect('/admin/login')->with('alert', 'Login Gagal / Username Salah');
         }
-        
     }
 
     public function dashboard() {

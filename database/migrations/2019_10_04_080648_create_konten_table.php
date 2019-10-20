@@ -16,6 +16,7 @@ class CreateKontenTable extends Migration
         Schema::create('konten', function (Blueprint $table) {
             $table->increments('kd_konten');
             $table->string('judul_konten');
+            $table->longText('isi_konten');
             $table->integer('kd_kategori');
             $table->string('foto');
             $table->string('tgl_rilis');

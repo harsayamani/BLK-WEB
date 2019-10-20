@@ -9,8 +9,6 @@
     <title>@yield('judul_tab')</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="apple-touch-icon" href="https://i.imgur.com/QRAUqs9.png">
-    <link rel="shortcut icon" href="https://i.imgur.com/QRAUqs9.png">
 
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
@@ -21,10 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="/assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 </head>
 
@@ -43,7 +38,7 @@
                         <a href="/admin/dataMember/akunMember"><i class="menu-icon fa fa-male"></i>Akun Member</a>
                     </li>
                     <li class="@yield('active_menu_kelola_sertifikat')">
-                        <a href="#"><i class="menu-icon fa fa-certificate"></i>Sertifikat</a>
+                        <a href="/admin/dataMember/sertifikat"><i class="menu-icon fa fa-certificate"></i>Sertifikat</a>
                     </li>
 
                     <li class="menu-title">Data Konten Web</li><!-- /.menu-title -->
@@ -59,7 +54,7 @@
                     <li class="@yield('active_menu_kelola_galeri')"> 
                         <a href="#"><i class="menu-icon fa fa-picture-o"></i>Galeri</a>
                     </li>
-                    <li class= "@yield('active_menu_kelola_sertifikat')">
+                    <li class= "@yield('active_menu_kelola_link')">
                         <a href="#"><i class="menu-icon fa fa-link"></i>Link Dinas Terkait</a>
                     </li>
 
@@ -96,7 +91,7 @@
 
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="/img/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img src="/images/logo.png" alt="Logo"></a>
                     <a class="navbar-brand hidden" href="./"><img src="/images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
@@ -203,27 +198,9 @@
             } );
         } );
     </script>
-    
-    @yield('script')   
-
-    <!--  Chart js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
-
-    <!--Chartist Chart-->
-    <script src="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"></script>
-
-   
-    <script src="https://cdn.jsdelivr.net/npm/simpleweather@3.1.0/jquery.simpleWeather.min.js"></script>
-    <script src="/assets/js/init/weather-init.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
     <script src="/assets/js/init/fullcalendar-init.js"></script>
-
-    
-    
-       
-
 </body>
 </html>

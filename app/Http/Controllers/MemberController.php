@@ -10,7 +10,11 @@ use App\Member;
 use App\Cities;
 use App\Province;
 use App\ProgramPelatihan;
+use App\Sertifikat;
+use JD\Cloudder\Facades\Cloudder;
 use Mail;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class MemberController extends Controller
 {
@@ -65,7 +69,7 @@ class MemberController extends Controller
             'thn_ijazah' => '|digits:4|numeric|regex:/^([1-9][0-9]+)/',
             'username' => '|unique:member|max:191',
             'nomor_kontak' => '|max:15',
-            'email' => '|max:30'
+            'email' => '|unique:member|max:30'
         ]);
 
         $member = new Member;
@@ -81,41 +85,16 @@ class MemberController extends Controller
         $member->provinsi = $request->provinsi;
         $member->kabupaten_kota =  $request->kabupaten_kota;
         $member->kodepos = $request->kodepos;
-        $member->desa_kelurahan = $request->desa_kelurahan;
-        $member->rt = $request->rt;
-        $member->rw = $request->rw;
         $member->nomor_kontak = $request->nomor_kontak;
         
-        if($request->get('s')){
-            $member->ukuran_baju = $request->s;
-        }elseif($request->get('m')){
-            $member->ukuran_baju = $request->m;
-        }elseif($request->get('l')){
-            $member->ukuran_baju = $request->l;
-        }elseif($request->get('xl')){
-            $member->ukuran_baju = $request->xl;
-        }elseif($request->get('xxl')){
-            $member->ukuran_baju = $request->xxl;
+        if($request->get('ukuran_baju')){
+            $member->ukuran_baju = $request->ukuran_baju;
         }else{
             $member->ukuran_baju = $request->ukuran_baju_lain;
         }
 
-        if($request->get('ukuran_sepatu1')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu1;
-        }elseif($request->get('ukuran_sepatu2')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu2;
-        }elseif($request->get('ukuran_sepatu3')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu3;
-        }elseif($request->get('ukuran_sepatu4')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu4;
-        }elseif($request->get('ukuran_sepatu5')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu5;
-        }elseif($request->get('ukuran_sepatu6')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu6;
-        }elseif($request->get('ukuran_sepatu7')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu7;
-        }elseif($request->get('ukuran_sepatu8')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu8;
+        if($request->get('ukuran_sepatu')){
+            $member->ukuran_sepatu = $request->ukuran_sepatu;
         }else{
             $member->ukuran_sepatu = $request->ukuran_sepatu_lain;
         }
@@ -125,15 +104,21 @@ class MemberController extends Controller
         $member->email = $request->email;
         $member->save();
 
-        $pesan = "Informasi Akun BLK Kabupaten Indramayu \n Username : ".$request->username." \n Password : ".$request->password."";
+        $pesan = "Informasi Akun BLK Kabupaten Indramayu, Username : ";
+        $username = "Username : ".$request->username;
+        $password = "Password : ".$request->password;
 
-        Mail::send('Admin/email', ['nama' => $request->nama_lengkap, 'pesan' => $pesan], function ($message) use ($request)
-        {
-            $message->subject('Informasi Akun BLK Kabupaten Indramayu');
-            $message->from('support@blkindramayu.com', 'Balai Latihan Kerja Kabupaten Indramayu');
-            $message->to($request->email);
-        });
-
+        try{
+            Mail::send('Admin/email', ['nama' => $request->nama_lengkap, 'pesan' => $pesan, 'username'=>$username, 'password'=>$password], function ($message) use ($request)
+            {
+                $message->subject('Informasi Akun BLK Kabupaten Indramayu');
+                $message->from('support@blkindramayu.com', 'Balai Latihan Kerja Kabupaten Indramayu');
+                $message->to($request->email);
+            });
+        }catch(Exception $e){
+            return redirect('/admin/dataMember/akunMember')->with('alert danger', $e);
+        }
+        
         return redirect('/admin/dataMember/akunMember')->with('alert success', 'Akun berhasil ditambahkan!');
     }
 
@@ -162,41 +147,16 @@ class MemberController extends Controller
         $member->provinsi = $request->provinsi2;
         $member->kabupaten_kota =  $request->kabupaten_kota2;
         $member->kodepos = $request->kodepos2;
-        $member->desa_kelurahan = $request->desa_kelurahan;
-        $member->rt = $request->rt;
-        $member->rw = $request->rw;
         $member->nomor_kontak = $request->nomor_kontak;
         
-        if($request->get('s')){
-            $member->ukuran_baju = $request->s;
-        }elseif($request->get('m')){
-            $member->ukuran_baju = $request->m;
-        }elseif($request->get('l')){
-            $member->ukuran_baju = $request->l;
-        }elseif($request->get('xl')){
-            $member->ukuran_baju = $request->xl;
-        }elseif($request->get('xxl')){
-            $member->ukuran_baju = $request->xxl;
+        if($request->get('ukuran_baju')){
+            $member->ukuran_baju = $request->ukuran_baju;
         }else{
             $member->ukuran_baju = $request->ukuran_baju_lain;
         }
 
-        if($request->get('ukuran_sepatu1')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu1;
-        }elseif($request->get('ukuran_sepatu2')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu2;
-        }elseif($request->get('ukuran_sepatu3')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu3;
-        }elseif($request->get('ukuran_sepatu4')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu4;
-        }elseif($request->get('ukuran_sepatu5')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu5;
-        }elseif($request->get('ukuran_sepatu6')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu6;
-        }elseif($request->get('ukuran_sepatu7')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu7;
-        }elseif($request->get('ukuran_sepatu8')){
-            $member->ukuran_sepatu = $request->ukuran_sepatu8;
+        if($request->get('ukuran_sepatu')){
+            $member->ukuran_sepatu = $request->ukuran_sepatu;
         }else{
             $member->ukuran_sepatu = $request->ukuran_sepatu_lain;
         }
@@ -220,12 +180,95 @@ class MemberController extends Controller
 
         $member = Member::all();
         $program = ProgramPelatihan::all();
+        $sertifikat = Sertifikat::all();
+        $program2 = ProgramPelatihan::all();
+        $member2 = Member::all();
+
+        $i = 0;
 
         if(!Session::get('loginAdmin')){
             return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
         }else{
-            return view('Admin/kelolaSertifikat', compact('member', 'program'));
+            return view('Admin/kelolaSertifikat', compact('member', 'program', 'sertifikat', 'i', 'program2', 'member2'));
         }
+    }
+
+    public function tambah_sertifikat(Request $request){
+
+        $this->validate($request, [
+            'kd_sertifikat=' => '|unique:sertifikat|digits:11|numeric|regex:/^([1-9][0-9]+)/'
+        ]);
+
+        try{
+            //Upload gambar ke cloudinary
+            $gambar_sertifikat = $request->gambar_sertifikat;
+            Cloudder::upload($gambar_sertifikat);
+            list($width, $height) = getimagesize($gambar_sertifikat);
+            $url_gambar= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
+        }catch(Exception $e){
+            return redirect('/admin/dataMember/sertifikat')->with('alert danger', $e);
+        }      
+
+        $sertifikat = new Sertifikat();
+        $sertifikat->kd_sertifikat = $request->kd_sertifikat;
+        $sertifikat->gambar_sertifikat = $url_gambar;
+        $sertifikat->kd_pengguna = $request->kd_pengguna;
+        $sertifikat->kd_program = $request->kd_program;
+        $sertifikat->tgl_terbit = $request->tgl_terbit;
+        $sertifikat->tgl_kadaluarsa = $request->tgl_kadaluarsa;
+        $sertifikat->save();
+        
+        return redirect('/admin/dataMember/sertifikat')->with('alert success', 'Sertifikat berhasil ditambahkan!');
+    }
+
+    public function ubah_sertifikat(Request $request){
+
+        $this->validate($request, [
+            'kd_sertifikat=' => '|digits:11|numeric|regex:/^([1-9][0-9]+)/'
+        ]);
+
+        try{
+            //Upload gambar ke cloudinary
+            $gambar_sertifikat = $request->gambar_sertifikat;
+            Cloudder::upload($gambar_sertifikat);
+            list($width, $height) = getimagesize($gambar_sertifikat);
+            $url_gambar= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
+        }catch(Exception $e){
+            return redirect('/admin/dataMember/sertifikat')->with('alert danger', $e);
+        }      
+
+        $sertifikat = Sertifikat::findOrdFail($request->kd_sertifikat);
+        $sertifikat->kd_sertifikat = $request->kd_sertifikat;
+        $sertifikat->gambar_sertifikat = $url_gambar;
+        $sertifikat->kd_pengguna = $request->kd_pengguna;
+        $sertifikat->kd_program = $request->kd_program;
+        $sertifikat->tgl_terbit = $request->tgl_terbit;
+        $sertifikat->tgl_kadaluarsa = $request->tgl_kadaluarsa;
+        $sertifikat->save();
+        
+        return redirect('/admin/dataMember/sertifikat')->with('alert success', 'Sertifikat berhasil diubah!');
+    }
+
+    public function hapus_sertifikat($kd_sertifikat){
+        $sertifikat = Sertifikat::findOrFail($kd_sertifikat);
+        $sertifikat->delete($sertifikat);
+
+        return redirect('/admin/dataMember/sertifikat')->with('alert danger', 'Sertifikat berhasil dihapus!');
+    }
+
+    public function lembar_pengesahan($kd_sertifikat){
+        $sertifikat = Sertifikat::where('kd_sertifikat', $kd_sertifikat)->first();
+        $qr_sertifikat = QrCode::format('png')
+                        ->merge('images/logo_blk.png', 0.5, true)
+                        ->size(500)
+                        ->generate($kd_sertifikat);
+
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login');
+        }else{
+            return response($qr_sertifikat)->header('Content-type','image/png');
+        }
+
     }
     
     //Ajax Controller

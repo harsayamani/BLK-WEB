@@ -62,15 +62,15 @@
                                                 </button>
                                             </div>      
                                             <div class="modal-body">
-                                                <form action="{{ url('/admin/dataMember/sertifikat/tambahSertifikat') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                                <form action="{{ url('/admin/dataMember/sertifikat/tambahSertifikat')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                     {{ csrf_field()}}
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="number-input" class=" form-control-label">Kode Pengguna</label>
+                                                            <label for="number-input" class=" form-control-label">Kode Sertifikasi</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input readonly type="number" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" required>
+                                                            <input type="number" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" required>
                                                         </div>
                                                     </div>
                                                    
@@ -146,7 +146,7 @@
                                                 </button>
                                             </div>      
                                             <div class="modal-body">
-                                                <form action="{{ url('/admin/dataMember/akunMember/ubahAkun') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                                <form action="{{ url('/admin/dataMember/sertifikat/ubahSertifikat') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                     
                                                     {{ csrf_field()}}
 
@@ -165,6 +165,7 @@
                                                         </div>
                                                         <div class="col-12 col-md-9">
                                                             <input type="file" id="gambar_sertifikat" name="gambar_sertifikat" accept="image/*" class="form-control-file" required>
+                                                            <small class="form-text text-muted" id="link_gambar" name="link_gambar"></small>
                                                         </div>
                                                     </div>
 
@@ -172,20 +173,20 @@
                                                         <div class="col col-md-3"><label for="text_input" class=" form-control-label">Member</label></div>
                                                         <div class="col-12 col-md-9">
                                                             <select name="kd_pengguna" id="kd_pengguna" class="form-control">
-                                                            <option value="">---Pilih Member---</option>
-                                                            @foreach($member as $member)
-                                                                <option value="{{$member->kd_pengguna}}">{{$member->no_ktp." ".$member->nama_lengkap}}</option>
-                                                            @endforeach
+                                                                <option value="">---Pilih Member---</option>
+                                                                @foreach($member2 as $member)
+                                                                <option value="{{$member->kd_pengguna}}">{{$member->nama_lengkap}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
 
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="id_jenjang" class=" form-control-label">Program</label></div>
+                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Program</label></div>
                                                         <div class="col-12 col-md-9">
                                                             <select name="kd_program" id="kd_program" class="form-control">
                                                                 <option value="">---Pilih Program---</option>
-                                                                @foreach($program as $program)
+                                                                @foreach($program2 as $program)
                                                                 <option value="{{$program->kd_program}}">{{$program->nama_program}}</option>
                                                                 @endforeach
                                                             </select>
@@ -197,7 +198,7 @@
                                                             <label for="text-input" class=" form-control-label">Tanggal Terbit</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input readonly type="text" id="tgl_terbit" name="tgl_terbit" placeholder="Masukkan Tanggal Terbit" class="form-control" required>
+                                                            <input readonly type="text" id="tgl_terbit2" name="tgl_terbit2" placeholder="Masukkan Tanggal Terbit" class="form-control" required>
                                                         </div>
                                                     </div>
 
@@ -206,7 +207,7 @@
                                                             <label for="text-input" class=" form-control-label">Tanggal Kadaluarsa</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input readonly type="text" id="tgl_kadaluarsa" name="tgl_kadaluarsa" placeholder="Masukkan Tanggal Kadaluarsa" class="form-control" required>
+                                                            <input readonly type="text" id="tgl_kadaluarsa2" name="tgl_kadaluarsa2" placeholder="Masukkan Tanggal Kadaluarsa" class="form-control" required>
                                                         </div>
                                                     </div>
 
@@ -228,37 +229,41 @@
                                             <th>No.</th>
                                             <th>QR Code</th>
                                             <th>Kode Sertifikat</th>
-                                            <th>Link Sertifikat</th>
                                             <th>Member</th>
                                             <th>Program</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($sertifikat as $serifikat)
+                                    @foreach($sertifikat as $sertifikat)
                                         <tr>
-                                            <td>{{}}</td>
-                                            <td>{{}}</td>
-                                            <td>{{$sertifikat->kd_sertifikat}}</td>
-                                            <td>{{$sertifikat->gambar_sertifikat}}</td>
-                                            <td>{{App\Member::where('kd_pengguna', $sertifikat->kd_pengguna')->value('nama_lengkap')}}</td>
-                                            <td>{{App\ProgramPelatihan::where('kd_program', $sertifikat->kd_program)->value('nama_program'))}}</td>
+                                            <td>{{$i+=1}}</td>
                                             <td>
-                                            <button type="button" class="btn btn-success btn-sm" 
-                                                data-target="#ubahSertifikat" 
-                                                data-toggle="modal"
-                                                data-kd_sertifikat="{{$sertifikat->kd_sertifikat}}"
-                                                data-gambar_sertifikat="{{$sertifikat->gambar_sertifikat}}"
-                                                data-kd_pengguna="{{$sertifikat->kd_pengguna}}"
-                                                data-kd_program="{{$sertifikat->kd_program}}"
-                                                data-tgl_terbit="{{$sertifikat->tgl_terbit}}"
-                                                data-tgl_kadaluarsa="{{$sertifikat->tgl_kadaluarsa}}"
-                                            >
-                                                <i class="fa fa-edit"></i>&nbsp; 
-                                            </button>
-                                            <a href="/admin/dataMember/sertifikat/hapusSertifikat/{{$sertifikat->kd_sertifikat}}" type="button" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i>&nbsp;
-                                            </button>
+                                                <a href="/admin/dataMember/sertifikat/lembarPengesahan/{{$sertifikat->kd_sertifikat}}">
+                                                    <i class="fa fa-qrcode"></i>&nbsp;
+                                                </a>
+                                            </td>
+                                            <td>{{$sertifikat->kd_sertifikat}}</td>
+                                            <td>{{App\Member::where('kd_pengguna', $sertifikat->kd_pengguna)->value('nama_lengkap')}}</td>
+                                            <td>{{App\ProgramPelatihan::where('kd_program', $sertifikat->kd_program)->value('nama_program')}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-success btn-sm" 
+                                                    data-target="#ubahSertifikat" 
+                                                    data-toggle="modal"
+                                                    data-kd_sertifikat="{{$sertifikat->kd_sertifikat}}"
+                                                    data-kd_pengguna="{{$sertifikat->kd_pengguna}}"
+                                                    data-kd_program="{{$sertifikat->kd_program}}"
+                                                    data-tgl_terbit="{{$sertifikat->tgl_terbit}}"
+                                                    data-tgl_kadaluarsa="{{$sertifikat->tgl_kadaluarsa}}"
+                                                >
+                                                    <i class="fa fa-edit"></i>&nbsp; 
+                                                </button>
+                                                <a href="/admin/dataMember/sertifikat/hapusSertifikat/{{$sertifikat->kd_sertifikat}}" type="button" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash"></i>&nbsp;
+                                                </a>
+                                                <a href="{{$sertifikat->gambar_sertifikat}}" type="button" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-certificate"></i>&nbsp;
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -279,7 +284,15 @@
     </script>
 
     <script>
+        $('#tgl_terbit2').datepicker();
+    </script>
+
+    <script>
         $('#tgl_kadaluarsa').datepicker();
+    </script>
+
+    <script>
+        $('#tgl_kadaluarsa2').datepicker();
     </script>
 
     <script type="text/javascript">
@@ -288,7 +301,6 @@
               var button = $(event.relatedTarget);
               var kd_pengguna = button.data('kd_pengguna');
               var kd_sertifikat = button.data('kd_sertifikat');
-              var gambar_sertifikat = button.data('gambar_sertifikat');
               var kd_program = button.data('kd_program');
               var tgl_terbit = button.data('tgl_terbit');
               var tgl_kadaluarsa = button.data('tgl_kadaluarsa');
@@ -296,7 +308,9 @@
               var modal = $(this);
               modal.find('.modal-body #kd_pengguna').val(kd_pengguna);
               modal.find('.modal-body #kd_sertifikat').val(kd_sertifikat);
-              modal.find('.modal-body #gambar_sertifikat').val(gambar_sertifikat);
+              modal.find('.modal-body #kd_program').val(kd_program);
+              modal.find('.modal-body #tgl_terbit2').val(tgl_terbit);
+              modal.find('.modal-body #tgl_kadaluarsa2').val(tgl_kadaluarsa);
             });
         }); 
     </script> 

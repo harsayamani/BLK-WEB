@@ -109,6 +109,7 @@
                                                         <div class="col col-md-3"><label for="text_input" class=" form-control-label">Jenis Kelamin</label></div>
                                                         <div class="col-12 col-md-9">
                                                             <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                                                                <option value="">---Pilih Jenis Kelamin---</option>
                                                                 <option value="L">Laki-Laki</option>
                                                                 <option value="P">Perempuan</option>
                                                             </select>
@@ -121,7 +122,7 @@
                                                             <select name="tempat_lahir" id="tempat_lahir" class="form-control">
                                                                 <option value="">---Pilih Tempat Lahir---</option>
                                                                 @foreach($kota as $kota)
-                                                                <option value="{{$kota->type." ".$kota->nama}}">{{$kota->type." ".$kota->nama}}</option>
+                                                                <option value="{{$kota->id}}">{{$kota->type." ".$kota->nama}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -141,10 +142,11 @@
                                                         <div class="col-12 col-md-9">
                                                             <select name="pend_terakhir" id="pend_terakhir" class="form-control">
                                                                 <option value="">---Pilih Pendidikan Terakhir---</option>
-                                                                <option value="SD">SD</option>
-                                                                <option value="SMP">SMP</option>
-                                                                <option value="SMA">SMA</option>
+                                                                <option value="SD/MI">SD/MI</option>
+                                                                <option value="SMP/MTS">SMP/MTS</option>
+                                                                <option value="SMA/MA/SMK">SMA/MA/SMK</option>
                                                                 <option value="D3">D3</option>
+                                                                <option value="D4">D4</option>
                                                                 <option value="S1">S1</option>
                                                             </select>
                                                         </div>
@@ -156,16 +158,6 @@
                                                         </div>
                                                         <div class="col-12 col-md-6">
                                                             <input type="number" id="thn_ijazah" name="thn_ijazah" placeholder="Masukkan Tahun Ijazah" class="form-control" required>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Alamat Lengkap</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-9">
-                                                            <textarea id="alamat_lengkap" name="alamat_lengkap" placeholder="Masukkan Alamat Lengkap" class="form-control" required> </textarea>
-                                                            <small class="form-text text-muted">Tuliskan alamat lengkap!</small>
                                                         </div>
                                                     </div>
 
@@ -192,37 +184,23 @@
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
+                                                            <label for="text-input" class=" form-control-label">Alamat Lengkap</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <textarea id="alamat_lengkap" name="alamat_lengkap" placeholder="Masukkan Alamat Lengkap" class="form-control" required> </textarea>
+                                                            <small class="form-text text-muted">Tuliskan alamat lengkap!</small>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
                                                             <label for="text-input" class=" form-control-label">Kode Pos</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
                                                             <input type="text" id="kodepos" name="kodepos" placeholder="" class="form-control" readonly>
                                                         </div>
                                                     </div>
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Desa/Kelurahan</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-9">
-                                                            <input type="text" id="desa_kelurahan" name="desa_kelurahan" placeholder="" class="form-control" required>
-                                                            <small class="form-text text-muted">Tuliskan nama desa/kelurahan!</small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">RT/RW</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-3">
-                                                            <input type="text" id="rt" name="rt" placeholder="" class="form-control" required>
-                                                            <small class="form-text text-muted">Tuliskan nama RT!</small>
-                                                        </div>
-                                                        <div class="col-12 col-md-3">
-                                                            <input type="text" id="rw" name="rw" placeholder="" class="form-control" required>
-                                                            <small class="form-text text-muted">Tuliskan nama RW!</small>
-                                                        </div>
-                                                    </div>
-
+                
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
                                                             <label for="text-input" class=" form-control-label">Nomor Kontak</label>
@@ -247,27 +225,27 @@
                                                             <div class="form-check">
                                                                 <div class="radio">
                                                                     <label for="s" class="form-check-label ">
-                                                                        <input type="radio" id="s" name="s" value="S" class="form-check-input">S
+                                                                        <input type="radio" id="s" name="ukuran_baju" value="S" class="form-check-input">S
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="m" class="form-check-label ">
-                                                                        <input type="radio" id="m" name="m" value="M" class="form-check-input">M
+                                                                        <input type="radio" id="m" name="ukuran_baju" value="M" class="form-check-input">M
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="l" class="form-check-label ">
-                                                                        <input type="radio" id="l" name="l" value="L" class="form-check-input">L
+                                                                        <input type="radio" id="l" name="ukuran_baju" value="L" class="form-check-input">L
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="xl" class="form-check-label ">
-                                                                        <input type="radio" id="xl" name="xl" value="XL" class="form-check-input">XL
+                                                                        <input type="radio" id="xl" name="ukuran_baju" value="XL" class="form-check-input">XL
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="xxl" class="form-check-label ">
-                                                                        <input type="radio" id="xxl" name="xxl" value="XXL" class="form-check-input">XXL
+                                                                        <input type="radio" id="xxl" name="ukuran_baju" value="XXL" class="form-check-input">XXL
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
@@ -287,42 +265,42 @@
                                                             <div class="form-check">
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu1" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu1" name="ukuran_sepatu1" value="36" class="form-check-input">36
+                                                                        <input type="radio" id="ukuran_sepatu1" name="ukuran_sepatu" value="36" class="form-check-input">36
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu2" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu2" name="ukuran_sepatu2" value="37" class="form-check-input">37
+                                                                        <input type="radio" id="ukuran_sepatu2" name="ukuran_sepatu" value="37" class="form-check-input">37
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu3" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu3" name="ukuran_sepatu3" value="38" class="form-check-input">38
+                                                                        <input type="radio" id="ukuran_sepatu3" name="ukuran_sepatu" value="38" class="form-check-input">38
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu4" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu4" name="ukuran_sepatu4" value="39" class="form-check-input">39
+                                                                        <input type="radio" id="ukuran_sepatu4" name="ukuran_sepatu" value="39" class="form-check-input">39
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu5" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu5" name="ukuran_sepatu5" value="40" class="form-check-input">40
+                                                                        <input type="radio" id="ukuran_sepatu5" name="ukuran_sepatu" value="40" class="form-check-input">40
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu6" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu6" name="ukuran_sepatu6" value="41" class="form-check-input">41
+                                                                        <input type="radio" id="ukuran_sepatu6" name="ukuran_sepatu" value="41" class="form-check-input">41
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu7" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu7" name="ukuran_sepatu7" value="42" class="form-check-input">42
+                                                                        <input type="radio" id="ukuran_sepatu7" name="ukuran_sepatu" value="42" class="form-check-input">42
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu8" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu8" name="ukuran_sepatu8" value="43" class="form-check-input">43
+                                                                        <input type="radio" id="ukuran_sepatu8" name="ukuran_sepatu" value="43" class="form-check-input">43
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
@@ -345,7 +323,7 @@
                                                             <label for="text-input" class=" form-control-label">Username</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="username" name="username" placeholder="Masukkan Username" class="form-control" required>
+                                                            <input type="text" id="username" name="username" placeholder="Masukkan Username" class="form-control" value="{{uniqid()}}" readonly>
                                                         </div>
                                                     </div>
 
@@ -354,7 +332,7 @@
                                                             <label for="text-input" class=" form-control-label">Password</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="password" name="password" value="{{uniqid()}}" class="form-control" readonly>
+                                                            <input type="password" id="password" name="password" value="{{uniqid()}}" class="form-control" readonly>
                                                         </div>
                                                     </div>
 
@@ -430,6 +408,7 @@
                                                         <div class="col col-md-3"><label for="text_input" class=" form-control-label">Jenis Kelamin</label></div>
                                                         <div class="col-12 col-md-9">
                                                             <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                                                                <option value="">---Pilih Jenis Kelamin---</option>
                                                                 <option value="L">Laki-Laki</option>
                                                                 <option value="P">Perempuan</option>
                                                             </select>
@@ -442,7 +421,7 @@
                                                             <select name="tempat_lahir" id="tempat_lahir" class="form-control">
                                                                 <option value="">---Pilih Tempat Lahir---</option>
                                                                 @foreach($kota2 as $kota)
-                                                                <option value="{{$kota->type." ".$kota->nama}}">{{$kota->type." ".$kota->nama}}</option>
+                                                                <option value="{{$kota->id}}">{{$kota->type." ".$kota->nama}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -462,10 +441,11 @@
                                                         <div class="col-12 col-md-9">
                                                             <select name="pend_terakhir" id="pend_terakhir" class="form-control">
                                                                 <option value="">---Pilih Pendidikan Terakhir---</option>
-                                                                <option value="SD">SD</option>
-                                                                <option value="SMP">SMP</option>
-                                                                <option value="SMA">SMA</option>
+                                                                <option value="SD/MI">SD/MI</option>
+                                                                <option value="SMP/MTS">SMP/MTS</option>
+                                                                <option value="SMA/MA/SMK">SMA/MA/SMK</option>
                                                                 <option value="D3">D3</option>
+                                                                <option value="D4">D4</option>
                                                                 <option value="S1">S1</option>
                                                             </select>
                                                         </div>
@@ -477,16 +457,6 @@
                                                         </div>
                                                         <div class="col-12 col-md-6">
                                                             <input type="number" id="thn_ijazah" name="thn_ijazah" placeholder="Masukkan Tahun Ijazah" class="form-control" required>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Alamat Lengkap</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-9">
-                                                            <textarea id="alamat_lengkap" name="alamat_lengkap" placeholder="Masukkan Alamat Lengkap" class="form-control" required> </textarea>
-                                                            <small class="form-text text-muted">Tuliskan alamat lengkap!</small>
                                                         </div>
                                                     </div>
 
@@ -516,34 +486,20 @@
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
+                                                            <label for="text-input" class=" form-control-label">Alamat Lengkap</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <textarea id="alamat_lengkap" name="alamat_lengkap" placeholder="Masukkan Alamat Lengkap" class="form-control" required> </textarea>
+                                                            <small class="form-text text-muted">Tuliskan alamat lengkap!</small>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
                                                             <label for="text-input" class=" form-control-label">Kode Pos</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
                                                             <input type="text" id="kodepos2" name="kodepos2" placeholder="" class="form-control" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Desa/Kelurahan</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-9">
-                                                            <input type="text" id="desa_kelurahan" name="desa_kelurahan" placeholder="" class="form-control" required>
-                                                            <small class="form-text text-muted">Tuliskan nama desa/kelurahan!</small>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">RT/RW</label>
-                                                        </div>
-                                                        <div class="col-12 col-md-3">
-                                                            <input type="text" id="rt" name="rt" placeholder="" class="form-control" required>
-                                                            <small class="form-text text-muted">Tuliskan nama RT!</small>
-                                                        </div>
-                                                        <div class="col-12 col-md-3">
-                                                            <input type="text" id="rw" name="rw" placeholder="" class="form-control" required>
-                                                            <small class="form-text text-muted">Tuliskan nama RW!</small>
                                                         </div>
                                                     </div>
 
@@ -571,29 +527,27 @@
                                                             <div class="form-check">
                                                                 <div class="radio">
                                                                     <label for="s" class="form-check-label ">
-                                                                        <input type="radio" id="s" name="s" value="S" class="form-check-input"
-                                                                      
-                                                                        >S
+                                                                        <input type="radio" id="s" name="ukuran_baju" value="S" class="form-check-input">S
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="m" class="form-check-label ">
-                                                                        <input type="radio" id="m" name="m" value="M" class="form-check-input">M
+                                                                        <input type="radio" id="m" name="ukuran_baju" value="M" class="form-check-input">M
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="l" class="form-check-label ">
-                                                                        <input type="radio" id="l" name="l" value="L" class="form-check-input">L
+                                                                        <input type="radio" id="l" name="ukuran_baju" value="L" class="form-check-input">L
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="xl" class="form-check-label ">
-                                                                        <input type="radio" id="xl" name="xl" value="XL" class="form-check-input">XL
+                                                                        <input type="radio" id="xl" name="ukuran_baju" value="XL" class="form-check-input">XL
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="xxl" class="form-check-label ">
-                                                                        <input type="radio" id="xxl" name="xxl" value="XXL" class="form-check-input">XXL
+                                                                        <input type="radio" id="xxl" name="ukuran_baju" value="XXL" class="form-check-input">XXL
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
@@ -613,42 +567,42 @@
                                                             <div class="form-check">
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu1" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu1" name="ukuran_sepatu1" value="36" class="form-check-input">36
+                                                                        <input type="radio" id="ukuran_sepatu1" name="ukuran_sepatu" value="36" class="form-check-input">36
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu2" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu2" name="ukuran_sepatu2" value="37" class="form-check-input">37
+                                                                        <input type="radio" id="ukuran_sepatu2" name="ukuran_sepatu" value="37" class="form-check-input">37
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu3" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu3" name="ukuran_sepatu3" value="38" class="form-check-input">38
+                                                                        <input type="radio" id="ukuran_sepatu3" name="ukuran_sepatu" value="38" class="form-check-input">38
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu4" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu4" name="ukuran_sepatu4" value="39" class="form-check-input">39
+                                                                        <input type="radio" id="ukuran_sepatu4" name="ukuran_sepatu" value="39" class="form-check-input">39
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu5" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu5" name="ukuran_sepatu5" value="40" class="form-check-input">40
+                                                                        <input type="radio" id="ukuran_sepatu5" name="ukuran_sepatu" value="40" class="form-check-input">40
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu6" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu6" name="ukuran_sepatu6" value="41" class="form-check-input">41
+                                                                        <input type="radio" id="ukuran_sepatu6" name="ukuran_sepatu" value="41" class="form-check-input">41
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu7" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu7" name="ukuran_sepatu7" value="42" class="form-check-input">42
+                                                                        <input type="radio" id="ukuran_sepatu7" name="ukuran_sepatu" value="42" class="form-check-input">42
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label for="ukuran_sepatu8" class="form-check-label ">
-                                                                        <input type="radio" id="ukuran_sepatu8" name="ukuran_sepatu8" value="43" class="form-check-input">43
+                                                                        <input type="radio" id="ukuran_sepatu8" name="ukuran_sepatu" value="43" class="form-check-input">43
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
@@ -723,7 +677,7 @@
                                             <td>{{$member->kd_pengguna}}</td>
                                             <td>{{$member->nomor_ktp}}</td>
                                             <td>{{$member->nama_lengkap}}</td>
-                                            <td>{{$member->tempat_lahir.", ".$member->tgl_lahir}}</td>
+                                            <td>{{App\Cities::where('id', $member->tempat_lahir)->value('type')." ".App\Cities::where('id', $member->tempat_lahir)->value('nama').", ".$member->tgl_lahir}}</td>
                                             <td>{{App\Province::where('id', $member->provinsi)->value('nama')}}</td>
                                             <td>{{App\Cities::where('id', $member->kabupaten_kota)->value('type')." ".App\Cities::where('id', $member->kabupaten_kota)->value('nama')}}</td>
                                             <td>
@@ -742,9 +696,6 @@
                                                 data-provinsi="{{$member->provinsi}}"
                                                 data-kabupaten_kota="{{$member->kabupaten_kota}}"
                                                 data-kodepos="{{$member->kodepos}}"
-                                                data-desa_kelurahan="{{$member->desa_kelurahan}}"
-                                                data-rt="{{$member->rt}}"
-                                                data-rw="{{$member->rw}}"
                                                 data-nomor_kontak="{{$member->nomor_kontak}}"
                                                 data-ukuran_baju="{{$member->ukuran_baju}}"
                                                 data-ukuran_sepatu="{{$member->ukuran_sepatu}}"
@@ -876,9 +827,6 @@
               var provinsi = button.data('provinsi');
               var kabupaten_kota = button.data('kabupaten_kota');
               var kodepos = button.data('kodepos');
-              var desa_kelurahan = button.data('desa_kelurahan');
-              var rt = button.data('rt');
-              var rw = button.data('rw');
               var nomor_kontak = button.data('nomor_kontak');
               var ukuran_baju = button.data('ukuran_baju');
               var ukuran_sepatu = button.data('ukuran_sepatu');
@@ -892,15 +840,13 @@
               modal.find('.modal-body #nama_lengkap ').val(nama_lengkap);
               modal.find('.modal-body #tempat_lahir').val(tempat_lahir);
               modal.find('.modal-body #tgl_lahir2').val(tgl_lahir);
+              modal.find('.modal-body #jenis_kelamin').val(jenis_kelamin);
               modal.find('.modal-body #alamat_lengkap').val(alamat_lengkap);
               modal.find('.modal-body #pend_terakhir').val(pend_terakhir);
               modal.find('.modal-body #thn_ijazah').val(thn_ijazah);
               modal.find('.modal-body #provinsi2').val(provinsi);
               modal.find('.modal-body #kabupaten_kota2').val(kabupaten_kota);
               modal.find('.modal-body #kodepos2').val(kodepos);
-              modal.find('.modal-body #desa_kelurahan').val(desa_kelurahan);
-              modal.find('.modal-body #rt').val(rt);
-              modal.find('.modal-body #rw').val(rw);
               modal.find('.modal-body #nomor_kontak').val(nomor_kontak);
               modal.find('.modal-body #ukuran_baju_lain').val(ukuran_baju);
               modal.find('.modal-body #ukuran_sepatu_lain').val(ukuran_sepatu);

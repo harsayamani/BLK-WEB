@@ -306,6 +306,11 @@
                                                                     <hr>
                                                                     <center><p>{{ $pesan }}</p></center>
                                                                     <hr>
+                                                                    <center><p>{{ $username}}</p></center>
+                                                                    <hr>
+                                                                    <hr>
+                                                                    <center><p>{{ $password }}</p></center>
+                                                                    <hr>
                                                                     <center><p>Kami harap anda menjaga sebaik-baiknya informasi ini dari yang bukan otoritasnya
                                                                     <br> Terimakasih</p></center>
                                                                 </div>

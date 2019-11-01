@@ -34,3 +34,17 @@ Route::post('/admin/dataMember/akunMember/tambahAkun', 'MemberController@tambah_
 Route::post('/admin/dataMember/akunMember/ubahAkun', 'MemberController@ubah_akun_member');
 
 Route::get('/admin/dataMember/akunMember/hapusAkun/{kd_pengguna}', 'MemberController@hapus_akun_member');
+
+//Route Sertifikat
+
+Route::get('/admin/dataMember/sertifikat', 'MemberController@sertifikat');
+
+Route::post('/admin/dataMember/sertifikat/tambahSertifikat', 'MemberController@tambah_sertifikat');
+
+Route::post('/admin/dataMember/sertifikat/ubahSertifikat', 'MemberController@ubah_sertifikat');
+
+Route::get('/admin/dataMember/sertifikat/hapusSertifikat/{kd_sertifikat}', 'MemberController@hapus_sertifikat');
+
+Route::get('/admin/dataMember/sertifikat/lembarPengesahan/{kd_sertifikat}', 'MemberController@lembar_pengesahan');
+
+

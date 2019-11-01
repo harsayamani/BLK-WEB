@@ -15,8 +15,9 @@ class CreateProfilTable extends Migration
     {
         Schema::create('profil', function (Blueprint $table) {
             $table->integer('kd_profil')->primary();
-            $table->longText('visi_misi');
-            $table->longText('profil_lembaga');
+            $table->string('visi_misi');
+            $table->string('struktur_organisasi');
+            $table->string('profil_lembaga');
             $table->longText('alamat');
             $table->longText('kontak');
             $table->longText('email');

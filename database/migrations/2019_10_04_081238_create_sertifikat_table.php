@@ -14,7 +14,7 @@ class CreateSertifikatTable extends Migration
     public function up()
     {
         Schema::create('sertifikat', function (Blueprint $table) {
-            $table->bigInteger('kd_sertifikat')->primary();
+            $table->string('kd_sertifikat')->primary();
             $table->string('gambar_sertifikat');
             $table->integer('kd_pengguna');
             $table->integer('kd_program');

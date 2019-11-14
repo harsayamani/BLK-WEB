@@ -9,4 +9,5 @@ class Sertifikat extends Model
     protected $table = 'sertifikat';
     protected $primaryKey = 'kd_sertifikat';
     protected $guarded = array();
+    public $incrementing = false;
 }

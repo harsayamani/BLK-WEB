@@ -1,6 +1,6 @@
 @extends('Admin/masterAdmin')
 
-@section('judul_tab', 'Sertifikat-AdminBLK')
+@section('judul_tab', 'Sertifikat - AdminBLK')
     
 @section('active_menu_kelola_sertifikat', 'active')
 
@@ -70,7 +70,7 @@
                                                             <label for="number-input" class=" form-control-label">Kode Sertifikasi</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="number" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" required>
+                                                            <input type="text" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" required>
                                                         </div>
                                                     </div>
                                                    
@@ -100,9 +100,7 @@
                                                         <div class="col-12 col-md-9">
                                                             <select name="kd_program" id="kd_program" class="form-control">
                                                                 <option value="">---Pilih Program---</option>
-                                                                @foreach($program as $program)
-                                                                <option value="{{$program->kd_program}}">{{$program->nama_program}}</option>
-                                                                @endforeach
+                                                                
                                                             </select>
                                                         </div>
                                                     </div>
@@ -155,7 +153,7 @@
                                                             <label for="number-input" class=" form-control-label">Kode Pengguna</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input readonly type="number" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan ID Kelas " class="form-control" required>
+                                                            <input readonly type="text" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" required>
                                                         </div>
                                                     </div>
                                                    
@@ -293,6 +291,24 @@
 
     <script>
         $('#tgl_kadaluarsa2').datepicker();
+    </script>
+
+    <script language="JavaScript" type="text/JavaScript">
+        $('#kd_pengguna').on('change', function(e){
+        console.log(e);
+        var kd_pengguna = e.target.value; 
+
+        //ajax
+
+        $.get('/ajax-program/' + kd_pengguna, function(data){
+
+            $('#kd_program').empty();
+
+                $.each(data, function(index, programObj){
+                    $('#kd_program').append('<option value="'+programObj.kd_program+'">'+programObj.nama_program+'</option>');
+                });
+            });
+        });
     </script>
 
     <script type="text/javascript">

@@ -36,6 +36,11 @@ class AdminController extends Controller
         }
     }
 
+    public function logout(){
+        Session::flush();
+        return redirect('admin/login')->with('alert','Anda sudah logout');
+    }
+
     public function dashboard() {
         if(!Session::get('loginAdmin')){
             return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dulu');

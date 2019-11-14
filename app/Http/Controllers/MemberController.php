@@ -5,16 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use JD\Cloudder\Facades\Cloudder;
 use App\Http\Controllers\APIController as API;
+use Mail;
 use App\Member;
 use App\Cities;
 use App\Province;
 use App\ProgramPelatihan;
 use App\Sertifikat;
-use JD\Cloudder\Facades\Cloudder;
-use Mail;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
+use App\PendaftaranProgram;
+use App\SkemaPelatihan;
 
 class MemberController extends Controller
 {
@@ -22,11 +23,11 @@ class MemberController extends Controller
 
         $member = Member::all();
         $api = new API;
-        $ac = $api->getCURL('city');
-        $ap = $api->getCURL('province');
+        $i = 0;
 
         $city = Cities::all()->count();
         if($city<1){
+            $ac = $api->getCURL('city');
             foreach ($ac->rajaongkir->results as $key) {	
                 $n = new Cities;
                 $n->id = $key->city_id;
@@ -41,6 +42,7 @@ class MemberController extends Controller
 
         $province = Province::all()->count();
         if($province<1){
+            $ap = $api->getCURL('province');
             foreach ($ap->rajaongkir->results as $key) {	
                 $n = new \App\Province;
                 $n->id = $key->province_id;
@@ -51,13 +53,11 @@ class MemberController extends Controller
 
         $provinsi = Province::all();
         $kota = Cities::all();
-        $kota2 = Cities::all();
-        $provinsi2 = Province::all();
 
         if(!Session::get('loginAdmin')){
-            return redirect('/admin/login');
+            return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
         }else{
-            return view('Admin/kelolaAkunMember', compact('member', 'kota', 'provinsi', 'kota2', 'provinsi2'));
+            return view('Admin/kelolaAkunMember', compact('i', 'member', 'kota', 'provinsi'));
         }
     }
 
@@ -178,7 +178,7 @@ class MemberController extends Controller
 
     public function sertifikat(){
 
-        $member = Member::all();
+        $member = Member::orderBy('nama_lengkap', 'asc')->get();
         $program = ProgramPelatihan::all();
         $sertifikat = Sertifikat::all();
         $program2 = ProgramPelatihan::all();
@@ -196,7 +196,7 @@ class MemberController extends Controller
     public function tambah_sertifikat(Request $request){
 
         $this->validate($request, [
-            'kd_sertifikat=' => '|unique:sertifikat|digits:11|numeric|regex:/^([1-9][0-9]+)/'
+            'kd_sertifikat=' => '|unique:sertifikat'
         ]);
 
         try{
@@ -222,10 +222,6 @@ class MemberController extends Controller
     }
 
     public function ubah_sertifikat(Request $request){
-
-        $this->validate($request, [
-            'kd_sertifikat=' => '|digits:11|numeric|regex:/^([1-9][0-9]+)/'
-        ]);
 
         try{
             //Upload gambar ke cloudinary
@@ -268,7 +264,6 @@ class MemberController extends Controller
         }else{
             return response($qr_sertifikat)->header('Content-type','image/png');
         }
-
     }
     
     //Ajax Controller
@@ -278,6 +273,19 @@ class MemberController extends Controller
         return response()->json($kota);
     }
 
+    public function program($kd_pengguna){
+        
+        $skema = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->get();
+
+        if($skema->count()>0){
+            $kd_skema = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->value('kd_skema');
+            $kd_program = SkemaPelatihan::where('kd_skema', $kd_skema)->value('kd_program');
+            $program = ProgramPelatihan::where('kd_program', $kd_program)->get();
+        }
+        
+        return response()->json($program);     
+    }
+
     public function ajax2(Request $request){
         $kodepos = Cities::where('id', $request->id)->value('kodepos');
 
@@ -285,5 +293,4 @@ class MemberController extends Controller
             'kodepos' => $kodepos
         ], 200);
     }
-
 }

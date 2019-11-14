@@ -1,6 +1,6 @@
 @extends('Admin/masterAdmin')
 
-@section('judul_tab', 'AkunMember-AdminBLK')
+@section('judul_tab', 'Akun Member - AdminBLK')
     
 @section('active_menu_kelola_akun', 'active')
 
@@ -65,7 +65,7 @@
                                                 <form action="{{ url('/admin/dataMember/akunMember/tambahAkun') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                     {{ csrf_field()}}
 
-                                                    <div class="row form-group">
+                                                    <div class="row form-group" hidden>
                                                         <div class="col col-md-3">
                                                             <label for="number-input" class=" form-control-label">Kode Pengguna</label>
                                                         </div>
@@ -74,7 +74,7 @@
                                                             @if($member->count()>0)
                                                                 value="{{App\Member::all()->last()->kd_pengguna+1}}" 
                                                             @else
-                                                                value="00000000001" 
+                                                                value="1000000001" 
                                                             @endif required>
                                                         </div>
                                                     </div>
@@ -119,10 +119,10 @@
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="id_jenjang" class=" form-control-label">Tempat Lahir</label></div>
                                                         <div class="col-12 col-md-9">
-                                                            <select name="tempat_lahir" id="tempat_lahir" class="form-control">
+                                                            <select class="form-control" name="tempat_lahir" id="tempat_lahir">
                                                                 <option value="">---Pilih Tempat Lahir---</option>
-                                                                @foreach($kota as $kota)
-                                                                <option value="{{$kota->id}}">{{$kota->type." ".$kota->nama}}</option>
+                                                                @foreach($kota as $city)
+                                                                <option value="{{$city->id}}">{{$city->type." ".$city->nama}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -166,8 +166,8 @@
                                                         <div class="col-12 col-md-9">
                                                             <select name="provinsi" id="provinsi" class="form-control">
                                                                 <option value="">---Pilih Provinsi---</option>
-                                                                @foreach($provinsi as $provinsi)
-                                                                <option value="{{$provinsi->id}}">{{$provinsi->nama}}</option>
+                                                                @foreach($provinsi as $province)
+                                                                <option value="{{$province->id}}">{{$province->nama}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -369,7 +369,7 @@
                                                 <form action="{{ url('/admin/dataMember/akunMember/ubahAkun') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                     {{ csrf_field()}}
 
-                                                    <div class="row form-group">
+                                                    <div class="row form-group" hidden>
                                                         <div class="col col-md-3">
                                                             <label for="number-input" class=" form-control-label">Kode Pengguna</label>
                                                         </div>
@@ -420,8 +420,8 @@
                                                         <div class="col-12 col-md-9">
                                                             <select name="tempat_lahir" id="tempat_lahir" class="form-control">
                                                                 <option value="">---Pilih Tempat Lahir---</option>
-                                                                @foreach($kota2 as $kota)
-                                                                <option value="{{$kota->id}}">{{$kota->type." ".$kota->nama}}</option>
+                                                                @foreach($kota as $city)
+                                                                <option value="{{$city->id}}">{{$city->type." ".$city->nama}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -465,8 +465,8 @@
                                                         <div class="col-12 col-md-9">
                                                             <select name="provinsi2" id="provinsi2" class="form-control">
                                                                 <option value="">---Pilih Provinsi---</option>
-                                                                @foreach($provinsi2 as $provinsi)
-                                                                <option value="{{$provinsi->id}}">{{$provinsi->nama}}</option>
+                                                                @foreach($provinsi as $province)
+                                                                <option value="{{$province->id}}">{{$province->nama}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -477,8 +477,8 @@
                                                         <div class="col-12 col-md-9">
                                                             <select name="kabupaten_kota2" id="kabupaten_kota2" data-dependent="kodepos" class="form-control">
                                                                 <option value="">---Pilih Kabupaten/Kota---</option>
-                                                                @foreach($kota2 as $kota)
-                                                                <option value="{{$kota->id}}">{{$kota->type." ".$kota->nama}}</option>
+                                                                @foreach($kota as $city)
+                                                                <option value="{{$city->id}}">{{$city->type." ".$city->nama}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -674,7 +674,7 @@
                                     <tbody>
                                     @foreach($member as $member)
                                         <tr>
-                                            <td>{{$member->kd_pengguna}}</td>
+                                            <td>{{$i+=1}}</td>
                                             <td>{{$member->nomor_ktp}}</td>
                                             <td>{{$member->nama_lengkap}}</td>
                                             <td>{{App\Cities::where('id', $member->tempat_lahir)->value('type')." ".App\Cities::where('id', $member->tempat_lahir)->value('nama').", ".$member->tgl_lahir}}</td>
@@ -704,9 +704,11 @@
                                                 data-email="{{$member->email}}"
                                             >
                                                 <i class="fa fa-edit"></i>&nbsp; 
+                                                Ubah
                                             </button>
                                             <a href="/admin/dataMember/akunMember/hapusAkun/{{$member->kd_pengguna}}" type="button" class="btn btn-danger btn-sm">
                                                 <i class="fa fa-trash"></i>&nbsp;
+                                                Hapus
                                             </button>
                                             </td>
                                         </tr>
@@ -721,8 +723,8 @@
         </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
-    
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
     <script>
         $('#tgl_lahir').datepicker();
     </script>
@@ -789,7 +791,7 @@
         });
     </script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function(){
             $('#kabupaten_kota2').on('change', function(){
                 $.ajax({

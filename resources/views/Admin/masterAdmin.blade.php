@@ -9,7 +9,6 @@
     <title>@yield('judul_tab')</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
@@ -19,8 +18,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="/assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
+    
 </head>
 
 <body> 
@@ -42,34 +43,35 @@
                     </li>
 
                     <li class="menu-title">Data Konten Web</li><!-- /.menu-title -->
-                    <li class="@yield('active_menu_kelola_profil_dinas')">
-                        <a href="#"><i class="menu-icon fa fa-book"></i>Profil Dinas</a>
-                    </li>
+                
                     <li class="@yield('active_menu_kelola_konten')">
-                        <a href="#"><i class="menu-icon fa fa-rocket"></i>Konten</a>
+                        <a href="/admin/dataKonten/konten"><i class="menu-icon fa fa-rocket"></i>Konten</a>
                     </li>
                     <li class="@yield('active_menu_kelola_kategori_konten')">
-                        <a href="#"><i class="menu-icon fa fa-bars"></i>Kategori Konten</a>
+                        <a href="/admin/dataKonten/kategoriKonten"><i class="menu-icon fa fa-bars"></i>Kategori Konten</a>
                     </li>
                     <li class="@yield('active_menu_kelola_galeri')"> 
-                        <a href="#"><i class="menu-icon fa fa-picture-o"></i>Galeri</a>
+                        <a href="/admin/dataKonten/galeri"><i class="menu-icon fa fa-picture-o"></i>Galeri</a>
+                    </li>
+                    <li class="@yield('active_menu_kelola_profil_dinas')">
+                        <a href="/admin/dataKonten/profil"><i class="menu-icon fa fa-book"></i>Profil Dinas</a>
                     </li>
                     <li class= "@yield('active_menu_kelola_link')">
-                        <a href="#"><i class="menu-icon fa fa-link"></i>Link Dinas Terkait</a>
+                        <a href="/admin/dataKonten/link"><i class="menu-icon fa fa-link"></i>Link Dinas Terkait</a>
                     </li>
 
                     <li class="menu-title">Data Pelatihan</li><!-- /.menu-title -->
                     <li class="@yield('active_menu_kelola_program')">
-                        <a href="#"><i class="menu-icon fa fa-tasks"></i>Program Pelatihan</a>
+                        <a href="/admin/dataPelatihan/program"><i class="menu-icon fa fa-tasks"></i>Program Pelatihan</a>
                     </li>
                     <li class="@yield('active_menu_kelola_skema')">
-                        <a href="#"><i class="menu-icon fa fa-tasks"></i>Skema Pelatihan</a>
+                        <a href="/admin/dataPelatihan/skema"><i class="menu-icon fa fa-tasks"></i>Skema Pelatihan</a>
                     </li>
                     <li class="@yield('active_menu_kelola_gelombang')">
-                        <a href="#"><i class="menu-icon fa  fa-calendar"></i>Gelombang</a>
+                        <a href="/admin/dataPelatihan/gelombang"><i class="menu-icon fa  fa-calendar"></i>Gelombang</a>
                     </li>
-                    <li class="@yield('active_menu_pendaftaran_program')">
-                        <a href="#"><i class="menu-icon fa fa-file-text"></i>Pendaftaran Program</a>
+                    <li class="@yield('active_menu_pendaftaran_pelatihan')">
+                        <a href="/admin/dataPelatihan/pendaftaran"><i class="menu-icon fa fa-file-text"></i>Pendaftaran Pelatihan</a>
                     </li>
 
                     <li class="menu-title">Tambahan</li><!-- /.menu-title -->
@@ -91,7 +93,7 @@
 
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="/images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="#"><img src="/images/logo_admin.png" alt="Logo"></a>
                     <a class="navbar-brand hidden" href="./"><img src="/images/logo2.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
@@ -114,13 +116,11 @@
 
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="admin/gantiPassword"><i class="fa fa-power -off"></i>Ganti Password</a>
-                            <a class="nav-link" href="admin/logout"><i class="fa fa-power -off"></i>Logout</a>
+                            <a class="nav-link" href="/admin/logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </header>
         <!-- /#header -->
 
@@ -172,35 +172,26 @@
 
     <!-- /#right-panel -->
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="/assets/js/main.js"></script>
-
     <script src="/assets/js/lib/data-table/datatables.min.js"></script>
     <script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
-    <!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script> 
     <script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script> 
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script> 
-    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script> -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#bootstrap-data-table').DataTable( {
-                dom: 'Bfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            } );
-        } );
-    </script>
-
+    <script src="/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+    <script src="/assets/js/lib/data-table/jszip.min.js"></script>
+    <script src="/assets/js/lib/data-table/vfs_fonts.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.html5.min.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
+    <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+    <script src="/assets/js/init/datatables-init.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
     <script src="/assets/js/init/fullcalendar-init.js"></script>
+
+
+    
 </body>
 </html>

@@ -21,3 +21,5 @@ Route::get('getBerita', 'Mobile\InfoController@getBerita');
 Route::get('getLoker', 'Mobile\InfoController@getLoker');
 Route::get('getPoster', 'Mobile\InfoController@getPoster');
 Route::get('getProfilLembaga', 'Mobile\InfoController@getProfilLembaga');
+Route::post('loginMember', 'Mobile\MemberController@loginMember');
+Route::post('registrasiMember', 'Mobile\MemberController@registrasiMember');

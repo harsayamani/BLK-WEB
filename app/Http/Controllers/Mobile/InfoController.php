@@ -10,7 +10,7 @@ class InfoController extends Controller
 {
     public function getBerita(){
       $berita = DB::table('konten')
-                ->select('kd_konten as id', 'judul_konten as judul', 'foto', 'tgl_rilis as tgl_upload')
+                ->select('kd_konten as id', 'judul_konten as judul', 'foto', 'created_at as tgl_upload')
                 ->where('kd_kategori', '1')
                 ->take(5)
                 ->get();
@@ -32,7 +32,7 @@ class InfoController extends Controller
 
     public function getLoker(){
       $loker = DB::table('konten')
-                ->select('kd_konten as id', 'judul_konten as judul', 'foto', 'tgl_rilis as tgl_upload')
+                ->select('kd_konten as id', 'judul_konten as judul', 'foto', 'created_at as tgl_upload')
                 ->where('kd_kategori', '2')
                 ->take(5)
                 ->get();
@@ -53,7 +53,7 @@ class InfoController extends Controller
 
     public function getPoster(){
       $poster = DB::table('konten')
-                ->select('kd_konten as id', 'judul_konten as judul', 'foto as poster', 'tgl_rilis as tgl_upload')
+                ->select('kd_konten as id', 'judul_konten as judul', 'foto as poster', 'created_at as tgl_upload')
                 ->where('kd_kategori', '3')
                 ->take(5)
                 ->get();

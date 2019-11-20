@@ -110,28 +110,46 @@
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Waktu Buka</label>
+                                                            <label for="text-input" class=" form-control-label">Tanggal Awal Pendaftaran</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="waktu_buka" name="waktu_buka" placeholder="Masukkan Waktu Buka Pendaftaran" class="form-control" required readonly>
+                                                            <input type="text" id="tgl_awal_pendaftaran" name="tgl_awal_pendaftaran" placeholder="Masukkan Tanggal Awal Pendaftaran" class="form-control" required readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Waktu Tutup</label>
+                                                            <label for="text-input" class=" form-control-label">Tanggal Akhir Pendaftaran</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="waktu_tutup" name="waktu_tutup" placeholder="Masukkan Waktu Tutup Pendaftaran" class="form-control" required readonly>
+                                                            <input type="text" id="tgl_akhir_pendaftaran" name="tgl_akhir_pendaftaran" placeholder="Masukkan Tanggal Akhir Pendaftaran" class="form-control" required readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Waktu Seleksi</label>
+                                                            <label for="text-input" class=" form-control-label">Tanggal Seleksi</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="waktu_seleksi" name="waktu_seleksi" placeholder="Masukkan Waktu Pengumuman Seleksi" class="form-control" required readonly>
+                                                            <input type="text" id="tgl_seleksi" name="tgl_seleksi" placeholder="Masukkan Tanggal Pengumuman Seleksi" class="form-control" required readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
+                                                            <label for="text-input" class=" form-control-label">Tanggal Awal Pelaksanaan</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <input type="text" id="tgl_awal_pelaksanaan" name="tgl_awal_pelaksanaan" placeholder="Masukkan Tanggal Awal Pelaksanaan" class="form-control" required readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
+                                                            <label for="text-input" class=" form-control-label">Tanggal Akhir Pelaksanaan</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <input type="text" id="tgl_akhir_pelaksanaan" name="tgl_akhir_pelaksanaan" placeholder="Masukkan Tanggal Akhir Pelaksanaan" class="form-control" required readonly>
                                                         </div>
                                                     </div>
 
@@ -208,28 +226,46 @@
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Waktu Buka</label>
+                                                            <label for="text-input" class=" form-control-label">Tanggal Awal Pendaftaran</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="waktu_buka2" name="waktu_buka2" placeholder="Masukkan Waktu Buka Pendaftaran" class="form-control" required readonly>
+                                                            <input type="text" id="tgl_awal_pendaftaran2" name="tgl_awal_pendaftaran2" placeholder="Masukkan Tanggal Awal Pendaftaran" class="form-control" required readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Waktu Tutup</label>
+                                                            <label for="text-input" class=" form-control-label">Tanggal Akhir Pendaftaran</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="waktu_tutup2" name="waktu_tutup2" placeholder="Masukkan Waktu Tutup Pendaftaran" class="form-control" required readonly>
+                                                            <input type="text" id="tgl_akhir_pendaftaran2" name="tgl_akhir_pendaftaran2" placeholder="Masukkan Tanggal Akhir Pendaftaran" class="form-control" required readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Waktu Seleksi</label>
+                                                            <label for="text-input" class=" form-control-label">Tanggal Seleksi</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="waktu_seleksi2" name="waktu_seleksi2" placeholder="Masukkan Waktu Pengumuman Seleksi" class="form-control" required readonly>
+                                                            <input type="text" id="tgl_seleksi2" name="tgl_seleksi2" placeholder="Masukkan Tanggal Pengumuman Seleksi" class="form-control" required readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
+                                                            <label for="text-input" class=" form-control-label">Tanggal Awal Pelaksanaan</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <input type="text" id="tgl_awal_pelaksanaan2" name="tgl_awal_pelaksanaan2" placeholder="Masukkan Tanggal Awal Pelaksanaan" class="form-control" required readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
+                                                            <label for="text-input" class=" form-control-label">Tanggal Akhir Pelaksanaan</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <input type="text" id="tgl_akhir_pelaksanaan2" name="tgl_akhir_pelaksanaan2" placeholder="Masukkan Tanggal Akhir Pelaksanaan" class="form-control" required readonly>
                                                         </div>
                                                     </div>
 
@@ -260,9 +296,11 @@
                                             <th>No.</th>
                                             <th>Program</th>
                                             <th>Gelombang</th>
-                                            <th>Waktu Buka</th>
-                                            <th>Waktu Tutup</th>
+                                            <th>Awal Pendaftaran</th>
+                                            <th>Akhir Pendaftaran</th>
                                             <th>Pengumuman</th>
+                                            <th>Awal Pelaksanaan</th>
+                                            <th>Akhir Pelaksanaan</th>
                                             <th>Kuota Peserta</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -273,9 +311,11 @@
                                             <td>{{$i+=1}}</td>
                                             <td>{{App\ProgramPelatihan::where('kd_program', $skema->kd_program)->value('nama_program')}}</td>
                                             <td>{{App\Gelombang::where('kd_gelombang', $skema->kd_gelombang)->value('nama_gelombang')}}</td>
-                                            <td>{{$skema->waktu_buka}}</td>
-                                            <td>{{$skema->waktu_tutup}}</td>
-                                            <td>{{$skema->waktu_seleksi}}</td>
+                                            <td>{{$skema->tgl_awal_pendaftaran}}</td>
+                                            <td>{{$skema->tgl_akhir_pendaftaran}}</td>
+                                            <td>{{$skema->tgl_seleksi}}</td>
+                                            <td>{{$skema->tgl_awal_pelaksanaan}}</td>
+                                            <td>{{$skema->tgl_akhir_pelaksanaan}}</td>
                                             <td>{{$skema->kuota}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm" 
@@ -284,9 +324,11 @@
                                                     data-kd_skema="{{$skema->kd_skema}}"
                                                     data-kd_program="{{$skema->kd_program}}"
                                                     data-kd_gelombang="{{$skema->kd_gelombang}}"
-                                                    data-waktu_buka="{{$skema->waktu_buka}}"
-                                                    data-waktu_tutup="{{$skema->waktu_tutup}}"
-                                                    data-waktu_seleksi="{{$skema->waktu_seleksi}}"
+                                                    data-tgl_awal_pendaftaran="{{$skema->tgl_awal_pendaftaran}}"
+                                                    data-tgl_akhir_pendaftaran="{{$skema->tgl_akhir_pendaftaran}}"
+                                                    data-tgl_seleksi="{{$skema->tgl_seleksi}}"
+                                                    data-tgl_awal_pelaksanaan="{{$skema->tgl_awal_pelaksanaan}}"
+                                                    data-tgl_akhir_pelaksanaan="{{$skema->tgl_akhir_pelaksanaan}}"
                                                     data-kuota="{{$skema->kuota}}"
                                                 >
                                                     <i class="fa fa-edit"></i>&nbsp; 
@@ -310,31 +352,75 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
-    <script src="https://cdn.tiny.cloud/1/cn0rsfqf5862dtcrgnngsfyi4vmj1ketcg7q1gtaw5w115xh/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'#detail_program'});</script>
 
     <script>
-        $('#waktu_buka').datepicker();
+        $('#tgl_awal_pendaftaran').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#waktu_tutup').datepicker();
+        $('#tgl_akhir_pendaftaran').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#waktu_seleksi').datepicker();
+        $('#tgl_seleksi').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#waktu_buka2').datepicker();
+        $('#tgl_awal_pelaksanaan').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#waktu_tutup2').datepicker();
+        $('#tgl_akhir_pelaksanaan').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#waktu_seleksi2').datepicker();
+        $('#tgl_awal_pendaftaran2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+
+    <script>
+        $('#tgl_akhir_pendaftaran2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+
+    <script>
+        $('#tgl_seleksi2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+
+    <script>
+        $('#tgl_awal_pelaksanaan2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+
+    <script>
+        $('#tgl_akhir_pelaksanaan2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script type="text/javascript">
@@ -344,18 +430,22 @@
               var kd_skema = button.data('kd_skema');
               var kd_program = button.data('kd_program');
               var kd_gelombang = button.data('kd_gelombang');
-              var waktu_buka = button.data('waktu_buka');
-              var waktu_tutup = button.data('waktu_tutup');
-              var waktu_seleksi = button.data('waktu_seleksi');
+              var tgl_awal_pendaftaran = button.data('tgl_awal_pendaftaran');
+              var tgl_akhir_pendaftaran = button.data('tgl_akhir_pendaftaran');
+              var tgl_seleksi = button.data('tgl_seleksi');
+              var tgl_awal_pelaksanaan = button.data('tgl_awal_pelaksanaan');
+              var tgl_akhir_pelaksanaan = button.data('tgl_akhir_pelaksanaan');
               var kuota = button.data('kuota');
              
               var modal = $(this);
               modal.find('.modal-body #kd_skema').val(kd_skema);
               modal.find('.modal-body #kd_program').val(kd_program);
               modal.find('.modal-body #kd_gelombang').val(kd_gelombang);
-              modal.find('.modal-body #waktu_buka2').val(waktu_buka);
-              modal.find('.modal-body #waktu_tutup2').val(waktu_tutup);
-              modal.find('.modal-body #waktu_seleksi2').val(waktu_seleksi);
+              modal.find('.modal-body #tgl_awal_pendaftaran2').val(tgl_awal_pendaftaran);
+              modal.find('.modal-body #tgl_akhir_pendaftaran2').val(tgl_akhir_pendaftaran);
+              modal.find('.modal-body #tgl_seleksi2').val(tgl_seleksi);
+              modal.find('.modal-body #tgl_awal_pelaksanaan2').val(tgl_awal_pelaksanaan);
+              modal.find('.modal-body #tgl_akhir_pelaksanaan2').val(tgl_akhir_pelaksanaan);
               modal.find('.modal-body #kuota').val(kuota);
             });
         }); 

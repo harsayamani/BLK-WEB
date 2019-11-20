@@ -1,8 +1,8 @@
 @extends('Admin/masterAdmin')
 
-@section('judul_tab', 'Konten - AdminBLK')
+@section('judul_tab', 'Lowongan Pekerjaan - AdminBLK')
     
-@section('active_menu_kelola_konten', 'active')
+@section('active_menu_kelola_loker', 'active')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Konten</h1>
+                                <h1>Lowongan Pekerjaan</h1>
                             </div>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
                                     <li><a href="#">Data Konten</a></li>
-                                    <li class="active">Konten</li>
+                                    <li class="active">Lowongan Pekerjaan</li>
                                 </ol>
                             </div>
                         </div>
@@ -39,9 +39,9 @@
 
                     <div class="col-md-12">
                         <div class="card">
-                            <form action="{{ url('/admin/dataKonten/konten/tambahKonten')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                            <form action="{{ url('/admin/dataKonten/loker/tambahLoker')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                 <div class="card-header">
-                                    <strong class="card-title">Tambah Konten</strong>
+                                    <strong class="card-title">Tambah Lowongan Pekerjaan</strong>
                                 </div>
                         
                                 <div class="card-body">
@@ -49,17 +49,17 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="judul_konten" class=" form-control-label">Judul</label>
-                                            <input type="text" id="judul_konten" name="judul_konten" placeholder="Masukkan Judul Konten" class="form-control">
+                                            <input type="text" id="judul" name="judul" placeholder="Masukkan Judul" class="form-control">
                                         </div>
                                     </div>
                         
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label for="kd_kategori_konten" class=" form-control-label">Kategori</label>
-                                            <select name="kd_kategori_konten" id="kd_kategori_konten" class="form-control" required>
-                                                <option value="">---Pilih Kategori---</option>
-                                                @foreach($kategori_konten as $kategori)
-                                                <option value="{{$kategori->kd_kategori_konten}}">{{$kategori->kategori_konten}}</option>
+                                            <label for="kd_minat" class=" form-control-label">Minat</label>
+                                            <select name="kd_minat" id="kd_minat" class="form-control" required>
+                                                <option value="">---Pilih Minat---</option>
+                                                @foreach($minat as $min)
+                                                <option value="{{$min->kd_minat}}">{{$min->minat}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -81,8 +81,8 @@
 
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="isi_konten" class=" form-control-label">Isi Konten</label>
-                                            <textarea id="isi_konten" name="isi_konten" placeholder="Masukkan Isi Konten" class="form-control" required>
+                                            <label for="isi_konten" class=" form-control-label">Isi</label>
+                                            <textarea id="isi" name="isi" placeholder="Masukkan Isi" class="form-control" required>
                                             </textarea>
                                         </div>
                                     </div>
@@ -100,47 +100,47 @@
                         <div class="card">
 
                             <div class="card-header">
-                                <strong class="card-title">Kelola Konten</strong>
+                                <strong class="card-title">Kelola Loker</strong>
                             </div>
 
                             <div class="card-body">
 
-                                <!-- Modal Ubah Konten -->
-                                <div class="modal fade" id="ubahKonten" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
+                                <!-- Modal Ubah Loker -->
+                                <div class="modal fade" id="ubahLoker" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h3 class="modal-title" id="mediumModalLabel"><strong>Ubah Konten</strong></h3>
+                                                <h3 class="modal-title" id="mediumModalLabel"><strong>Ubah Loker</strong></h3>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>      
                                             <div class="modal-body">
-                                                <form action="{{ url('/admin/dataKonten/konten/ubahKonten') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                                <form action="{{ url('/admin/dataKonten/loker/ubahLoker') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                     
                                                     {{ csrf_field()}}
 
                                                     <div class="col-lg-12" hidden>
                                                         <div class="form-group">
-                                                            <label for="kd_konten" class=" form-control-label">Kode Konten</label>
-                                                            <input type="text" id="kd_konten" name="kd_konten" class="form-control" readonly required>
+                                                            <label for="kd_loker" class=" form-control-label">Kode Loker</label>
+                                                            <input type="text" id="kd_loker" name="kd_loker" class="form-control" readonly required>
                                                         </div>
                                                     </div>
                                                     
                                                     <div class="col-lg-12">
                                                         <div class="form-group">
-                                                            <label for="judul_konten" class=" form-control-label">Judul</label>
-                                                            <input type="text" id="judul_konten" name="judul_konten" placeholder="Masukkan Judul Konten" class="form-control" required>
+                                                            <label for="judul" class=" form-control-label">Judul</label>
+                                                            <input type="text" id="judul" name="judul" placeholder="Masukkan Judul" class="form-control" required>
                                                         </div>
                                                     </div>
                                         
                                                     <div class="col-lg-12">
                                                         <div class="form-group">
-                                                            <label for="kd_kategori_konten" class=" form-control-label">Kategori</label>
-                                                            <select name="kd_kategori_konten" id="kd_kategori_konten" class="form-control" required>
-                                                                <option value="">---Pilih Kategori---</option>
-                                                                @foreach($kategori_konten as $kategori)
-                                                                <option value="{{$kategori->kd_kategori_konten}}">{{$kategori->kategori_konten}}</option>
+                                                            <label for="kd_minat" class=" form-control-label">Minat</label>
+                                                            <select name="kd_minat" id="kd_minat" class="form-control" required>
+                                                                <option value="">---Pilih Minat---</option>
+                                                                @foreach($minat as $min)
+                                                                <option value="{{$min->kd_minat}}">{{$min->minat}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -162,8 +162,8 @@
 
                                                     <div class="col-lg-12">
                                                         <div class="form-group">
-                                                            <label for="isi_konten" class=" form-control-label">Isi Konten</label>
-                                                            <textarea id="isi_konten" name="isi_konten" placeholder="Masukkan Isi Konten" class="form-control" required>
+                                                            <label for="isi" class=" form-control-label">Isi</label>
+                                                            <textarea id="isi" name="isi" placeholder="Masukkan Isi" class="form-control" required>
                                                             </textarea>
                                                         </div>
                                                     </div>
@@ -183,33 +183,33 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Judul</th>
-                                            <th>Kategori</th>
+                                            <th>Minat</th>
                                             <th>Tanggal Rilis</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($konten as $konten)
+                                    @foreach($loker as $lok)
                                         <tr>
                                             <td>{{$i+=1}}</td>
-                                            <td>{{$konten->judul_konten}}</td>
-                                            <td>{{App\KategoriKonten::where('kd_kategori_konten', $konten->kd_kategori)->value('kategori_konten')}}</td>
-                                            <td>{{$konten->tgl_rilis}}</td>
+                                            <td>{{$lok->judul}}</td>
+                                            <td>{{App\Minat::where('kd_minat', $lok->kd_minat)->value('minat')}}</td>
+                                            <td>{{$lok->tgl_rilis}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm" 
-                                                    data-target="#ubahKonten" 
+                                                    data-target="#ubahLoker" 
                                                     data-toggle="modal"
-                                                    data-kd_konten="{{$konten->kd_konten}}"
-                                                    data-judul_konten="{{$konten->judul_konten}}"
-                                                    data-isi_konten="{{$konten->isi_konten}}"
-                                                    data-kd_kategori_konten="{{$konten->kd_kategori}}"
-                                                    data-foto="{{$konten->foto}}"
-                                                    data-tgl_rilis="{{$konten->tgl_rilis}}"
+                                                    data-kd_loker="{{$lok->kd_loker}}"
+                                                    data-judul="{{$lok->judul}}"
+                                                    data-isi="{{$lok->isi}}"
+                                                    data-kd_minat="{{$lok->kd_minat}}"
+                                                    data-foto="{{$lok->foto}}"
+                                                    data-tgl_rilis="{{$lok->tgl_rilis}}"
                                                 >
                                                     <i class="fa fa-edit"></i>&nbsp; 
                                                     Ubah
                                                 </button>
-                                                <a href="/admin/dataKonten/konten/hapusKonten/{{$konten->kd_konten}}" type="button" class="btn btn-danger btn-sm">
+                                                <a href="/admin/dataKonten/loker/hapusLoker/{{$lok->kd_loker}}" type="button" class="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash"></i>&nbsp;
                                                     Hapus
                                                 </a>
@@ -228,7 +228,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
     <script src="https://cdn.tiny.cloud/1/cn0rsfqf5862dtcrgnngsfyi4vmj1ketcg7q1gtaw5w115xh/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'#isi_konten'});</script>
+    <script>tinymce.init({selector:'#isi'});</script>
 
     <script>
         $('#tgl_rilis').datetimepicker({
@@ -246,19 +246,19 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-              $('#ubahKonten').on('show.bs.modal', function (event) {
+              $('#ubahLoker').on('show.bs.modal', function (event) {
               var button = $(event.relatedTarget);
-              var kd_konten = button.data('kd_konten');
-              var judul_konten = button.data('judul_konten');
-              var isi_konten = button.data('isi_konten');
-              var kd_kategori_konten = button.data('kd_kategori_konten');
+              var kd_loker = button.data('kd_loker');
+              var judul = button.data('judul');
+              var isi = button.data('isi');
+              var kd_minat = button.data('kd_minat');
               var tgl_rilis = button.data('tgl_rilis');
              
               var modal = $(this);
-              modal.find('.modal-body #kd_konten').val(kd_konten);
-              modal.find('.modal-body #judul_konten').val(judul_konten);
-              modal.find('.modal-body #isi_konten').val(isi_konten);
-              modal.find('.modal-body #kd_kategori_konten').val(kd_kategori_konten);
+              modal.find('.modal-body #kd_loker').val(kd_loker);
+              modal.find('.modal-body #judul').val(judul);
+              modal.find('.modal-body #isi').val(isi);
+              modal.find('.modal-body #kd_minat').val(kd_minat);
               modal.find('.modal-body #tgl_rilis2').val(tgl_rilis);
             });
         }); 

@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Slide extends Model
+class Loker extends Model
 {
-    protected $table = 'slide';
-    protected $primaryKey = 'kd_slide';
+    protected $table = 'loker';
+    protected $primaryKey = 'kd_loker';
     protected $guarded = array();
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSlideTable extends Migration
+class CreateMinatTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateSlideTable extends Migration
      */
     public function up()
     {
-        Schema::create('slide', function (Blueprint $table) {
-            $table->increments('kd_slide');
-            $table->string('foto_slide');
-            $table->string('judul_slide', 50);
-            $table->string('link_slide');
+        Schema::create('minat', function (Blueprint $table) {
+            $table->increments('kd_minat');
+            $table->string('minat');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateSlideTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('slide');
+        Schema::dropIfExists('minat');
     }
 }

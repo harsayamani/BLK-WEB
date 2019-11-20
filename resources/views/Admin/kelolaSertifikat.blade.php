@@ -278,19 +278,31 @@
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
     
     <script>
-        $('#tgl_terbit').datepicker();
+        $('#tgl_terbit').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#tgl_terbit2').datepicker();
+        $('#tgl_terbit2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#tgl_kadaluarsa').datepicker();
+        $('#tgl_kadaluarsa').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#tgl_kadaluarsa2').datepicker();
+        $('#tgl_kadaluarsa2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script language="JavaScript" type="text/JavaScript">

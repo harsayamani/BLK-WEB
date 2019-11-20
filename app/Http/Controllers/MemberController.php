@@ -16,6 +16,7 @@ use App\ProgramPelatihan;
 use App\Sertifikat;
 use App\PendaftaranProgram;
 use App\SkemaPelatihan;
+use App\Minat;
 
 class MemberController extends Controller
 {
@@ -24,6 +25,7 @@ class MemberController extends Controller
         $member = Member::all();
         $api = new API;
         $i = 0;
+        $minat = Minat::all();
 
         $city = Cities::all()->count();
         if($city<1){
@@ -57,7 +59,7 @@ class MemberController extends Controller
         if(!Session::get('loginAdmin')){
             return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
         }else{
-            return view('Admin/kelolaAkunMember', compact('i', 'member', 'kota', 'provinsi'));
+            return view('Admin/kelolaAkunMember', compact('i', 'member', 'kota', 'provinsi', 'minat'));
         }
     }
 

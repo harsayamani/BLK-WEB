@@ -73,8 +73,9 @@
                                     </div>
                                     <div class="stat-content">
                                         <div class="text-left dib">
-                                            <div class="stat-text"><span class="count">5</span></div>
-                                            <div class="stat-heading">Siswa</div>
+                                            <div class="stat-text"><span class="count">
+                                            </span></div>
+                                            <div class="stat-heading">Jumlah Member</div>
                                         </div>
                                     </div>
                                 </div>

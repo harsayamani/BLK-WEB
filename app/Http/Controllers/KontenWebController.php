@@ -11,6 +11,8 @@ use App\Link;
 use App\Media;
 use App\Galeri;
 use App\Profil;
+use App\Loker;
+use App\Minat;
 
 class KontenWebController extends Controller
 {
@@ -24,6 +26,8 @@ class KontenWebController extends Controller
         }else{
             return view('Admin/kelolaKategoriKonten', compact('kategori_konten', 'i'));
         }
+
+        
     }
 
     public function tambah_kategori_konten(Request $request){
@@ -79,14 +83,13 @@ class KontenWebController extends Controller
     public function tambah_konten(Request $request){
         $this->validate($request, [
             'judul_konten' => '|unique:konten',
-            'tgl_rilis' => '|max:10',
         ]);
 
         try{
             //Upload foto ke cloudinary
             $foto = $request->foto;
             Cloudder::upload($foto);
-            $url_foto= Cloudder::getPublicId();
+            $url_foto = Cloudder::getPublicId();
         }catch(Exception $e){
             return redirect('/admin/dataKonten/konten')->with('alert danger', $e);
         }   
@@ -391,5 +394,90 @@ class KontenWebController extends Controller
         $profil->delete($profil);
 
         return redirect('/admin/dataKonten/profil')->with('alert danger', 'Profil berhasil dihapus!');
+    }
+
+    public function loker(){
+
+        $loker = Loker::orderBy('created_at', 'desc')->get();
+        $minat = Minat::all();
+        $i = 0;
+
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
+        }else{
+            return view('Admin/kelolaLowonganPekerjaan', compact('loker','minat', 'i'));
+        }
+    }
+
+    public function tambah_loker(Request $request){
+        $this->validate($request, [
+            'judul' => '|unique:loker',
+        ]);
+
+        try{
+            //Upload foto ke cloudinary
+            $foto = $request->foto;
+            Cloudder::upload($foto);
+            $url_foto = Cloudder::getPublicId();
+        }catch(Exception $e){
+            return redirect('/admin/dataKonten/loker')->with('alert danger', $e);
+        }   
+
+        $loker = new Loker();
+        $loker->judul = $request->judul;
+        $loker->isi = $request->isi;
+        $loker->kd_minat = $request->kd_minat;
+        $loker->foto = $url_foto;
+        $loker->tgl_rilis = $request->tgl_rilis;
+        $loker->save();
+
+        return redirect('/admin/dataKonten/loker')->with('alert success', 'Lowongan Pekerjaan berhasil ditambahkan!');
+    }
+
+    public function hapus_loker($kd_loker){
+        $loker = Loker::findOrFail($kd_loker);
+        $foto = Loker::where('kd_loker', $kd_loker)->value('foto');
+        Cloudder::destroy($foto);
+        $loker->delete($loker);
+
+        return redirect('/admin/dataKonten/loker')->with('alert danger', 'Lowongan Pekerjaan berhasil dihapus!');
+    }
+
+    public function ubah_loker(Request $request){
+
+        if($request->foto != null){
+
+            try{
+                //Upload foto ke cloudinary
+                $foto_old = Loker::where('kd_loker', $request->kd_loker)->value('foto');
+                Cloudder::destroy($foto_old);
+                $foto = $request->foto;
+                Cloudder::upload($foto);
+                $url_foto= Cloudder::getPublicId();
+            }catch(Exception $e){
+                return redirect('/admin/dataKonten/konten')->with('alert danger', $e);
+            }   
+    
+            $loker = Loker::findOrFail($request->kd_loker);
+            $loker->judul = $request->judul;
+            $loker->isi = $request->isi;
+            $loker->kd_minat = $request->kd_minat;
+            $loker->foto = $url_foto;
+            $loker->tgl_rilis = $request->tgl_rilis;
+            $loker->save();
+
+            return redirect('/admin/dataKonten/loker')->with('alert success', 'Lowongan Pekerjaan berhasil diubah!');
+
+        }else{
+
+            $loker = Loker::findOrFail($request->kd_loker);
+            $loker->judul = $request->judul;
+            $loker->isi = $request->isi;
+            $loker->kd_minat = $request->kd_minat;
+            $loker->tgl_rilis = $request->tgl_rilis2;
+            $loker->save();
+
+            return redirect('/admin/dataKonten/loker')->with('alert success', 'Lowongan Pekerjaan berhasil diubah!');
+        }
     }
 }

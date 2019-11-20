@@ -9,7 +9,6 @@
     <title>@yield('judul_tab')</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
@@ -21,8 +20,7 @@
     <link rel="stylesheet" href="/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
-    
-</head>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 
 <body> 
 <!-- /#left-panel -->
@@ -52,6 +50,9 @@
                     </li>
                     <li class="@yield('active_menu_kelola_galeri')"> 
                         <a href="/admin/dataKonten/galeri"><i class="menu-icon fa fa-picture-o"></i>Galeri</a>
+                    </li>
+                    <li class="@yield('active_menu_kelola_loker')">
+                        <a href="/admin/dataKonten/loker"><i class="menu-icon fa fa-file-text"></i>Lowongan Pekerjaan</a>
                     </li>
                     <li class="@yield('active_menu_kelola_profil_dinas')">
                         <a href="/admin/dataKonten/profil"><i class="menu-icon fa fa-book"></i>Profil Dinas</a>
@@ -115,7 +116,7 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="admin/gantiPassword"><i class="fa fa-power -off"></i>Ganti Password</a>
+                            <a class="nav-link" href="/admin/gantiPassword"><i class="fa fa-power -off"></i>Ganti Password</a>
                             <a class="nav-link" href="/admin/logout"><i class="fa fa-power -off"></i>Logout</a>
                         </div>
                     </div>

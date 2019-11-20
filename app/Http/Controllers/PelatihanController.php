@@ -137,9 +137,11 @@ class PelatihanController extends Controller
         $skema->kd_skema= $request->kd_skema;
         $skema->kd_gelombang = $request->kd_gelombang;
         $skema->kd_program = $request->kd_program;
-        $skema->waktu_buka = $request->waktu_buka;
-        $skema->waktu_tutup = $request->waktu_tutup;
-        $skema->waktu_seleksi = $request->waktu_seleksi;
+        $skema->tgl_awal_pendaftaran = $request->tgl_awal_pendaftaran;
+        $skema->tgl_akhir_pendaftaran = $request->tgl_akhir_pendaftaran;
+        $skema->tgl_seleksi = $request->tgl_seleksi;
+        $skema->tgl_awal_pelaksanaan = $request->tgl_awal_pelaksanaan;
+        $skema->tgl_akhir_pelaksanaan = $request->tgl_akhir_pelaksanaan;
         $skema->kuota = $request->kuota;
 
         $skema->save();
@@ -158,9 +160,11 @@ class PelatihanController extends Controller
         $skema->kd_skema= $request->kd_skema;
         $skema->kd_gelombang = $request->kd_gelombang;
         $skema->kd_program = $request->kd_program;
-        $skema->waktu_buka = $request->waktu_buka2;
-        $skema->waktu_tutup = $request->waktu_tutup2;
-        $skema->waktu_seleksi = $request->waktu_seleksi2;
+        $skema->tgl_awal_pendaftaran = $request->tgl_awal_pendaftaran2;
+        $skema->tgl_akhir_pendaftaran = $request->tgl_akhir_pendaftaran2;
+        $skema->tgl_seleksi = $request->tgl_seleksi2;
+        $skema->tgl_awal_pelaksanaan = $request->tgl_awal_pelaksanaan2;
+        $skema->tgl_akhir_pelaksanaan = $request->tgl_akhir_pelaksanaan2;
         $skema->kuota = $request->kuota;
         $skema->save();
 

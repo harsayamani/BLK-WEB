@@ -117,7 +117,7 @@
                                                     </div>
 
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="id_jenjang" class=" form-control-label">Tempat Lahir</label></div>
+                                                        <div class="col col-md-3"><label for="tempat_lahir" class=" form-control-label">Tempat Lahir</label></div>
                                                         <div class="col-12 col-md-9">
                                                             <select class="form-control" name="tempat_lahir" id="tempat_lahir">
                                                                 <option value="">---Pilih Tempat Lahir---</option>
@@ -133,7 +133,7 @@
                                                             <label for="text-input" class=" form-control-label">Tanggal Lahir</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="tgl_lahir" name="tgl_lahir" placeholder="Masukkan Tanggal Lahir" class="form-control" required>
+                                                            <input type="text" id="tgl_lahir" name="tgl_lahir" placeholder="Masukkan Tanggal Lahir" class="form-control" required readonly>
                                                         </div>
                                                     </div>
 
@@ -323,7 +323,7 @@
                                                             <label for="text-input" class=" form-control-label">Username</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="username" name="username" placeholder="Masukkan Username" class="form-control" value="{{uniqid()}}" readonly>
+                                                            <input type="text" id="username" name="username" placeholder="Masukkan Username" class="form-control" value="{{uniqid("BLK", false)}}" readonly>
                                                         </div>
                                                     </div>
 
@@ -332,7 +332,7 @@
                                                             <label for="text-input" class=" form-control-label">Password</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="password" id="password" name="password" value="{{uniqid()}}" class="form-control" readonly>
+                                                            <input type="password" id="password" name="password" value="{{uniqid("kd", true)}}" class="form-control" readonly>
                                                         </div>
                                                     </div>
 
@@ -432,7 +432,7 @@
                                                             <label for="text-input" class=" form-control-label">Tanggal Lahir</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="tgl_lahir2" name="tgl_lahir2" placeholder="Masukkan Tanggal Lahir" class="form-control" required>
+                                                            <input type="text" id="tgl_lahir2" name="tgl_lahir2" placeholder="Masukkan Tanggal Lahir" class="form-control" required readonly>
                                                         </div>
                                                     </div>
 
@@ -726,11 +726,17 @@
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
     <script>
-        $('#tgl_lahir').datepicker();
+        $('#tgl_lahir').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#tgl_lahir2').datepicker();
+        $('#tgl_lahir2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
         
     <script language="JavaScript" type="text/JavaScript">

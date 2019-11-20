@@ -21,6 +21,10 @@ Route::get('/admin/dashboard', 'AdminController@dashboard');
 
 Route::get('/admin/logout', 'AdminController@logout');
 
+Route::get('/admin/gantiPassword', 'AdminController@ganti_password_index');
+
+Route::post('/admin/gantiPasswordPost', 'AdminController@ganti_password_post');
+
 //Route Member
 
 Route::get('/admin/dataMember/akunMember', 'MemberController@akun_member');
@@ -71,6 +75,16 @@ Route::post('/admin/dataKonten/konten/tambahKonten', 'KontenWebController@tambah
 Route::post('/admin/dataKonten/konten/ubahKonten', 'KontenWebController@ubah_konten');
 
 Route::get('/admin/dataKonten/konten/hapusKonten/{kd_konten}', 'KontenWebController@hapus_konten');
+
+//Route Loker
+
+Route::get('/admin/dataKonten/loker', 'KontenWebController@loker');
+
+Route::post('/admin/dataKonten/loker/tambahLoker', 'KontenWebController@tambah_loker');
+
+Route::post('/admin/dataKonten/loker/ubahLoker', 'KontenWebController@ubah_loker');
+
+Route::get('/admin/dataKonten/loker/hapusLoker/{kd_loker}', 'KontenWebController@hapus_loker');
 
 //Route Link
 

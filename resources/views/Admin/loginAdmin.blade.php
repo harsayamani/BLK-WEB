@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login-AdminBLK</title>
+	<title>Login - AdminBLK</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -34,7 +34,7 @@
 			<div class="wrap-login100 p-t-50 p-b-90">
 				<form action="{{ url('/admin/login/proses') }}" method="post" class="login100-form validate-form flex-sb flex-w">		    
 					<span class="login100-form-title p-b-51">
-						Login Admin
+						Admin BLK
 					</span>
 
                     @if(Session::has('alert'))

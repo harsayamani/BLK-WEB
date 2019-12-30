@@ -91,10 +91,20 @@
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="file-input" class=" form-control-label">Profil Lembaga</label>
+                                                            <label for="file-input" class=" form-control-label">Struktur Organisasi</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="file" id="profil_lembaga" name="profil_lembaga" accept="image/*" class="form-control-file" required>
+                                                            <input type="file" id="struktur_organisasi" name="struktur_organisasi" accept="image/*" class="form-control-file" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
+                                                            <label for="text-input" class=" form-control-label">Profil Lembaga</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <textarea id="profil_lembaga" name="profil_lembaga" placeholder="Masukkan Profil Lembaga" class="form-control" required>
+                                                            </textarea>                                                       
                                                         </div>
                                                     </div>
 
@@ -173,10 +183,20 @@
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="file-input" class=" form-control-label">Profil Lembaga</label>
+                                                            <label for="file-input" class=" form-control-label">Struktur Organisasi</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="file" id="profil_lembaga" name="profil_lembaga" accept="image/*" class="form-control-file">
+                                                            <input type="file" id="struktur_organisasi" name="struktur_organisasi" accept="image/*" class="form-control-file">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row form-group">
+                                                        <div class="col col-md-3">
+                                                            <label for="text-input" class=" form-control-label">Profil Lembaga</label>
+                                                        </div>
+                                                        <div class="col-12 col-md-9">
+                                                            <textarea id="profil_lembaga2" name="profil_lembaga2" placeholder="Masukkan Profil Lembaga" class="form-control" required>
+                                                            </textarea>                                                       
                                                         </div>
                                                     </div>
 
@@ -227,7 +247,7 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>Visi Misi</th>
-                                            <th>Profil Lembaga</th>
+                                            <th>Struktur Organisasi</th>
                                             <th>Alamat</th>
                                             <th>Kontak</th>
                                             <th>email</th>
@@ -246,21 +266,22 @@
                                             </td>
                                             <td><img src="
                                                 <?php
-                                                    $url = JD\Cloudder\Facades\Cloudder::show($profil->profil_lembaga, ['width'=>1920, 'height'=>1080]);
+                                                    $url = JD\Cloudder\Facades\Cloudder::show($profil->struktur_organisasi, ['width'=>1920, 'height'=>1080]);
                                                     echo $url;
                                                 ?> " alt=""  style="margin-bottom: 20px"></img>
                                             </td>
-                                            <td>{{$profil->alamat}}</td>
-                                            <td>{{$profil->kontak}}</td>
-                                            <td>{{$profil->email}}</td>
+                                            <td>{!!$profil->alamat!!}</td>
+                                            <td>{!!$profil->kontak!!}</td>
+                                            <td>{!!$profil->email!!}</td>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm" 
                                                     data-target="#ubahProfil" 
                                                     data-toggle="modal"
                                                     data-kd_profil="{{$profil->kd_profil}}"
-                                                    data-alamat="{{$profil->alamat}}"
-                                                    data-kontak="{{$profil->kontak}}"
-                                                    data-email="{{$profil->email}}"
+                                                    data-profil_lemb="{{$profil->profil_lembaga}}"
+                                                    data-alamat="{{$profil->alamat}}}"
+                                                    data-kontak="{{{$profil->kontak}}}"
+                                                    data-email="{{{$profil->email}}}"
                                                 >
                                                     <i class="fa fa-edit"></i>&nbsp; 
                                                     Ubah
@@ -283,23 +304,24 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/cn0rsfqf5862dtcrgnngsfyi4vmj1ketcg7q1gtaw5w115xh/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'#alamat'});</script>
-    <script>tinymce.init({selector:'#kontak'});</script>
-    <script>tinymce.init({selector:'#email'});</script>
-
+    <script>tinymce.init({selector:'#profil_lembaga2', height: 300});</script>
 
     <script type="text/javascript">
         $(document).ready(function(){
               $('#ubahProfil').on('show.bs.modal', function (event) {
               var button = $(event.relatedTarget);
               var kd_profil = button.data('kd_profil');
+              var profil_lembaga = button.data('profil_lemb')
               var alamat = button.data('alamat');
               var kontak = button.data('kontak');
               var email = button.data('email');
-             
+
+              tinymce.activeEditor.setContent(profil_lembaga)
+  
               var modal = $(this);
               modal.find('.modal-body #kd_profil').val(kd_profil);
               modal.find('.modal-body #alamat').val(alamat);
+              modal.find('.modal-body #profil_lembaga').val(profil_lembaga);
               modal.find('.modal-body #kontak').val(kontak);
               modal.find('.modal-body #email').val(email);
             });

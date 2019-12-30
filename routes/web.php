@@ -11,7 +11,13 @@
 |
 */
 
+//LEVEL USER ADMIN
+
 //Route Admin
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/admin', 'AdminController@index');
 
 Route::get('/admin/login', 'AdminController@login_index');
 
@@ -154,6 +160,57 @@ Route::post('/admin/dataPelatihan/pendaftaran/ubahPendaftaran', 'PelatihanContro
 
 Route::get('/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{kd_pendaftaran}', 'PelatihanController@hapus_pendaftaran');
 
+//LEVEL USER MEMBER
+
+Route::get('/login', 'MemberSideController@login_index');
+
+Route::post('/login/proses', 'MemberSideController@login_proses');
+
+Route::get('/logout', 'MemberSideController@logout');
+
+Route::get('/member/dashboard', 'MemberSideController@dashboard');
+
+Route::get('/daftarAkun', 'MemberSideController@daftar_akun');
+
+Route::post('/daftarAkun/proses', 'MemberSideController@daftar_proses');
+
+Route::get('/lupaPassword', 'MemberSideController@lupa_password');
+
+Route::post('/lupaPassword/proses', 'MemberSideController@lupa_password_proses');
+
+Route::get('/gantiPassword/{kd_pengguna}', 'MemberSideController@ganti_password');
+
+Route::post('/gantiPassword/proses/{kd_pengguna}', 'MemberSideController@ganti_password_proses');
+
+Route::get('/member/akun', 'MemberSideController@akun');
+
+Route::post('/member/akun/ubah', 'MemberSideController@ubah_akun');
+
+Route::get('/member/sertifikat', 'MemberSideController@sertifikat');
+
+//LEVEL USER PUBLIK
+
+Route::get('/', 'PublicController@index');
+
+Route::get('/konten/{kd_konten}', 'PublicController@detail_konten');
+
+Route::get('/loker', 'PublicController@loker');
+
+Route::get('/loker/{kd_loker}', 'PublicController@detail_loker');
+
+Route::get('/galeri', 'PublicController@galeri');
+
+Route::get('/profilLembaga', 'PublicController@profil');
+
+Route::get('/kontenKategori/{kd_kategori_konten}', 'PublicController@konten_kategori');
+
+Route::get('/programPelatihan', 'PublicController@program_pelatihan');
+
+Route::get('/programPelatihan/{kd_program}', 'PublicController@detail_program_pelatihan');
+
+Route::get('/jadwalPelatihan', 'PublicController@jadwal_pelatihan');
+
+Route::get('/jadwalPelatihan/{kd_gelombang}', 'PublicController@jadwal_pelatihan');
 
 
 

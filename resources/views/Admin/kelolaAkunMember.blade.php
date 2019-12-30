@@ -323,7 +323,7 @@
                                                             <label for="text-input" class=" form-control-label">Username</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="username" name="username" placeholder="Masukkan Username" class="form-control" value="{{uniqid("BLK", false)}}" readonly>
+                                                            <input type="text" id="username" name="username" placeholder="Masukkan Username" class="form-control" value="{{str_random(5)}}" readonly>
                                                         </div>
                                                     </div>
 
@@ -332,7 +332,7 @@
                                                             <label for="text-input" class=" form-control-label">Password</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="password" id="password" name="password" value="{{uniqid("kd", true)}}" class="form-control" readonly>
+                                                            <input type="password" id="password" name="password" value="{{str_random(8)}}" class="form-control" readonly>
                                                         </div>
                                                     </div>
 

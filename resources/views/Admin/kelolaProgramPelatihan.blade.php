@@ -206,7 +206,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/cn0rsfqf5862dtcrgnngsfyi4vmj1ketcg7q1gtaw5w115xh/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'#detail_program'});</script>
+    <script> tinymce.init({selector: "textarea", height: 300}); </script>
 
     <script type="text/javascript">
         $(document).ready(function(){
@@ -215,6 +215,7 @@
               var kd_program = button.data('kd_program');
               var nama_program= button.data('nama_program');
               var detail_program= button.data('detail_program');
+              tinymce.activeEditor.setContent(detail_program)
              
               var modal = $(this);
               modal.find('.modal-body #kd_program').val(kd_program);

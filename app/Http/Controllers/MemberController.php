@@ -17,6 +17,8 @@ use App\Sertifikat;
 use App\PendaftaranProgram;
 use App\SkemaPelatihan;
 use App\Minat;
+use Exception;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class MemberController extends Controller
 {
@@ -102,16 +104,18 @@ class MemberController extends Controller
         }
 
         $member->username = $request->username;
-        $member->password = Hash::make($request->password);
+        $member->password = Hash::make($request->password, [
+            'rounds' => 12
+        ]);
         $member->email = $request->email;
         $member->save();
 
-        $pesan = "Informasi Akun BLK Kabupaten Indramayu, Username : ";
+        $pesan = "Informasi Akun BLK Kabupaten Indramayu: ";
         $username = "Username : ".$request->username;
         $password = "Password : ".$request->password;
 
         try{
-            Mail::send('Admin/email', ['nama' => $request->nama_lengkap, 'pesan' => $pesan, 'username'=>$username, 'password'=>$password], function ($message) use ($request)
+            FacadesMail::send('Admin/email', ['nama' => $request->nama_lengkap, 'pesan' => $pesan, 'username'=>$username, 'password'=>$password], function ($message) use ($request)
             {
                 $message->subject('Informasi Akun BLK Kabupaten Indramayu');
                 $message->from('support@blkindramayu.com', 'Balai Latihan Kerja Kabupaten Indramayu');
@@ -219,6 +223,10 @@ class MemberController extends Controller
         $sertifikat->tgl_terbit = $request->tgl_terbit;
         $sertifikat->tgl_kadaluarsa = $request->tgl_kadaluarsa;
         $sertifikat->save();
+
+        $pendaftaran = PendaftaranProgram::where('kd_pengguna', $request->kd_pengguna)->first();
+        $pendaftaran->status = 2;
+        $pendaftaran->save();
         
         return redirect('/admin/dataMember/sertifikat')->with('alert success', 'Sertifikat berhasil ditambahkan!');
     }
@@ -254,19 +262,19 @@ class MemberController extends Controller
         return redirect('/admin/dataMember/sertifikat')->with('alert danger', 'Sertifikat berhasil dihapus!');
     }
 
-    public function lembar_pengesahan($kd_sertifikat){
-        $sertifikat = Sertifikat::where('kd_sertifikat', $kd_sertifikat)->first();
-        $qr_sertifikat = QrCode::format('png')
-                        ->merge('images/logo_blk.png', 0.5, true)
-                        ->size(500)
-                        ->generate($kd_sertifikat);
+    // public function lembar_pengesahan($kd_sertifikat){
+    //     $sertifikat = Sertifikat::where('kd_sertifikat', $kd_sertifikat)->first();
+    //     $qr_sertifikat = QrCode::format('png')
+    //                     ->merge('images/logo_blk.png', 0.5, true)
+    //                     ->size(500)
+    //                     ->generate($kd_sertifikat);
 
-        if(!Session::get('loginAdmin')){
-            return redirect('/admin/login');
-        }else{
-            return response($qr_sertifikat)->header('Content-type','image/png');
-        }
-    }
+    //     if(!Session::get('loginAdmin')){
+    //         return redirect('/admin/login');
+    //     }else{
+    //         return response($qr_sertifikat)->header('Content-type','image/png');
+    //     }
+    // }
     
     //Ajax Controller
     public function ajax($id){

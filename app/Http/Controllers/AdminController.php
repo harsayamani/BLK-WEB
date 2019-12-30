@@ -10,6 +10,14 @@ use App\Member;
 
 class AdminController extends Controller
 {
+    public function index(){
+        if(Session::get('loginAdmin')){
+            return redirect('/admin/dashboard');
+        }else{
+            return redirect('/admin/login');
+        }
+    }
+
     public function login_index(){
         $member = Member::count();
         if(Session::get('loginAdmin')){
@@ -39,8 +47,11 @@ class AdminController extends Controller
     }
 
     public function logout(){
-        Session::flush();
-        return redirect('admin/login')->with('alert','Anda sudah logout');
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dulu');
+        }else{
+            Session::flush('loginAdmin');
+            return redirect('admin/login')->with('alert','Anda sudah logout');	}
     }
 
     public function dashboard() {
@@ -69,7 +80,7 @@ class AdminController extends Controller
                 $password_baru = Hash::make($request->password_baru);
                 $password->password = $password_baru;
                 $password->save();
-                return redirect('/admin/dashboard')->with('alert success', 'Password Admin Teah diganti!');
+                return redirect('/admin/dashboard')->with('alert success', 'Password Admin Telah diganti!');
             }else{
                 return redirect('/admin/gantiPassword')->with('alert danger', 'Password Ulang yang Anda Masukkan Salah ');
             }

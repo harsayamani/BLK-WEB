@@ -76,7 +76,6 @@ class PelatihanController extends Controller
         $this->validate($request, [
             'kd_program' => '|unique:program_pelatihan|numeric|regex:/^([1-9][0-9]+)/',
             'nama_program' => '|unique:program_pelatihan|max:50',
-            'detail_program' => '|max:255',
         ]);
 
         $program = new ProgramPelatihan();
@@ -92,7 +91,6 @@ class PelatihanController extends Controller
 
         $this->validate($request, [
             'nama_program' => '|max:50',
-            'detail_program' => '|max:255',
         ]);
 
         $program = ProgramPelatihan::findOrFail($request->kd_program);

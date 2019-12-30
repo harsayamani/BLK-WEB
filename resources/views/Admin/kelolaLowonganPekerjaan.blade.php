@@ -228,7 +228,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
     <script src="https://cdn.tiny.cloud/1/cn0rsfqf5862dtcrgnngsfyi4vmj1ketcg7q1gtaw5w115xh/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'#isi'});</script>
+    <script>tinymce.init({selector:'textarea', height: 300});</script>
 
     <script>
         $('#tgl_rilis').datetimepicker({
@@ -253,6 +253,8 @@
               var isi = button.data('isi');
               var kd_minat = button.data('kd_minat');
               var tgl_rilis = button.data('tgl_rilis');
+
+              tinymce.activeEditor.setContent(isi)
              
               var modal = $(this);
               modal.find('.modal-body #kd_loker').val(kd_loker);

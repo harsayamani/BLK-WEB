@@ -201,7 +201,7 @@
                                                     data-toggle="modal"
                                                     data-kd_konten="{{$konten->kd_konten}}"
                                                     data-judul_konten="{{$konten->judul_konten}}"
-                                                    data-isi_konten="{{$konten->isi_konten}}"
+                                                    data-isi_konten="{!!$konten->isi_konten!!}"
                                                     data-kd_kategori_konten="{{$konten->kd_kategori}}"
                                                     data-foto="{{$konten->foto}}"
                                                     data-tgl_rilis="{{$konten->tgl_rilis}}"
@@ -228,7 +228,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
     <script src="https://cdn.tiny.cloud/1/cn0rsfqf5862dtcrgnngsfyi4vmj1ketcg7q1gtaw5w115xh/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>tinymce.init({selector:'#isi_konten'});</script>
+    <script>tinymce.init({selector:'textarea', height: 300});</script>
 
     <script>
         $('#tgl_rilis').datetimepicker({
@@ -254,6 +254,7 @@
               var kd_kategori_konten = button.data('kd_kategori_konten');
               var tgl_rilis = button.data('tgl_rilis');
              
+              tinymce.activeEditor.setContent(isi_konten)
               var modal = $(this);
               modal.find('.modal-body #kd_konten').val(kd_konten);
               modal.find('.modal-body #judul_konten').val(judul_konten);

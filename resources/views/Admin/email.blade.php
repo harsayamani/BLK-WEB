@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Eamil Informasi Akun Pengguna</title>
+    <title>Email Informasi Akun Pengguna</title>
     <style>
         /* -------------------------------------
             GLOBAL RESETS

@@ -13,6 +13,7 @@ use App\Galeri;
 use App\Profil;
 use App\Loker;
 use App\Minat;
+use Exception;
 
 class KontenWebController extends Controller
 {
@@ -468,7 +469,7 @@ class KontenWebController extends Controller
             $loker->isi = $request->isi;
             $loker->kd_minat = $request->kd_minat;
             $loker->foto = $url_foto;
-            $loker->tgl_rilis = $request->tgl_rilis;
+            $loker->tgl_rilis = $request->tgl_rilis2;
             $loker->save();
 
             return redirect('/admin/dataKonten/loker')->with('alert success', 'Lowongan Pekerjaan berhasil diubah!');

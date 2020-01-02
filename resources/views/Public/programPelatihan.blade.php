@@ -1,29 +1,36 @@
 @extends('Public/masterPublic')
 
-@section('title', 'Program Pelatihan')
+@section('title', 'Program Pelatihan - Balai Latihan Kerja - Disnaker Kabupaten Indramayu')
     
 @section('content')
+
+<div class="page-title lb single-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <h2><i class="fa fa-picture-o bg-orange"></i> Program Pelatihan</h2>
+        </div><!-- end col -->
+        <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Program Pelatihan</li>
+            </ol>
+        </div><!-- end col -->                    
+    </div><!-- end row -->
+</div><!-- end container -->
+</div><!-- end page-title -->
 
 <section class="section single-wrapper">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12">
                     <div class="page-wrapper">
-                        <div class="blog-title-area text-center">
-                            <ol class="breadcrumb hidden-xs-down">
-                                <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                <li class="breadcrumb-item"><a href="/">Konten</a></li>
-                                <li class="breadcrumb-item active">Program Pelatihan</li>
-                            </ol>
-
-                        <span class="color-orange"><a href="#" title="">Program Pelatihan</a></span>
-
+                        <div class="blog-title-area text-center">          
                             <h3>Daftar Program Pelatihan</h3>
-
                         </div><!-- end title -->
 
                         <div class="single-post-media">
-                            <img src="/images/2083.jpg" alt="" class="img-fluid">
+                            <img src="/images/2083.jpg" width="70px" height="50px" alt="" class="img-fluid">
                         </div><!-- end media -->
 
                         <div class="blog-content">  
@@ -48,46 +55,6 @@
                             </div>
                         </div><!-- end content -->
                     </div><!-- end page-wrapper -->
-                </div><!-- end col -->
-
-                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                    <div class="sidebar">
-                        <div class="widget">
-                            <h2 class="widget-title">Follow Us</h2>
-
-                            <div class="row text-center">
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                    <a href="#" class="social-button facebook-button">
-                                        <i class="fa fa-facebook"></i>
-                                        <p>27k</p>
-                                    </a>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                    <a href="#" class="social-button twitter-button">
-                                        <i class="fa fa-twitter"></i>
-                                        <p>98k</p>
-                                    </a>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                    <a href="#" class="social-button google-button">
-                                        <i class="fa fa-google-plus"></i>
-                                        <p>17k</p>
-                                    </a>
-                                </div>
-
-                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                                    <a href="#" class="social-button youtube-button">
-                                        <i class="fa fa-youtube"></i>
-                                        <p>22k</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div><!-- end widget -->
-
-                        
-                    </div><!-- end sidebar -->
                 </div><!-- end col -->
             </div><!-- end row -->
         </div><!-- end container -->

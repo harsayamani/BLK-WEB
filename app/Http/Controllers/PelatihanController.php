@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Session;
 use App\Gelombang;
 use App\ProgramPelatihan;
 use App\SkemaPelatihan;
-use App\Profil;
 use App\PendaftaranProgram;
 use App\Member;
 
@@ -179,7 +178,7 @@ class PelatihanController extends Controller
     public function pendaftaran(){
         $skema = SkemaPelatihan::all();
         $member = Member::all();
-        $pendaftaran = PendaftaranProgram::orderBy('kd_skema', 'asc')->get();;
+        $pendaftaran = PendaftaranProgram::orderBy('kd_skema', 'asc')->get();
       
         $i = 0;
 
@@ -258,5 +257,13 @@ class PelatihanController extends Controller
             $pendaftaran->delete();
             return redirect('/admin/dataPelatihan/pendaftaran')->with('alert danger', 'Pendaftaran berhasil dihapus!');
         }
+    }
+
+    public function konfirmasi_tidak_lulus($kd_pendaftaran){
+        $pendaftaran = PendaftaranProgram::where('kd_pendaftaran', $kd_pendaftaran)->first();
+        $pendaftaran->status = 3;
+        $pendaftaran->save();
+        $nama_lengkap = Member::where('kd_pengguna', $pendaftaran->kd_pengguna)->value('nama_lengkap');
+        return redirect('/admin/dataPelatihan/pendaftaran')->with('alert danger', 'Konfirmasi peserta '.$nama_lengkap.' tidak lulus');
     }
 }

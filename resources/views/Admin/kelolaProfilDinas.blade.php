@@ -279,10 +279,9 @@
                                                     data-toggle="modal"
                                                     data-kd_profil="{{$profil->kd_profil}}"
                                                     data-profil_lemb="{{$profil->profil_lembaga}}"
-                                                    data-alamat="{{$profil->alamat}}}"
+                                                    data-alamat="{{$profil->alamat}}"
                                                     data-kontak="{{{$profil->kontak}}}"
-                                                    data-email="{{{$profil->email}}}"
-                                                >
+                                                    data-email="{{{$profil->email}}}">
                                                     <i class="fa fa-edit"></i>&nbsp; 
                                                     Ubah
                                                 </button>

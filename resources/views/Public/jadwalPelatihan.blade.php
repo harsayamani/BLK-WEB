@@ -1,6 +1,6 @@
 @extends('/Public/masterPublic')
 
-@section('title', 'Jadwal Pelatihan')
+@section('title', 'Jadwal Pelatihan - Balai Latihan Kerja - Disnaker Kabupaten Indramayu')
     
 @section('content')
 
@@ -22,16 +22,21 @@
 
     <section class="section">
         <div class="container">
+            <form class="form horizontal" method="POST" action="/jadwalPelatihan/filter">
             <div class="row">
-
+                    {{ csrf_field() }}
                 <div class="col-md-6">
-                    <select class="form-control" onchange="data(this)">
+                    <select class="form-control" name="kd_gelombang" id="kd_gelombang">
+                        <option value="">---Pilih Gelombang---</option>
                         @foreach ($gelombang as $gel)
                         <option value="{{$gel->kd_gelombang}}">{{$gel->nama_gelombang}}</option>
                         @endforeach
                     </select>
                 </div>
-
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+                </form>
                 <hr class="invis1">
 
                 <div class="col-md-12">
@@ -48,10 +53,10 @@
                                                 </a>
                                             </div><!-- end media -->
                                             <div class="blog-meta big-meta">
-                                                    <span class="color-orange"><a href="#" title="">{{App\Gelombang::where('kd_gelombang', $skm->kd_gelombang)->value('nama_gelombang')}}</a></span>
-                                                    <h4><a href="#" title="">{{App\ProgramPelatihan::where('kd_program', $skm->kd_program)->value('nama_program')}}</a></h4>
-                                                    <p>Pendaftaran : {{$skm->tgl_awal_pendaftaran}} - {{$skm->tgl_akhir_pendaftaran}}</p>
-                                                    <p>Pelaksanaan : {{$skm->tgl_awal_pelaksanaan}} - {{$skm->tgl_akhir_pelaksanaan}}</p>
+                                                <span class="color-orange"><a href="#" title="" id="gelombang">{{App\Gelombang::where('kd_gelombang', $skm->kd_gelombang)->value('nama_gelombang')}}</a></span>
+                                                <h4><a href="#" title="" id="program">{{App\ProgramPelatihan::where('kd_program', $skm->kd_program)->value('nama_program')}}</a></h4>
+                                                <p id="pendaftaran">Pendaftaran : {{$skm->tgl_awal_pendaftaran}} - {{$skm->tgl_akhir_pendaftaran}}</p>
+                                                <p id="pelaksanaan">Pelaksanaan : {{$skm->tgl_awal_pelaksanaan}} - {{$skm->tgl_akhir_pelaksanaan}}</p>
                                             </div><!-- end blog-meta -->
                                         </div><!-- end blog-box -->
                                     </div><!-- end col -->
@@ -76,15 +81,24 @@
         </div><!-- end container -->
     </section>
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         function data(nilai) {
             var nilai = nilai.value;
             $.ajax({
                 url: 'jadwalPelatihan/{id}',
                 type: 'GET',
                 data: { id: nilai },
+                success: function(dat) {
+                    $('#gelombang').empty();
+                    $('#program').empty();
+                    $('#pendaftaran').empty();
+                    $('#gelombang').empty();
+                    $.each(dat, function(index, skm){
+                        $('#pendaftaran').append('Pendaftaran : {{'+skm.tgl_awal_pendaftaran+'}} - {{'+skm.tgl_akhir_pendaftaran+'}}');
+                    });
+                }
             })
         }
-    </script>
+    </script> --}}
 
 @endsection

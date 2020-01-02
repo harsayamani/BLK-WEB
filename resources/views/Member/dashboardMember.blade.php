@@ -4,11 +4,30 @@
     
 @section('active1', 'active')
 
-@section('member_name', "$nama_lengkap")
-
 @section('title_page', 'Dashboard')
 
 @section('section')
+
+@if($pendaftaran != null && $pendaftaran->status == 3)
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pendaftaran Pelatihan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body alert-warning">
+        <p>Anda tidak lulus, silahkan daftar kembali</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
 
 <section class="dashboard-counts no-padding-bottom">
     <div class="container-fluid">
@@ -87,6 +106,8 @@
               <center><h3>Program Pelatihan</h3></center>
               @if ($pendaftaran == null || $pendaftaran->count()<1)
                 <div class="number text-center">Belum Mendaftar</div>
+              @elseif($pendaftaran->status == 3)
+                <div class="number text-center">Anda Dapat Mendaftar Kembali</div>
               @else
                 <div class="number text-center">{{$program->nama_program}}</div>
               @endif

@@ -174,8 +174,6 @@
 
     <!-- /#right-panel -->
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
-    <script src="/assets/js/main.js"></script>
     <script src="/assets/js/lib/data-table/datatables.min.js"></script>
     <script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
     <script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
@@ -191,6 +189,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
-    <script src="/assets/js/init/fullcalendar-init.js"></script> 
+    <script src="/assets/js/init/fullcalendar-init.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
+    <!--Flot Chart-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script> 
+    <script src="/assets/js/widgets.js"></script>
 </body>
 </html>

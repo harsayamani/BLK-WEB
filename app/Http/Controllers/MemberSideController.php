@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail as Mail;
 use App\Member;
 use App\PendaftaranProgram;
 use App\ProgramPelatihan;
@@ -13,8 +14,8 @@ use App\Province;
 use App\Cities;
 use App\Minat;
 use App\Sertifikat;
+use App\Gelombang;
 use Exception;
-use Illuminate\Support\Facades\Mail as Mail;
 
 class MemberSideController extends Controller
 {
@@ -92,9 +93,9 @@ class MemberSideController extends Controller
                 'rounds' => 12
             ]);
             $member->save();
-            return redirect('/login')->with('alert', 'Anda sudah daftar, silahkan login untuk masuk');
+            return redirect('/login')->with('alert success', 'Anda sudah daftar, silahkan login untuk masuk');
         }else{
-            return redirect('/daftarAkun')->with('alert', 'Password ulang tidak sama');
+            return redirect('/daftarAkun')->with('alert success', 'Password ulang tidak sama');
         }
     }
 
@@ -106,7 +107,7 @@ class MemberSideController extends Controller
             $kd_pengguna = Session::get('kd_pengguna');
 
             $member = Member::where('kd_pengguna', $kd_pengguna)->first();
-            $pendaftaran = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->first();
+            $pendaftaran = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->orderBy('created_at', 'desc')->first();
             $skema = null;
             $program = null;
             $skema_all = null;
@@ -185,7 +186,7 @@ class MemberSideController extends Controller
             $member->email = $request->email;
             $member->save();
     
-            return redirect('/member/akun')->with('alert success', 'Data diri berhasil diubah!');
+            return redirect('/member/akun')->with('alert modal success', 'Data diri berhasil diubah!');
         }
     }
 
@@ -260,6 +261,112 @@ class MemberSideController extends Controller
             }
         }else{
             return redirect()->back()->with('alert', 'Password tidak terdaftar');
+        }
+    }
+
+    public function jadwal_pelatihan(){
+        if(!Session::get('loginMember')){
+            return redirect('/login')->with('alert', 'Anda harus login terlebih dulu');
+        }else{
+            $nama_lengkap = Session::get('nama_lengkap');
+            $kd_pengguna = Session::get('kd_pengguna');
+            $skema = SkemaPelatihan::orderBy('created_at', 'desc')->get();
+            $gelombang = Gelombang::all();
+    
+            return view('/Member/jadwalPelatihan', compact('nama_lengkap', 'kd_pengguna', 'skema', 'gelombang'));
+        }
+    }
+
+    public function pendaftaran_pelatihan(){
+        if(!Session::get('loginMember')){
+            return redirect('/login')->with('alert', 'Anda harus login terlebih dulu');
+        }else{
+            $nama_lengkap = Session::get('nama_lengkap');
+            $kd_pengguna = Session::get('kd_pengguna');
+            $skema = SkemaPelatihan::all();
+            $persyaratan = ProgramPelatihan::orderBy('created_at', 'desc')->first()->detail_program;
+            $pendaftaran = PendaftaranProgram::orderBy('kd_skema', 'asc')->get();
+
+            $daftar_count = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->get()->count();
+            $daftar = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->orderBy('created_at', 'desc')->first();
+            $member = Member::where('kd_pengguna', $kd_pengguna)->first();
+
+            if($daftar_count != null){
+                if($daftar->status == 3){
+                    return view('/Member/pendaftaranPelatihan', compact('nama_lengkap', 'kd_pengguna', 'skema', 'persyaratan', 'pendaftaran'));
+                }else{
+                    return redirect('/member/dashboard')->with('alert modal danger', 'Anda sudah mendaftar pelatihan');
+                }
+            }else{
+                if ($member->tempat_lahir == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->tgl_lahir == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->jenis_kelamin == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->alamat_lengkap == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->provinsi == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->kabupaten_kota == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->kodepos == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->pend_terakhir == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->thn_ijazah == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->nomor_kontak == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->ukuran_baju == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }elseif ($member->ukuran_sepatu == null){
+                    return redirect('/member/akun')->with('alert modal warning', 'Data diri belum lengkap');
+                }else{
+                    return view('/Member/pendaftaranPelatihan', compact('nama_lengkap', 'kd_pengguna', 'skema', 'persyaratan', 'pendaftaran'));
+                }
+            }
+
+        }
+    }
+
+    public function daftar_pelatihan(Request $request){
+        if(!Session::get('loginMember')){
+            return redirect('/login')->with('alert', 'Anda harus login terlebih dulu');
+        }else{
+            $kd_pengguna = $request->kd_pengguna;
+            $kd_skema = $request->kd_skema;
+
+            $kuota_skema = SkemaPelatihan::where('kd_skema', $kd_skema)->value('kuota');
+            $kuota_tersedia = PendaftaranProgram::where('kd_skema', $kd_skema)->get()->count();
+
+            $pendaftaran = new PendaftaranProgram();
+            $pendaftaran->kd_pendaftaran = $request->kd_pendaftaran;
+            $pendaftaran->kd_pengguna = $kd_pengguna;
+            $pendaftaran->kd_skema = $kd_skema;
+
+            if($kuota_tersedia <= $kuota_skema){
+                $pendaftaran->status = 1;
+                $pendaftaran->save();
+                return redirect('/member/dashboard')->with('alert modal success', 'Pendaftaran sukses. Anda saat ini masuk pada kuota Peserta');        
+            }elseif($kuota_tersedia == $kuota_skema){
+                $pendaftaran->status = 0;
+                $pendaftaran->save();
+                return redirect('/member/dashboard')->with('alert modal warning', 'Pendaftaran sukses. Anda saat ini masuk pada kuota Waiting List, tunggu hingga masuk kuota Peserta');
+            }
+        }
+    }
+
+    public function filter_jadwal(Request $request){
+        if(!Session::get('loginMember')){
+            return redirect('/login')->with('alert', 'Anda harus login terlebih dulu');
+        }else{
+            $nama_lengkap = Session::get('nama_lengkap');
+            $kd_pengguna = Session::get('kd_pengguna');
+            $skema = SkemaPelatihan::where('kd_gelombang', $request->kd_gelombang)->orderBy('created_at', 'desc')->get();
+            $gelombang = Gelombang::all();
+    
+            return view('/Member/jadwalPelatihan', compact('nama_lengkap', 'kd_pengguna', 'skema', 'gelombang'));
         }
     }
 }

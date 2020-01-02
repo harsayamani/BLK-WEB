@@ -15,35 +15,35 @@
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="1" href="/images/1.png"> 
+    <link rel="shortcut icon" href="/public/images/favicon.ico" type="image/x-icon" />
+    <link rel="1" href="/public/images/1.png"> 
 
     <!-- Design fonts -->
     
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
     <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/public/css/bootstrap.css" rel="stylesheet">
 
     <!-- FontAwesome Icons core CSS -->
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/public/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/style.css" rel="stylesheet">
+    <link href="/public/style.css" rel="stylesheet">
 
     <!-- Responsive styles for this template -->
-    <link href="/css/responsive.css" rel="stylesheet">
+    <link href="/public/css/responsive.css" rel="stylesheet">
 
     <!-- Colors for this template -->
-    <link href="/css/colors.css" rel="stylesheet">
+    <link href="/public/css/colors.css" rel="stylesheet">
 
     <!-- Version Tech CSS for this template -->
-    <link href="/css/version/tech.css" rel="stylesheet">
+    <link href="/public/css/version/tech.css" rel="stylesheet">
 
-    [if lt IE 9]
+    {{-- [if lt IE 9]
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    [endif]
+    [endif] --}}
 
 </head>
 <link rel="shortcut icon" href="/images/manderserlogo.png">
@@ -142,10 +142,10 @@
 
     <!-- Core JavaScript
     ================================================== -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/tether.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/custom.js"></script>
+    <script src="/public/js/jquery.min.js"></script>
+    <script src="/public/js/tether.min.js"></script>
+    <script src="/public/js/bootstrap.min.js"></script>
+    <script src="/public/js/custom.js"></script>
 
 </body>
 </html>

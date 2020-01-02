@@ -2,7 +2,7 @@
 
 @section('judul_tab', 'Pendafaran Pelatihan - AdminBLK')
     
-@section('active_menu_kelola_pendaftaran', 'active')
+@section('active_menu_pendaftaran_pelatihan', 'active')
 
 @section('content')
 
@@ -204,20 +204,34 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-success btn-sm" 
-                                                    data-target="#ubahPendaftaran" 
-                                                    data-toggle="modal"
-                                                    data-kd_pendaftaran="{{$daftar->kd_pendaftaran}}"
-                                                    data-kd_skema="{{$daftar->kd_skema}}"
-                                                    data-kd_pengguna="{{$daftar->kd_pengguna}}"
-                                                >
-                                                    <i class="fa fa-edit"></i>&nbsp; 
-                                                    Ubah
-                                                </button>
-                                                <a href="/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
-                                                    <i class="fa fa-trash"></i>&nbsp;
-                                                    Hapus
-                                                </a>
+                                                
+                                                <div class="col-4">
+                                                    <button type="button" class="btn btn-success btn-sm" 
+                                                        data-target="#ubahPendaftaran" 
+                                                        data-toggle="modal"
+                                                        data-kd_pendaftaran="{{$daftar->kd_pendaftaran}}"
+                                                        data-kd_skema="{{$daftar->kd_skema}}"
+                                                        data-kd_pengguna="{{$daftar->kd_pengguna}}">
+                                                        <i class="fa fa-edit"></i>&nbsp; 
+                                                        Ubah
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-4">
+                                                    <a href="/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
+                                                        <i class="fa fa-trash"></i>&nbsp;
+                                                        Hapus
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-6">
+                                                    @if($daftar->status == 1)
+                                                        <a href="/admin/dataPelatihan/pendaftaran/tidakLulus/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
+                                                            Konfirmasi Tidak Lulus
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                
                                             </td>
                                         </tr>
                                     @endforeach

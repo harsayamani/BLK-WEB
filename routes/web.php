@@ -160,6 +160,8 @@ Route::post('/admin/dataPelatihan/pendaftaran/ubahPendaftaran', 'PelatihanContro
 
 Route::get('/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{kd_pendaftaran}', 'PelatihanController@hapus_pendaftaran');
 
+Route::get('/admin/dataPelatihan/pendaftaran/tidakLulus/{kd_pendaftaran}', 'PelatihanController@konfirmasi_tidak_lulus');
+
 //LEVEL USER MEMBER
 
 Route::get('/login', 'MemberSideController@login_index');
@@ -188,6 +190,14 @@ Route::post('/member/akun/ubah', 'MemberSideController@ubah_akun');
 
 Route::get('/member/sertifikat', 'MemberSideController@sertifikat');
 
+Route::get('/member/jadwalPelatihan', 'MemberSideController@jadwal_pelatihan');
+
+Route::post('/member/jadwalPelatihan/filter', 'MemberSideController@filter_jadwal');
+
+Route::get('/member/pendaftaranPelatihan', 'MemberSideController@pendaftaran_pelatihan');
+
+Route::post('/member/pendaftaranPelatihan/daftar', 'MemberSideController@daftar_pelatihan');
+
 //LEVEL USER PUBLIK
 
 Route::get('/', 'PublicController@index');
@@ -212,5 +222,4 @@ Route::get('/jadwalPelatihan', 'PublicController@jadwal_pelatihan');
 
 Route::get('/jadwalPelatihan/{kd_gelombang}', 'PublicController@jadwal_pelatihan');
 
-
-
+Route::post('/jadwalPelatihan/filter', 'PublicController@filter_jadwal');

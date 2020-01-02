@@ -37,7 +37,7 @@
             <div class="navbar-holder d-flex align-items-center justify-content-between">
               <!-- Navbar Header-->
               <div class="navbar-header">
-                <!-- Navbar Brand --><a href="#" class="navbar-brand d-none d-sm-inline-block">
+                <!-- Navbar Brand --><a href="/member/dashboard" class="navbar-brand d-none d-sm-inline-block">
                   <div class="brand-text d-none d-lg-inline-block"><img src="/images/logo_blk.png" width="30px" height="30px"> <span>SI</span><strong>BLK</strong></div>
                   <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div></a>
                 <!-- Toggle Button--><a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
@@ -60,13 +60,13 @@
         <nav class="side-navbar">
             <!-- Sidebar Header-->
             <div class="sidebar-header d-flex align-items-center">
-                <h5>Halo, @yield('member_name')</h5>
+                <h5>Halo, {{App\Member::where('kd_pengguna', Session::get('kd_pengguna'))->value('nama_lengkap')}}</h5>
             </div>
             <!-- Sidebar Navidation Menus--><span class="heading">Menu</span>
             <ul class="list-unstyled">
               <li class="@yield('active1')"><a href="/member/dashboard"> <i class="icon-home"></i>Dashboard</a></li>
-              <li class="@yield('active2')"><a href="#"> <i class="fa fa-calendar"></i>Jadwal Pelatihan </a></li>
-              <li class="@yield('active3')"><a href="#"> <i class="icon-padnote"></i>Pendaftaran</a></li>
+              <li class="@yield('active2')"><a href="/member/jadwalPelatihan"> <i class="fa fa-calendar"></i>Jadwal Pelatihan </a></li>
+              <li class="@yield('active3')"><a href="/member/pendaftaranPelatihan"> <i class="icon-padnote"></i>Pendaftaran</a></li>
               <li class="@yield('active4')"><a href="/member/akun"> <i class="fa fa-user"></i>Akun</a></li>
               <li class="@yield('active5')"><a href="/member/sertifikat"> <i class="fa fa-certificate"></i>Sertifikat</a></li>
             </ul>
@@ -108,6 +108,69 @@
               </div>
           @endif
 
+          @if (Session()->has('alert modal success'))
+            <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Pendaftaran Pelatihan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body alert-success">
+                    <p>{{session()->get('alert modal success')}}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endif
+
+          @if (Session()->has('alert modal danger'))
+            <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Pendaftaran Pelatihan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body alert-danger">
+                    <p>{{session()->get('alert modal danger')}}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endif
+
+          @if (Session()->has('alert modal warning'))
+            <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Pendaftaran Pelatihan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body alert-warning">
+                    <p>{{session()->get('alert modal warning')}}</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endif
+
           @yield('section')
 
           <!-- Page Footer-->
@@ -136,6 +199,10 @@
     <script src="/member/js/charts-home.js"></script>
     <!-- Main File-->
     <script src="/member/js/front.js"></script>
+
+    <script>
+      $('#myModal').modal('show')
+    </script>
 
   </body>
 </html>

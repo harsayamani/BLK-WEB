@@ -1,6 +1,6 @@
 @extends('/Public/masterPublic')
 
-@section('title', 'Profil Lembaga')
+@section('title', 'Profil Lembaga - Balai Latihan Kerja - Disnaker Kabupaten Indramayu')
     
 @section('content')
     

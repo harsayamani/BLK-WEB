@@ -262,19 +262,19 @@ class MemberController extends Controller
         return redirect('/admin/dataMember/sertifikat')->with('alert danger', 'Sertifikat berhasil dihapus!');
     }
 
-    // public function lembar_pengesahan($kd_sertifikat){
-    //     $sertifikat = Sertifikat::where('kd_sertifikat', $kd_sertifikat)->first();
-    //     $qr_sertifikat = QrCode::format('png')
-    //                     ->merge('images/logo_blk.png', 0.5, true)
-    //                     ->size(500)
-    //                     ->generate($kd_sertifikat);
+    public function lembar_pengesahan($kd_sertifikat){
+        $sertifikat = Sertifikat::where('kd_sertifikat', $kd_sertifikat)->first();
+        $qr_sertifikat = QrCode::format('png')
+                        ->merge('images/logo_blk.png', 0.5, true)
+                        ->size(500)
+                        ->generate($kd_sertifikat);
 
-    //     if(!Session::get('loginAdmin')){
-    //         return redirect('/admin/login');
-    //     }else{
-    //         return response($qr_sertifikat)->header('Content-type','image/png');
-    //     }
-    // }
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login');
+        }else{
+            return response($qr_sertifikat)->header('Content-type','image/png');
+        }
+    }
     
     //Ajax Controller
     public function ajax($id){

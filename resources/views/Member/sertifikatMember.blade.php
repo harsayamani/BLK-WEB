@@ -4,8 +4,6 @@
     
 @section('active5', 'active')
 
-@section('member_name', "$nama_lengkap")
-
 @section('title_page', 'Sertifikat')
 
 @section('section')

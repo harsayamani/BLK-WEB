@@ -8,10 +8,46 @@ use DB;
 
 class InfoController extends Controller
 {
+    public function getDetailInfo(Request $request){
+      $kd = $request->kd_konten;
+      $tipe = $request->tipe;
+
+      if($tipe == 1){
+          $data = DB::table('konten')
+                  ->select('kd_konten as id', 'judul_konten as judul', 'kategori.kategori_konten' ,'isi_konten', 'foto', 'konten.created_at as tgl_upload')
+                  ->join('kategori_konten as kategori', 'kategori.kd_kategori_konten', '=', 'konten.kd_kategori')
+                  ->where('kd_konten', $kd)
+                  ->get();
+      }else if($tipe == 2){
+          $data = DB::table('loker')
+                  ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
+                  ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
+                  ->where('id', $kd)
+                  ->get();
+      }else{
+          $data = false;
+      }
+
+      if($data){
+        return response()->json([
+          'status_code' => 200,
+          'data' => $data,
+          'message' => 'Success!'
+        ], 200);
+      }else{
+        return response()->json([
+          'status_code' => 400,
+          'message' => 'Failed!'
+        ], 200);
+      }
+    }
+
     public function getBerita(){
       $berita = DB::table('konten')
-                ->select('kd_konten as id', 'judul_konten as judul', 'foto', 'created_at as tgl_upload')
+                ->select('kd_konten as id', 'judul_konten as judul', 'kategori.kategori_konten' ,'isi_konten', 'foto', 'konten.created_at as tgl_upload')
+                ->join('kategori_konten as kategori', 'kategori.kd_kategori_konten', '=', 'konten.kd_kategori')
                 ->where('kd_kategori', '1')
+                ->orderBy('konten.created_at', 'DESC')
                 ->take(5)
                 ->get();
 
@@ -30,10 +66,33 @@ class InfoController extends Controller
 
     }
 
+    public function getSemuaBerita(){
+      $berita = DB::table('konten')
+                ->select('kd_konten as id', 'judul_konten as judul', 'kategori.kategori_konten' ,'isi_konten', 'foto', 'konten.created_at as tgl_upload')
+                ->join('kategori_konten as kategori', 'kategori.kd_kategori_konten', '=', 'konten.kd_kategori')
+                ->where('kd_kategori', '1')
+                ->get();
+
+      if($berita){
+        return response()->json([
+          'status_code' => 200,
+          'data' => $berita,
+          'message' => 'Success!'
+        ], 200);
+      }else{
+        return response()->json([
+          'status_code' => 400,
+          'message' => 'Failed!'
+        ], 200);
+      }
+
+    }
+
     public function getLoker(){
-      $loker = DB::table('konten')
-                ->select('kd_konten as id', 'judul_konten as judul', 'foto', 'created_at as tgl_upload')
-                ->where('kd_kategori', '2')
+      $loker = DB::table('loker')
+                ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
+                ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
+                ->orderBy('created_at', 'DESC')
                 ->take(5)
                 ->get();
 
@@ -51,10 +110,122 @@ class InfoController extends Controller
       }
     }
 
+    public function getSemuaLoker(){
+      $loker = DB::table('loker')
+                ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
+                ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
+                ->get();
+
+      if($loker){
+        return response()->json([
+          'status_code' => 200,
+          'data' => $loker,
+          'message' => 'Success!'
+        ], 200);
+      }else{
+        return response()->json([
+          'status_code' => 400,
+          'message' => 'Failed!'
+        ], 200);
+      }
+    }
+
+    public function getLokerByMinat(Request $request){
+      $listMinat = $request->listMinat;
+
+      $data = [];
+      $temp = [];
+
+      for($i = 0; $i < sizeof($listMinat); $i++){
+        $temp = $data;
+        $loker = DB::table('loker')
+                  ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
+                  ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
+                  ->where('loker.kategori_minat', $listMinat[$i])
+                  ->orderBy('created_at', 'DESC')
+                  ->get()
+                  ->toArray();
+
+          $data = array_merge($temp, $loker);
+      }
+
+      $collect = collect($data);
+      $sorted  = $collect->sortByDesc('tgl_upload');
+      $sorted->splice(5);
+
+      return response()->json([
+        'status_code' => 200,
+        'data' => $sorted->values()->all(),
+        'message' => 'Success!'
+      ]);
+    }
+
+    public function getSemuaLokerByMinat(Request $request){
+      $listMinat = $request->listMinat;
+
+      $data = [];
+      $temp = [];
+
+      for($i = 0; $i < sizeof($listMinat); $i++){
+        $temp = $data;
+        $loker = DB::table('loker')
+                  ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
+                  ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
+                  ->where('loker.kategori_minat', $listMinat[$i])
+                  ->orderBy('created_at', 'DESC')
+                  ->get()
+                  ->toArray();
+
+          $data = array_merge($temp, $loker);
+      }
+
+      $collect = collect($data);
+      $sorted  = $collect->sortByDesc('tgl_upload');
+
+      return response()->json([
+        'status_code' => 200,
+        'data' => $sorted->values()->all(),
+        'message' => 'Success!'
+      ]);
+    }
+
+    //mengambil id_minat si member dari table minat_member
+    public function getMinatMember(Request $request){
+      $data = DB::table('minat_member')
+              ->select('kd_minat as id_minat')
+              ->where('kd_pengguna', $request->kd_pengguna)
+              ->get();
+
+      return response()->json([
+        'status_code' => 200,
+        'data' => $data,
+        'message' => 'Success!'
+      ]);
+    }
+
+    //mengampil data minat untuk dipilih oleh member
+    public function getMinat(){
+      $minat = DB::table('minat')->get();
+
+      if($minat){
+        return response()->json([
+          'status_code' => 200,
+          'data' => $minat,
+          'message' => 'Success!'
+        ], 200);
+      }else{
+        return response()->json([
+          'status_code' => 400,
+          'message' => 'Failed!'
+        ], 200);
+      }
+    }
+
     public function getPoster(){
       $poster = DB::table('konten')
-                ->select('kd_konten as id', 'judul_konten as judul', 'foto as poster', 'created_at as tgl_upload')
+                ->select('kd_konten as id', 'judul_konten as judul', 'isi_konten' ,'foto as poster', 'created_at as tgl_upload')
                 ->where('kd_kategori', '3')
+                ->orderBy('created_at', 'DESC')
                 ->take(5)
                 ->get();
 

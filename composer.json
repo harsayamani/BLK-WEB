@@ -7,7 +7,9 @@
     "require": {
         "php": ">=5.6.4",
         "curl/curl": "^2.2",
+        "ixudra/curl": "^6.18",
         "jrm2k6/cloudder": "^0.6.0",
+        "kreait/firebase-php": "^4.35",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
         "simplesoftwareio/simple-qrcode": "^2.0"

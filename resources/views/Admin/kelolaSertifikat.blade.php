@@ -6,7 +6,7 @@
 
 @section('content')
 
-<div class="breadcrumbs">
+        <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
                 <div class="row m-0">
                     <div class="col-sm-4">
@@ -252,8 +252,7 @@
                                                     data-kd_pengguna="{{$sertifikat->kd_pengguna}}"
                                                     data-kd_program="{{$sertifikat->kd_program}}"
                                                     data-tgl_terbit="{{$sertifikat->tgl_terbit}}"
-                                                    data-tgl_kadaluarsa="{{$sertifikat->tgl_kadaluarsa}}"
-                                                >
+                                                    data-tgl_kadaluarsa="{{$sertifikat->tgl_kadaluarsa}}">
                                                     <i class="fa fa-edit"></i>&nbsp; 
                                                 </button>
                                                 <a href="/admin/dataMember/sertifikat/hapusSertifikat/{{$sertifikat->kd_sertifikat}}" type="button" class="btn btn-danger btn-sm">
@@ -278,19 +277,31 @@
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
     
     <script>
-        $('#tgl_terbit').datepicker();
+        $('#tgl_terbit').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#tgl_terbit2').datepicker();
+        $('#tgl_terbit2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#tgl_kadaluarsa').datepicker();
+        $('#tgl_kadaluarsa').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script>
-        $('#tgl_kadaluarsa2').datepicker();
+        $('#tgl_kadaluarsa2').datepicker({
+            format: 'dd mmm yyyy',
+            uiLibrary: 'bootstrap4'
+        });
     </script>
 
     <script language="JavaScript" type="text/JavaScript">

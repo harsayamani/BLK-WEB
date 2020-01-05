@@ -1,15 +1,12 @@
 (function ($) {
  "use strict";
-
+ 
 	 $('#data_1 .input-group.date').datepicker({
- 		startView: 2,
 		todayBtn: "linked",
 		keyboardNavigation: false,
 		forceParse: false,
 		calendarWeeks: true,
-		autoclose: true,
-		format: "yyyy/mm/dd",
-    defaultDate: ""
+		autoclose: true
 	});
 
 	$('#data_2 .input-group.date').datepicker({
@@ -44,4 +41,8 @@
 		autoclose: true
 	});
 
-})(jQuery);
+
+	
+	
+ 
+})(jQuery); 

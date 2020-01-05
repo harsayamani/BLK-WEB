@@ -127,35 +127,35 @@
 	color:#fff;
 }
 .dropdown-menu.another-drop-pro-one{
-	top:79%;
+	top:72%;
 	left:21%;
 }
 .another-drop-pro-seven{
-	top:79%;
-	left:7%;
+	top:72%;
+	left:24%;
 }
 .dropdown-menu.another-drop-pro-three{
-	top:79%;
+	top:72%;
 	left:37%;
 }
 .dropdown-menu.another-drop-pro-eight{
-	top:79%;
-	left:27%;
+	top:72%;
+	left:43%;
 }
 .dropdown-menu.another-drop-pro-four{
-	top:79%;
+	top:72%;
 	left:53%;
 }
 .dropdown-menu.another-drop-pro-nine{
-	top:79%;
-	left:48%;
+	top:72%;
+	left:62%;
 }
 .dropdown-menu.another-drop-pro-five{
-	top:79%;
+	top:72%;
 	left:70%;
 }
 .dropdown-menu.another-drop-pro-two, .another-drop-pro-six{
-	top:79%;
+	top:72%;
 	left:6%;
 }
 .button-drop-style-one, .button-drop-style-two{
@@ -208,44 +208,44 @@
 	vertical-align: middle; 
 }
 .dropdown-menu.another-drop-pro-ten{
-	top:88%;
-	left:7%;
+	top:72%;
+	left:23%;
 }
 .dropdown-menu.another-drop-pro-eleven{
-	top:88%;
-	left:45%;
+	top:72%;
+	left:41%;
 }
 .dropdown-menu.another-drop-pro-twevel{
-	top:88%;
-	left:65%;
+	top:72%;
+	left:58%;
 }
 .primary-btn-cl, .warning-btn-cl, .danger-btn-cl{
 	background: #fff;
 	color: #303030;
 	transition: all .4s ease 0s;
 }
-.social-btn-icon-cl .edu-icon, .social-btn-icon-cl i{
+.social-btn-icon-cl .adminpro-icon, .social-btn-icon-cl i{
 	color:#303030;
 }
-.social-btn-icon-cl .edu-icon, .social-btn-icon-cl i{
+.social-btn-icon-cl .adminpro-icon, .social-btn-icon-cl i{
 	color:#03a9f4;
 }
-.social-btn-icon-cl-df .edu-facebook{
+.social-btn-icon-cl-df .adminpro-facebook{
 	color:#5d82d1;
 }
-.social-btn-icon-cl-df .edu-twitter{
+.social-btn-icon-cl-df .adminpro-twitter{
 	color:#50bff5;
 }
-.social-btn-icon-cl-df .edu-google-plus{
+.social-btn-icon-cl-df .adminpro-google-plus{
 	color:#eb5e4c;
 }
 .social-btn-icon-cl-df .fa-dribbble{
 	color:#f86fa2;
 }
-.social-btn-icon-cl-df .edu-pinterest{
+.social-btn-icon-cl-df .adminpro-pinterest{
 	color:#e13138;
 }
-.social-btn-icon-cl-df .edu-linkedin{
+.social-btn-icon-cl-df .adminpro-linkedin{
 	color:#827be9;
 }
 .social-btn-icon-cl-df .fa-youtube{
@@ -266,17 +266,17 @@
 .social-btn-icon-cl-df .fa-dropbox{
 	color:#007ee5;
 }
-.btn-default.btn-bg-cl-social .edu-icon, .btn-default.btn-bg-cl-social i{
+.btn-default.btn-bg-cl-social .adminpro-icon, .btn-default.btn-bg-cl-social i{
 	color:#fff;
 }
 .btn-default.btn-bg-cl-social, .btn-default.btn-bg-cl-social{
 	background:#303030;
 }
 .btn-default.btn-bg-cl-social:hover{
-	background:#006DF0;
-	border-color: #006DF0;
+	background:#03a9f4;
+	border-color: #03a9f4;
 }
-.btn-default.btn-bg-cl-social-tw .edu-icon, .btn-default.btn-bg-cl-social-tw i{
+.btn-default.btn-bg-cl-social-tw .adminpro-icon, .btn-default.btn-bg-cl-social-tw i{
 	color:#fff;
 }
 .btn-default.btn-bg-cl-facebook-tw{
@@ -323,6 +323,6 @@
 	background:#0065aa;
 	border-color: #0065aa;
 }
-.btn-default.btn-bg-cl-facebook-tw .edu-icon, .btn-default.btn-bg-cl-twitter-tw .edu-icon, .btn-default.btn-bg-cl-google-tw .edu-icon, .btn-default.btn-bg-cl-pinterest-tw .edu-icon, .btn-default.btn-bg-cl-linkedin-tw .edu-icon, .btn-default.btn-bg-cl-youtube-tw i, .btn-default.btn-bg-cl-dropbox-tw i, .btn-default.btn-bg-cl-digg-tw i, .btn-default.btn-bg-cl-dribbble-tw i, .btn-default.btn-bg-cl-edge-tw i, .btn-default.btn-bg-cl-skype-tw i{
+.btn-default.btn-bg-cl-facebook-tw .adminpro-icon, .btn-default.btn-bg-cl-twitter-tw .adminpro-icon, .btn-default.btn-bg-cl-google-tw .adminpro-icon, .btn-default.btn-bg-cl-pinterest-tw .adminpro-icon, .btn-default.btn-bg-cl-linkedin-tw .adminpro-icon, .btn-default.btn-bg-cl-youtube-tw i, .btn-default.btn-bg-cl-dropbox-tw i, .btn-default.btn-bg-cl-digg-tw i, .btn-default.btn-bg-cl-dribbble-tw i, .btn-default.btn-bg-cl-edge-tw i, .btn-default.btn-bg-cl-skype-tw i{
 	color:#fff;
 }

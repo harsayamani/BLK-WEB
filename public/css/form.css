@@ -13,7 +13,7 @@
 }
 .login-bg{
 	background:#fff;
-	box-shadow: 0 0 20px rgba(0,0,0,.3);
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
 	padding:20px;
 }
 .login-input-area input[type="email"], .login-input-area input[type="password"], .login-input-area input[type="text"]{
@@ -272,13 +272,14 @@
 .ui-datepicker {
 	display: none;
 	padding: 10px 12px;
-	background: #006DF0;
+	background: rgba(255,255,255,0.9);
 	box-shadow: 0 0 10px rgba(0,0,0,.3);
+	font: 13px/1.55 'Open Sans', Helvetica, Arial, sans-serif;
 	text-align: center;
 	color: #666;
 }
 .ui-datepicker a {
-	color: #fff;
+	color: #404040;
 }
 .ui-datepicker-header {
 	position: relative;
@@ -320,18 +321,16 @@
 	width: 46px;
 	margin: auto;
 	text-decoration: none;
-	color: #fff;
+	color: #404040;
 }
 .ui-datepicker-calendar a:hover {
-	background: rgba(0,0,0,.05);
-	color:#303030;	
+	background: rgba(0,0,0,.05);	
 }
 .ui-datepicker-calendar span {
-	color: #fff;
+	color: #bfbfbf;
 }
 .ui-datepicker-today a {
 	font-weight: 700;
-	color:#303030;
 }
 .ui-datepicker-calendar .ui-state-active {
 	background: rgba(0,0,0,.05);
@@ -367,41 +366,4 @@ fieldset{
 }
 .rating label{
 	margin:0px;
-}
-.ui-datepicker-title .ui-datepicker-month, .ui-datepicker-title .ui-datepicker-year{
-	color:#fff;
-}
-.ts-forms .input {
-    position: relative;
-}
-.file-upload-inner.ts-forms .prepend-small-btn .file-button, .file-upload-inner.ts-forms .prepend-big-btn .file-button {
-    left: 0px;
-}
-.file-upload-inner.ts-forms .file-button, .file-upload-inner.ts-forms .file-button:active, .file-upload-inner.ts-forms .file-button:focus {
-    background: #03a9f4;
-    border-radius: 0px;
-    width: 70px;
-    height: 35px;
-    line-height: 35px;
-    top: 0px;
-}
-.ts-forms .append-small-btn .file-button, .ts-forms .append-big-btn .file-button, .ts-forms .prepend-small-btn .file-button, .ts-forms .prepend-big-btn .file-button {
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    -o-border-radius: 2px;
-    border-radius: 2px;
-}
-.ts-forms .file-button {
-    color: #fff;
-    display: block;
-    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
-    font-size: 14px;
-    height: 40px;
-    line-height: 40px;
-    outline: none;
-    overflow: hidden;
-    position: absolute;
-    text-align: center;
-    top: 4px;
-    z-index: 1;
 }

@@ -13,13 +13,14 @@ class Member extends Authenticatable
     protected $table = 'member';
     protected $primaryKey = 'kd_pengguna';
     protected $guarded = array();
+    // public $incrementing = false;
 
-    protected $hidden = [
-      'password','remember_token'
-    ];
+    // protected $hidden = [
+    //   'password','remember_token'
+    // ];
 
-    public function setPasswordAttribute($value)
-    {
-      $this->attributes['password'] = bcrypt($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //   $this->attributes['password'] = bcrypt($value);
+    // }
 }

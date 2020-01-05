@@ -358,7 +358,7 @@
                 maxArea = 0,
                 triangle;
 
-            // To store each pointÃ¢â‚¬â„¢s effective area, we create a new array rather than
+            // To store each point’s effective area, we create a new array rather than
             // extending the passed-in point to workaround a Chrome/V8 bug (getting
             // stuck in smi mode). For midpoints, the initial effective area of
             // Infinity will be computed in the next step.

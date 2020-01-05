@@ -42,7 +42,7 @@
                     defaultFill: "#DBDAD6"
                 },
                 geographyConfig: {
-                    highlightFillColor: '#006DF0',
+                    highlightFillColor: '#03a9f4',
                     highlightBorderWidth: 0,
                 },
             });
@@ -52,10 +52,10 @@
                 responsive: true,
                 fills: {
                     defaultFill: "#DBDAD6",
-                    active: "#006DF0"
+                    active: "#03a9f4"
                 },
                 geographyConfig: {
-                    highlightFillColor: '#006DF0',
+                    highlightFillColor: '#03a9f4',
                     highlightBorderWidth: 0,
                 },
                 data: {
@@ -72,10 +72,10 @@
                 scope: 'usa',
                 fills: {
                     defaultFill: "#DBDAD6",
-                    active: "#006DF0"
+                    active: "#03a9f4"
                 },
                 geographyConfig: {
-                    highlightFillColor: '#006DF0',
+                    highlightFillColor: '#03a9f4',
                     highlightBorderWidth: 0
                 },
                 data: {
@@ -138,11 +138,11 @@
                 responsive: true,
                 fills: {
                     defaultFill: "#F2F2F0",
-                    active: "#006DF0",
-                    usa: "#006DF0"
+                    active: "#03a9f4",
+                    usa: "#03a9f4"
                 },
                 geographyConfig: {
-                    highlightFillColor: '#006DF0',
+                    highlightFillColor: '#03a9f4',
                     highlightBorderWidth: 0
                 },
                 data: {
@@ -165,8 +165,15 @@
                         { origin: 'USA', destination: 'AUS'},
                         { origin: 'USA', destination: 'BRA'}
                     ],
-                    { strokeColor: '#006DF0', strokeWidth: 1}
+                    { strokeColor: '#03a9f4', strokeWidth: 1}
             );
+
+         
+			
+			
+
+
+			
 			
 	
 })(jQuery); 

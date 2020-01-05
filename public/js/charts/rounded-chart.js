@@ -12,11 +12,11 @@
 			datasets: [{
 				label: 'pie Chart',
                 backgroundColor: [
-					'#303030',
-					'#933EC5',
-					'#65b12d',
-					'#D80027',
-					'#006DF0'
+					'rgb(255, 99, 132)',
+					'rgb(255, 159, 64)',
+					'rgb(255, 205, 86)',
+					'#03a9f4',
+					'#303030'
 				],
 				data: [10, 20, 30, 40, 60]
             }]
@@ -38,10 +38,10 @@
 				data: [10, 20, 30, 40, 60],
                 backgroundColor: [
 					'rgb(255, 99, 132)',
-					'#933EC5',
-					'#65b12d',
-					'#D80027',
-					'#006DF0'
+					'rgb(255, 159, 64)',
+					'rgb(255, 205, 86)',
+					'#03a9f4',
+					'rgb(201, 203, 207)'
 				],
 				
             }]
@@ -79,15 +79,15 @@
 			datasets: [{
 				label: "My First dataset",
 				data: [90, 20, 30, 40, 10],
-                backgroundColor: '#006DF0',
-                borderColor: '#006DF0',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
                 pointBackgroundColor: '#ff0000',
 				
             },{
 				label: "My Second dataset",
 				data: [50, 20, 10, 30, 90],
-                backgroundColor: '#933EC5',
-                borderColor: '#933EC5',
+                backgroundColor: 'rgb(255, 159, 64)',
+                borderColor: 'rgb(255, 159, 64)',
                 pointBackgroundColor: '#ff0000',
 				
             }]
@@ -118,7 +118,7 @@
 			datasets: [{
 				label: 'Dataset 1',
 				data: [10, 20, 30, 40, 90],
-                backgroundColor: '#006DF0'
+                backgroundColor: 'rgb(255, 99, 132)'
 				
             }]
 		},

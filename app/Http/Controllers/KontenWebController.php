@@ -11,6 +11,9 @@ use App\Link;
 use App\Media;
 use App\Galeri;
 use App\Profil;
+use App\Loker;
+use App\Minat;
+use Exception;
 
 class KontenWebController extends Controller
 {
@@ -24,6 +27,8 @@ class KontenWebController extends Controller
         }else{
             return view('Admin/kelolaKategoriKonten', compact('kategori_konten', 'i'));
         }
+
+        
     }
 
     public function tambah_kategori_konten(Request $request){
@@ -79,14 +84,13 @@ class KontenWebController extends Controller
     public function tambah_konten(Request $request){
         $this->validate($request, [
             'judul_konten' => '|unique:konten',
-            'tgl_rilis' => '|max:10',
         ]);
 
         try{
             //Upload foto ke cloudinary
             $foto = $request->foto;
             Cloudder::upload($foto);
-            $url_foto= Cloudder::getPublicId();
+            $url_foto = Cloudder::getPublicId();
         }catch(Exception $e){
             return redirect('/admin/dataKonten/konten')->with('alert danger', $e);
         }   
@@ -263,9 +267,9 @@ class KontenWebController extends Controller
             $url_visi_misi= Cloudder::getPublicId();
 
             //Upload foto ke cloudinary
-            $profil_lembaga = $request->profil_lembaga;
-            Cloudder::upload($profil_lembaga);
-            $url_profil_lembaga= Cloudder::getPublicId();
+            $struk_org = $request->struktur_organisasi;
+            Cloudder::upload($struk_org);
+            $url_struk_org= Cloudder::getPublicId();
         }catch(Exception $e){
             return redirect('/admin/dataKonten/profil')->with('alert danger', $e);
         }    
@@ -273,7 +277,8 @@ class KontenWebController extends Controller
         $profil = new Profil();
         $profil->kd_profil = $request->kd_profil;
         $profil->visi_misi = $url_visi_misi;
-        $profil->profil_lembaga = $url_profil_lembaga;
+        $profil->profil_lembaga = $request->profil_lembaga;
+        $profil->struktur_organisasi = $url_struk_org;
         $profil->email = $request->email;
         $profil->kontak = $request->kontak;
         $profil->alamat = $request->alamat;
@@ -290,7 +295,7 @@ class KontenWebController extends Controller
             'email' => '|max:255',
         ]);
 
-        if($request->visi_misi!=null && $request->profil_lembaga==null){
+        if($request->visi_misi!=null && $request->struktur_organisasi==null){
 
             try{
                 //Upload foto ke cloudinary
@@ -306,6 +311,7 @@ class KontenWebController extends Controller
             $profil = Profil::findOrFail($request->kd_profil);
             $profil->kd_profil = $request->kd_profil;
             $profil->visi_misi = $url_visi_misi;
+            $profil->profil_lembaga = $request->profil_lembaga2;
             $profil->email = $request->email;
             $profil->kontak = $request->kontak;
             $profil->alamat = $request->alamat;
@@ -313,22 +319,23 @@ class KontenWebController extends Controller
 
             return redirect('/admin/dataKonten/profil')->with('alert success', 'Profil berhasil diubah!');
 
-        }elseif($request->profil_lembaga!=null && $request->visi_misi==null){
+        }elseif($request->struktur_organisasi!=null && $request->visi_misi==null){
 
             try{
                 //Upload foto ke cloudinary
-                $profil_lembaga_old = Profil::where('kd_profil', $request->kd_profil)->value('profil_lembaga');
-                Cloudder::destroy($profil_lembaga_old);
-                $profil_lembaga = $request->profil_lembaga;
-                Cloudder::upload($profil_lembaga);
-                $url_profil_lembaga= Cloudder::getPublicId();
+                $struk_org_old = Profil::where('kd_profil', $request->kd_profil)->value('struk_org_old');
+                Cloudder::destroy($struk_org_old);
+                $struk_org = $request->struktur_organisasi;
+                Cloudder::upload($struk_org);
+                $url_struk_org= Cloudder::getPublicId();
             }catch(Exception $e){
                 return redirect('/admin/dataKonten/profil')->with('alert danger', $e);
             }
             
             $profil = Profil::findOrFail($request->kd_profil);
             $profil->kd_profil = $request->kd_profil;
-            $profil->profil_lembaga = $url_profil_lembaga;
+            $profil->struktur_organisasi = $url_struk_org;
+            $profil->profil_lembaga = $request->profil_lembaga2;
             $profil->email = $request->email;
             $profil->kontak = $request->kontak;
             $profil->alamat = $request->alamat;
@@ -336,7 +343,7 @@ class KontenWebController extends Controller
 
             return redirect('/admin/dataKonten/profil')->with('alert success', 'Profil berhasil diubah!');
 
-        }elseif($request->profil_lembaga!=null && $request->visi_misi!=null){
+        }elseif($request->struktur_organisasi!=null && $request->visi_misi!=null){
 
             try{
                 //Upload foto ke cloudinary
@@ -347,11 +354,11 @@ class KontenWebController extends Controller
                 $url_visi_misi= Cloudder::getPublicId();
     
                 //Upload foto ke cloudinary
-                $profil_lembaga_old = Profil::where('kd_profil', $request->kd_profil)->value('profil_lembaga');
-                Cloudder::destroy($profil_lembaga_old);
-                $profil_lembaga = $request->profil_lembaga;
-                Cloudder::upload($profil_lembaga);
-                $url_profil_lembaga= Cloudder::getPublicId();
+                $struk_org_old = Profil::where('kd_profil', $request->kd_profil)->value('struk_org_old');
+                Cloudder::destroy($struk_org_old);
+                $struk_org = $request->struktur_organisasi;
+                Cloudder::upload($struk_org);
+                $url_struk_org= Cloudder::getPublicId();
             }catch(Exception $e){
                 return redirect('/admin/dataKonten/profil')->with('alert danger', $e);
             }
@@ -359,7 +366,8 @@ class KontenWebController extends Controller
             $profil = Profil::findOrFail($request->kd_profil);
             $profil->kd_profil = $request->kd_profil;
             $profil->visi_misi = $url_visi_misi;
-            $profil->profil_lembaga = $url_profil_lembaga;
+            $profil->struktur_organisasi = $url_struk_org;
+            $profil->profil_lembaga = $request->profil_lembaga2;
             $profil->email = $request->email;
             $profil->kontak = $request->kontak;
             $profil->alamat = $request->alamat;
@@ -369,6 +377,7 @@ class KontenWebController extends Controller
 
         }else {
             $profil = Profil::findOrFail($request->kd_profil);
+            $profil->profil_lembaga = $request->profil_lembaga2;
             $profil->kd_profil = $request->kd_profil;
             $profil->email = $request->email;
             $profil->kontak = $request->kontak;
@@ -391,5 +400,90 @@ class KontenWebController extends Controller
         $profil->delete($profil);
 
         return redirect('/admin/dataKonten/profil')->with('alert danger', 'Profil berhasil dihapus!');
+    }
+
+    public function loker(){
+
+        $loker = Loker::orderBy('created_at', 'desc')->get();
+        $minat = Minat::all();
+        $i = 0;
+
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
+        }else{
+            return view('Admin/kelolaLowonganPekerjaan', compact('loker','minat', 'i'));
+        }
+    }
+
+    public function tambah_loker(Request $request){
+        $this->validate($request, [
+            'judul' => '|unique:loker',
+        ]);
+
+        try{
+            //Upload foto ke cloudinary
+            $foto = $request->foto;
+            Cloudder::upload($foto);
+            $url_foto = Cloudder::getPublicId();
+        }catch(Exception $e){
+            return redirect('/admin/dataKonten/loker')->with('alert danger', $e);
+        }   
+
+        $loker = new Loker();
+        $loker->judul = $request->judul;
+        $loker->isi = $request->isi;
+        $loker->kd_minat = $request->kd_minat;
+        $loker->foto = $url_foto;
+        $loker->tgl_rilis = $request->tgl_rilis;
+        $loker->save();
+
+        return redirect('/admin/dataKonten/loker')->with('alert success', 'Lowongan Pekerjaan berhasil ditambahkan!');
+    }
+
+    public function hapus_loker($kd_loker){
+        $loker = Loker::findOrFail($kd_loker);
+        $foto = Loker::where('kd_loker', $kd_loker)->value('foto');
+        Cloudder::destroy($foto);
+        $loker->delete($loker);
+
+        return redirect('/admin/dataKonten/loker')->with('alert danger', 'Lowongan Pekerjaan berhasil dihapus!');
+    }
+
+    public function ubah_loker(Request $request){
+
+        if($request->foto != null){
+
+            try{
+                //Upload foto ke cloudinary
+                $foto_old = Loker::where('kd_loker', $request->kd_loker)->value('foto');
+                Cloudder::destroy($foto_old);
+                $foto = $request->foto;
+                Cloudder::upload($foto);
+                $url_foto= Cloudder::getPublicId();
+            }catch(Exception $e){
+                return redirect('/admin/dataKonten/konten')->with('alert danger', $e);
+            }   
+    
+            $loker = Loker::findOrFail($request->kd_loker);
+            $loker->judul = $request->judul;
+            $loker->isi = $request->isi;
+            $loker->kd_minat = $request->kd_minat;
+            $loker->foto = $url_foto;
+            $loker->tgl_rilis = $request->tgl_rilis2;
+            $loker->save();
+
+            return redirect('/admin/dataKonten/loker')->with('alert success', 'Lowongan Pekerjaan berhasil diubah!');
+
+        }else{
+
+            $loker = Loker::findOrFail($request->kd_loker);
+            $loker->judul = $request->judul;
+            $loker->isi = $request->isi;
+            $loker->kd_minat = $request->kd_minat;
+            $loker->tgl_rilis = $request->tgl_rilis2;
+            $loker->save();
+
+            return redirect('/admin/dataKonten/loker')->with('alert success', 'Lowongan Pekerjaan berhasil diubah!');
+        }
     }
 }

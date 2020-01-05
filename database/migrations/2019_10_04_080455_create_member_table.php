@@ -32,6 +32,7 @@ class CreateMemberTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('email', 30);
+            $table->string('token')->nullable($value = true);
             $table->timestamps();
         });
     }

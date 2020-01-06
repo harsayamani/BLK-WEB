@@ -134,4 +134,8 @@ class PublicController extends Controller
             return redirect('/validasiSertifikat')->with('alert modal danger', 'Sertifikat tidak ditemukan!');
         }
     }
+
+    public function alur_pelatihan(){
+        return view('Public/alurPelatihan');
+    }
 }

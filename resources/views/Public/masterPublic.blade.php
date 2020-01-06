@@ -73,7 +73,7 @@
                                         <div class="container">
                                             <div class="mega-menu-content clearfix"> 
                                                 <div class="tab">
-                                                    <button class="tablinks" onclick="#">Alur Pelatihan</button>
+                                                    <a href="/alurPelatihan"><button class="tablinks" onclick="#">Alur Pelatihan</button></a>
                                                     <a href="/programPelatihan"><button class="tablinks" onclick="#">Program Pelatihan</button></a>
                                                     <a href="/jadwalPelatihan"><button class="tablinks" onclick="#">Jadwal Pelatihan</button></a>
                                                     <a href="/login"><button class="tablinks" onclick="#">Pendaftaran Pelatihan</button></a>

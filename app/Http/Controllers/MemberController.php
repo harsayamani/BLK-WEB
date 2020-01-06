@@ -8,17 +8,15 @@ use Illuminate\Support\Facades\Session;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use JD\Cloudder\Facades\Cloudder;
 use App\Http\Controllers\APIController as API;
-use Mail;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 use App\Member;
 use App\Cities;
 use App\Province;
 use App\ProgramPelatihan;
 use App\Sertifikat;
 use App\PendaftaranProgram;
-use App\SkemaPelatihan;
 use App\Minat;
 use Exception;
-use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class MemberController extends Controller
 {

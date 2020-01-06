@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Mobile;
 
 use App\Loker;
 use App\Konten;
-use DB;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Kreait\Firebase;
+use Illuminate\Support\Facades\DB as DB;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;

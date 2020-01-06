@@ -16,7 +16,6 @@
 //Route Admin
 
 use Illuminate\Support\Facades\Route;
-use Facades\Yugo\SMSGateway\Interfaces\SMS;
 
 Route::get('/admin', 'AdminController@index');
 
@@ -169,6 +168,8 @@ Route::get('/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{kd_pendaftaran}',
 
 Route::get('/admin/dataPelatihan/pendaftaran/tidakLulus/{kd_pendaftaran}', 'PelatihanController@konfirmasi_tidak_lulus');
 
+Route::get('admin/dataPelatihan/exportExcel', 'PelatihanController@export_excel');
+
 //LEVEL USER MEMBER
 
 Route::get('/login', 'MemberSideController@login_index');
@@ -236,8 +237,3 @@ Route::get('/validasiSertifikat', 'PublicController@validasi_sertifikat');
 Route::post('/validasiSertifikat/cari', 'PublicController@cari_sertifikat');
 
 Route::get('/alurPelatihan', 'PublicController@alur_pelatihan');
-
-Route::get('sms/send', function () {
-    return SMS::send(['083120615229'], 'Hai Dunia');
-    
-});

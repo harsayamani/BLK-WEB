@@ -14,11 +14,10 @@ use App\Profil;
 use App\Loker;
 use App\Minat;
 use Exception;
-use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
-use DB;
+use Illuminate\Support\Facades\DB as DB;
 
 class KontenWebController extends Controller
 {
@@ -127,7 +126,7 @@ class KontenWebController extends Controller
           $messages = array();
 
           foreach ($token as $value) {
-            if($ktgri == "1311"){
+            if($request->kd_kategori_konten == "1311"){
               $header = "Berita Terbaru!";
               $message = CloudMessage::withTarget('token', $value->token)
                   ->withNotification(Notification::create($header, $request->judul_konten))
@@ -135,7 +134,7 @@ class KontenWebController extends Controller
                       'jenis' => '1'
                   ]);
               $messages[] = $message;
-            }else if($ktgri == "1312"){
+            }else if($request->kd_kategori_konten == "1312"){
               $header = "Pengumuman Terbaru!";
               $message = CloudMessage::withTarget('token', $value->token)
                   ->withNotification(Notification::create($header, $request->judul_konten))
@@ -503,7 +502,7 @@ class KontenWebController extends Controller
           
           $member = DB::table('minat_member')
                     ->select('kd_pengguna')
-                    ->where('kd_minat', $minat)
+                    ->where('kd_minat', $request->kd_minat)
                     ->get();
 
           if($member){
@@ -525,7 +524,7 @@ class KontenWebController extends Controller
 
               foreach ($token as $value) {
                 $message = CloudMessage::withTarget('token', $value->token)
-                    ->withNotification(Notification::create($header, $judul))
+                    ->withNotification(Notification::create($header, $request->judul))
                     ->withData([
                         'jenis' => '2'
                     ]);

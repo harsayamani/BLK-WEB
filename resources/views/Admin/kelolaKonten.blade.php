@@ -155,7 +155,7 @@
                                                     
                                                     <div class="col-lg-12">
                                                         <div class="form-group">
-                                                            <label for="tgl_rilis" class=" form-control-label">Tanggal Rilis</label>
+                                                            <label for="tgl_rilis2" class=" form-control-label">Tanggal Rilis</label>
                                                             <input readonly type="text" id="tgl_rilis2" name="tgl_rilis2" placeholder="Masukkan Tanggal Rilis" class="form-control" required>
                                                         </div>
                                                     </div>
@@ -203,9 +203,7 @@
                                                     data-judul_konten="{{$konten->judul_konten}}"
                                                     data-isi_konten="{!!$konten->isi_konten!!}"
                                                     data-kd_kategori_konten="{{$konten->kd_kategori}}"
-                                                    data-foto="{{$konten->foto}}"
-                                                    data-tgl_rilis="{{$konten->tgl_rilis}}"
-                                                >
+                                                    data-tgl_rilis="{{$konten->tgl_rilis}}">
                                                     <i class="fa fa-edit"></i>&nbsp; 
                                                     Ubah
                                                 </button>
@@ -255,11 +253,12 @@
               var tgl_rilis = button.data('tgl_rilis');
              
               tinymce.activeEditor.setContent(isi_konten)
+
               var modal = $(this);
               modal.find('.modal-body #kd_konten').val(kd_konten);
               modal.find('.modal-body #judul_konten').val(judul_konten);
-              modal.find('.modal-body #isi_konten').val(isi_konten);
               modal.find('.modal-body #kd_kategori_konten').val(kd_kategori_konten);
+              modal.find('.modal-body #isi_konten').val(isi_konten);
               modal.find('.modal-body #tgl_rilis2').val(tgl_rilis);
             });
         }); 

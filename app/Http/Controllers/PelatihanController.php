@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MemberExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Gelombang;
@@ -9,11 +10,11 @@ use App\ProgramPelatihan;
 use App\SkemaPelatihan;
 use App\PendaftaranProgram;
 use App\Member;
-use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
-use DB;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB as DB;
 
 class PelatihanController extends Controller
 {
@@ -332,7 +333,7 @@ class PelatihanController extends Controller
         // send notification
         if($pendaftaran->save()){
             $header = "Peserta Pelatihan BLK Indramayu";
-            $judul  = $nama_lengkap . ", hasil pelatihan anda sudah keluar!"
+            $judul  = $nama_lengkap . ", hasil pelatihan anda sudah keluar!";
 
             $message = CloudMessage::withTarget('token', $token)
                 ->withNotification(Notification::create($header, $judul))

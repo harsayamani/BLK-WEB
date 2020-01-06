@@ -500,10 +500,10 @@ class KontenWebController extends Controller
               ->withDatabaseUri('https://blk-indramayu.firebaseio.com');
 
           $messaging = $factory->createMessaging();
-          
+
           $member = DB::table('minat_member')
                     ->select('kd_pengguna')
-                    ->where('kd_minat', $minat)
+                    ->where('kd_minat', $request->kd_minat)
                     ->get();
 
           if($member){
@@ -525,7 +525,7 @@ class KontenWebController extends Controller
 
               foreach ($token as $value) {
                 $message = CloudMessage::withTarget('token', $value->token)
-                    ->withNotification(Notification::create($header, $judul))
+                    ->withNotification(Notification::create($header, $request->judul))
                     ->withData([
                         'jenis' => '2'
                     ]);

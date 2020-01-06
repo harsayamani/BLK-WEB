@@ -19,6 +19,11 @@ use App\SkemaPelatihan;
 use App\Minat;
 use Exception;
 use Illuminate\Support\Facades\Mail as FacadesMail;
+use Kreait\Firebase;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
+use DB;
 
 class MemberController extends Controller
 {
@@ -32,7 +37,7 @@ class MemberController extends Controller
         $city = Cities::all()->count();
         if($city<1){
             $ac = $api->getCURL('city');
-            foreach ($ac->rajaongkir->results as $key) {	
+            foreach ($ac->rajaongkir->results as $key) {
                 $n = new Cities;
                 $n->id = $key->city_id;
                 $n->id_provinsi = $key->province_id;
@@ -47,7 +52,7 @@ class MemberController extends Controller
         $province = Province::all()->count();
         if($province<1){
             $ap = $api->getCURL('province');
-            foreach ($ap->rajaongkir->results as $key) {	
+            foreach ($ap->rajaongkir->results as $key) {
                 $n = new \App\Province;
                 $n->id = $key->province_id;
                 $n->nama = $key->province;
@@ -90,7 +95,7 @@ class MemberController extends Controller
         $member->kabupaten_kota =  $request->kabupaten_kota;
         $member->kodepos = $request->kodepos;
         $member->nomor_kontak = $request->nomor_kontak;
-        
+
         if($request->get('ukuran_baju')){
             $member->ukuran_baju = $request->ukuran_baju;
         }else{
@@ -124,7 +129,7 @@ class MemberController extends Controller
         }catch(Exception $e){
             return redirect('/admin/dataMember/akunMember')->with('alert danger', $e);
         }
-        
+
         return redirect('/admin/dataMember/akunMember')->with('alert success', 'Akun berhasil ditambahkan!');
     }
 
@@ -154,7 +159,7 @@ class MemberController extends Controller
         $member->kabupaten_kota =  $request->kabupaten_kota2;
         $member->kodepos = $request->kodepos2;
         $member->nomor_kontak = $request->nomor_kontak;
-        
+
         if($request->get('ukuran_baju')){
             $member->ukuran_baju = $request->ukuran_baju;
         }else{
@@ -214,7 +219,7 @@ class MemberController extends Controller
             $url_gambar= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
         }catch(Exception $e){
             return redirect('/admin/dataMember/sertifikat')->with('alert danger', $e);
-        }      
+        }
 
         $sertifikat = new Sertifikat();
         $sertifikat->kd_sertifikat = $request->kd_sertifikat;
@@ -227,7 +232,40 @@ class MemberController extends Controller
         $pendaftaran = PendaftaranProgram::where('kd_pengguna', $request->kd_pengguna)->first();
         $pendaftaran->status = 2;
         $pendaftaran->save();
-        
+
+        $kd_pengguna = DB::table('pendaftaran_program')
+                       ->where('kd_pendaftaran', $request->kd_pendaftaran)
+                       ->value('kd_pengguna');
+        // instance factory
+        $factory = (new Factory)
+            ->withServiceAccount('../blk-indramayu-firebase-adminsdk-440mz-4541ed6401.json')
+            ->withDatabaseUri('https://blk-indramayu.firebaseio.com');
+
+        $messaging = $factory->createMessaging();
+
+        $token = DB::table('member')
+                 ->where('kd_pengguna', $kd_pengguna)
+                 ->value('token');
+
+        $nama = DB::table('member')
+                ->where('kd_pengguna', $kd_pengguna)
+                ->value('nama_lengkap');
+        // end instance factory
+
+        // send notification
+        if($pendaftaran->save()){
+          $header = "Peserta Pelatihan BLK Indramayu";
+          $judul  = "Selamat " . $nama . ", anda telah lulus pelatihan dan sertifikat sudah diterbitkan!";
+
+          $message = CloudMessage::withTarget('token', $token)
+              ->withNotification(Notification::create($header, $judul))
+              ->withData([
+                  'jenis' => '5'
+              ]);
+
+          $messaging->send($message);
+        }
+
         return redirect('/admin/dataMember/sertifikat')->with('alert success', 'Sertifikat berhasil ditambahkan!');
     }
 
@@ -249,7 +287,7 @@ class MemberController extends Controller
                 $url_gambar= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
             }catch(Exception $e){
                 return redirect('/admin/dataMember/sertifikat')->with('alert danger', $e);
-            }  
+            }
 
             $sertifikat = Sertifikat::findOrFail($request->kd_sertifikat);
             $sertifikat->kd_sertifikat = $request->kd_sertifikat;
@@ -285,7 +323,7 @@ class MemberController extends Controller
             return response($qr_sertifikat)->header('Content-type','image/png');
         }
     }
-    
+
     //Ajax Controller
     public function ajax($id){
         $kota = Cities::where('id_provinsi', $id)->get();
@@ -294,14 +332,14 @@ class MemberController extends Controller
     }
 
     public function program($kd_pengguna){
-        
+
         $skema = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->get();
 
         if($skema->count()>0){
-            return response()->json($skema); 
+            return response()->json($skema);
             // $kd_program = SkemaPelatihan::where('kd_skema', $kd_skema)->value('kd_program');
             // $program = ProgramPelatihan::where('kd_program', $kd_program)->get();
-        }    
+        }
     }
 
     public function ajax2(Request $request){

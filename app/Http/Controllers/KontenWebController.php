@@ -499,7 +499,7 @@ class KontenWebController extends Controller
               ->withDatabaseUri('https://blk-indramayu.firebaseio.com');
 
           $messaging = $factory->createMessaging();
-          
+
           $member = DB::table('minat_member')
                     ->select('kd_pengguna')
                     ->where('kd_minat', $request->kd_minat)

@@ -14,6 +14,7 @@ use App\Profil;
 use App\Loker;
 use App\Minat;
 use Exception;
+use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
@@ -119,43 +120,43 @@ class KontenWebController extends Controller
                    ->select('token')
                    ->whereNotNull('token')
                    ->get();
-          $token = array();
 
-          foreach ($data as $value) { $token[] = $value; }
+          if($data->isNotEmpty()){
+            $token = array();
 
-          $messages = array();
-
-          foreach ($token as $value) {
-            if($request->kd_kategori_konten == "1311"){
-              $header = "Berita Terbaru!";
-              $message = CloudMessage::withTarget('token', $value->token)
-                  ->withNotification(Notification::create($header, $request->judul_konten))
-                  ->withData([
-                      'jenis' => '1'
-                  ]);
-              $messages[] = $message;
-            }else if($request->kd_kategori_konten == "1312"){
-              $header = "Pengumuman Terbaru!";
-              $message = CloudMessage::withTarget('token', $value->token)
-                  ->withNotification(Notification::create($header, $request->judul_konten))
-                  ->withData([
-                      'jenis' => '3'
-                  ]);
-              $messages[] = $message;
-            }else{
-              $header = "Poster Terbaru!";
-              $message = CloudMessage::withTarget('token', $value->token)
-                  ->withNotification(Notification::create($header, $request->judul_konten))
-                  ->withData([
-                      'jenis' => '4'
-                  ]);
-              $messages[] = $message;
+            foreach ($data as $value) { $token[] = $value; }
+  
+            $messages = array();
+  
+            foreach ($token as $value) {
+              if($request->kd_kategori_konten == "1311"){
+                $header = "Berita Terbaru!";
+                $message = CloudMessage::withTarget('token', $value->token)
+                    ->withNotification(Notification::create($header, $request->judul_konten))
+                    ->withData([
+                        'jenis' => '1'
+                    ]);
+                $messages[] = $message;
+              }else if($request->kd_kategori_konten == "1312"){
+                $header = "Pengumuman Terbaru!";
+                $message = CloudMessage::withTarget('token', $value->token)
+                    ->withNotification(Notification::create($header, $request->judul_konten))
+                    ->withData([
+                        'jenis' => '3'
+                    ]);
+                $messages[] = $message;
+              }else{
+                $header = "Poster Terbaru!";
+                $message = CloudMessage::withTarget('token', $value->token)
+                    ->withNotification(Notification::create($header, $request->judul_konten))
+                    ->withData([
+                        'jenis' => '4'
+                    ]);
+                $messages[] = $message;
+              }
             }
-
+            $messaging->sendAll($messages);
           }
-
-          $messaging->sendAll($messages);
-
         }
 
         return redirect('/admin/dataKonten/konten')->with('alert success', 'Konten berhasil ditambahkan!');
@@ -519,19 +520,21 @@ class KontenWebController extends Controller
 
               }
 
-              $messages = array();
-              $header = "Rekomendasi Pekerjaan!";
-
-              foreach ($token as $value) {
-                $message = CloudMessage::withTarget('token', $value->token)
-                    ->withNotification(Notification::create($header, $request->judul))
-                    ->withData([
-                        'jenis' => '2'
-                    ]);
-                $messages[] = $message;
+              if($token != null){
+                $messages = array();
+                $header = "Rekomendasi Pekerjaan!";
+  
+                foreach ($token as $value) {
+                  $message = CloudMessage::withTarget('token', $value->token)
+                      ->withNotification(Notification::create($header, $request->judul))
+                      ->withData([
+                          'jenis' => '2'
+                      ]);
+                  $messages[] = $message;
+                }
+  
+                $messaging->sendAll($messages);
               }
-
-              $messaging->sendAll($messages);
 
           }
 

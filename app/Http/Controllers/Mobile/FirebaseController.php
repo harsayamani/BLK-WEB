@@ -6,6 +6,7 @@ use App\Loker;
 use App\Konten;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB as DB;
+use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;

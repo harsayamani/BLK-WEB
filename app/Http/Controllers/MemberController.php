@@ -17,15 +17,11 @@ use App\Sertifikat;
 use App\PendaftaranProgram;
 use App\Minat;
 use Exception;
-<<<<<<< HEAD
-=======
-use Illuminate\Support\Facades\Mail as FacadesMail;
 use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
-use DB;
->>>>>>> 223ce51380db08a0bc95b48b7bfa35fc1327e89d
+use Illuminate\Support\Facades\DB as DB;
 
 class MemberController extends Controller
 {
@@ -210,7 +206,8 @@ class MemberController extends Controller
     public function tambah_sertifikat(Request $request){
 
         $this->validate($request, [
-            'kd_sertifikat=' => '|unique:sertifikat'
+            'kd_sertifikat=' => '|unique:sertifikat',
+            'kd_pendaftaran' => '|unique:sertifikat'
         ]);
 
         try{
@@ -254,18 +251,20 @@ class MemberController extends Controller
                 ->value('nama_lengkap');
         // end instance factory
 
-        // send notification
-        if($pendaftaran->save()){
-          $header = "Peserta Pelatihan BLK Indramayu";
-          $judul  = "Selamat " . $nama . ", anda telah lulus pelatihan dan sertifikat sudah diterbitkan!";
-
-          $message = CloudMessage::withTarget('token', $token)
-              ->withNotification(Notification::create($header, $judul))
-              ->withData([
-                  'jenis' => '5'
-              ]);
-
-          $messaging->send($message);
+        if($token != ""){
+            // send notification
+            if($pendaftaran->save()){
+                $header = "Peserta Pelatihan BLK Indramayu";
+                $judul  = "Selamat " . $nama . ", anda telah lulus pelatihan dan sertifikat sudah diterbitkan!";
+    
+                $message = CloudMessage::withTarget('token', $token)
+                    ->withNotification(Notification::create($header, $judul))
+                    ->withData([
+                        'jenis' => '5'
+                    ]);
+    
+                $messaging->send($message);
+            }   
         }
 
         return redirect('/admin/dataMember/sertifikat')->with('alert success', 'Sertifikat berhasil ditambahkan!');

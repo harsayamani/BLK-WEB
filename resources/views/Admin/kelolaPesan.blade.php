@@ -2,7 +2,7 @@
 
 @section('judul_tab', 'Pesan - AdminBLK')
     
-@section('active_menu_kelola_pesan', 'active')
+@section('active_menu_pesan', 'active')
 
 @section('content')
 
@@ -68,7 +68,7 @@
                                             <label for="pesan" class="control-label">Pesan</label>
                                             <textarea class="form-control" type="number" name="pesan" id="pesan" required></textarea>
                                         </div>
-                                        
+
                                         <br>
                                         <br>
                                         <div class="form-group">                                                

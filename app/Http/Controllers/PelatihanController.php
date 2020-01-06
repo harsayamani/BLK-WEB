@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\MemberExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Gelombang;
@@ -10,10 +9,10 @@ use App\ProgramPelatihan;
 use App\SkemaPelatihan;
 use App\PendaftaranProgram;
 use App\Member;
+use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB as DB;
 
 class PelatihanController extends Controller
@@ -229,18 +228,20 @@ class PelatihanController extends Controller
             $pendaftaran->status = 1;
             $pendaftaran->save();
 
-            // send notification
-            if($pendaftaran->save()){
-                $header = "Peserta Pelatihan BLK Indramayu";
-                $judul  = "Selamat " . $nama . ", anda sudah diterima menjadi peserta pelatihan!";
+            if($token != ""){
+                // send notification
+                if($pendaftaran->save()){
+                    $header = "Peserta Pelatihan BLK Indramayu";
+                    $judul  = "Selamat " . $nama . ", anda sudah diterima menjadi peserta pelatihan!";
 
-                $message = CloudMessage::withTarget('token', $token)
-                    ->withNotification(Notification::create($header, $judul))
-                    ->withData([
-                        'jenis' => '5'
-                    ]);
+                    $message = CloudMessage::withTarget('token', $token)
+                        ->withNotification(Notification::create($header, $judul))
+                        ->withData([
+                            'jenis' => '5'
+                        ]);
 
-                $messaging->send($message);
+                    $messaging->send($message);
+                }
             }
 
             return redirect('/admin/dataPelatihan/pendaftaran')->with('alert success', 'Pendaftaran berhasil. Anda sudah diterima menjadi peserta pelatihan!');
@@ -248,20 +249,22 @@ class PelatihanController extends Controller
             $pendaftaran->status = 0;
             $pendaftaran->save();
 
-            // send notification
-            if($pendaftaran->save()){
-              $header = "Peserta Pelatihan BLK Indramayu";
-              $judul  = $nama . ", dikarenakan kuota pelatihan sudah terpenuhi, maka anda masuk daftar tunggu!";
-
-              $message = CloudMessage::withTarget('token', $token)
-                  ->withNotification(Notification::create($header, $judul))
-                  ->withData([
-                      'jenis' => '5'
-                  ]);
-
-              $messaging->send($message);
+            if($token != ""){
+                // send notification
+                if($pendaftaran->save()){
+                    $header = "Peserta Pelatihan BLK Indramayu";
+                    $judul  = $nama . ", dikarenakan kuota pelatihan sudah terpenuhi, maka anda masuk daftar tunggu!";
+    
+                    $message = CloudMessage::withTarget('token', $token)
+                        ->withNotification(Notification::create($header, $judul))
+                        ->withData([
+                            'jenis' => '5'
+                        ]);
+    
+                    $messaging->send($message);
+                }
             }
-
+        
             return redirect('/admin/dataPelatihan/pendaftaran')->with('alert warning', 'Pendaftaran berhasil. Dikarenakan kuota pelatihan sudah terpenuhi, maka anda masuk daftar tunggu!');
         }
     }
@@ -300,39 +303,43 @@ class PelatihanController extends Controller
             $pendaftaran->status = 1;
             $pendaftaran->save();
 
-            // send notification
-            if($pendaftaran->save()){
-                $header = "Peserta Pelatihan BLK Indramayu";
-                $judul  = "Selamat " . $nama . ", anda sudah diterima menjadi peserta pelatihan!";
+            if($token != ""){
+                // send notification
+                if($pendaftaran->save()){
+                    $header = "Peserta Pelatihan BLK Indramayu";
+                    $judul  = "Selamat " . $nama . ", anda sudah diterima menjadi peserta pelatihan!";
 
-                $message = CloudMessage::withTarget('token', $token)
-                    ->withNotification(Notification::create($header, $judul))
-                    ->withData([
-                        'jenis' => '5'
-                    ]);
+                    $message = CloudMessage::withTarget('token', $token)
+                        ->withNotification(Notification::create($header, $judul))
+                        ->withData([
+                            'jenis' => '5'
+                        ]);
 
-                $messaging->send($message);
+                    $messaging->send($message);
+                }
             }
-
+            
             return redirect('/admin/dataPelatihan/pendaftaran')->with('alert success', 'Pendaftaran berhasil diubah. Anda sudah diterima menjadi peserta pelatihan!');
         }elseif ($count_daftar_skema >= $kuota_skema){
             $pendaftaran->status = 0;
             $pendaftaran->save();
 
-            // send notification
-            if($pendaftaran->save()){
-              $header = "Peserta Pelatihan BLK Indramayu";
-              $judul  = $nama . ", dikarenakan kuota pelatihan sudah terpenuhi, maka anda masuk daftar tunggu!";
-
-              $message = CloudMessage::withTarget('token', $token)
-                  ->withNotification(Notification::create($header, $judul))
-                  ->withData([
-                      'jenis' => '5'
-                  ]);
-
-              $messaging->send($message);
+            if($token != ""){
+                // send notification
+                if($pendaftaran->save()){
+                    $header = "Peserta Pelatihan BLK Indramayu";
+                    $judul  = $nama . ", dikarenakan kuota pelatihan sudah terpenuhi, maka anda masuk daftar tunggu!";
+    
+                    $message = CloudMessage::withTarget('token', $token)
+                        ->withNotification(Notification::create($header, $judul))
+                        ->withData([
+                            'jenis' => '5'
+                        ]);
+    
+                    $messaging->send($message);
+                }
             }
-
+        
             return redirect('/admin/dataPelatihan/pendaftaran')->with('alert warning', 'Pendaftaran berhasil diubah. Dikarenakan kuota pelatihan sudah terpenuhi, maka anda masuk daftar tunggu!');
         }
     }
@@ -345,7 +352,7 @@ class PelatihanController extends Controller
         $list_pendaftar_count = PendaftaranProgram::where('kd_skema', $kd_skema)->count();
         $kuota_skema = SkemaPelatihan::where('kd_skema', $kd_skema)->value('kuota');
         $kd_pengguna = PendaftaranProgram::where('kd_pendaftaran', $kd_pendaftaran)->value('kd_pengguna');
-        $nama = DB::('member')->where('kd_pengguna', $kd_pengguna)->value('nama_lengkap');
+        $nama = Member::where('kd_pengguna', $kd_pengguna)->value('nama_lengkap');
 
         // instance factory
         $factory = (new Factory)
@@ -365,22 +372,22 @@ class PelatihanController extends Controller
             $peserta->save();
             $pendaftaran->delete();
 
-            // send notification
-            if($peserta->save()){
-              $header = "Peserta Pelatihan BLK Indramayu";
-              $judul  = "Selamat " . $nama . ", anda sudah diterima menjadi peserta pelatihan!";
-
-              $message = CloudMessage::withTarget('token', $token)
-                  ->withNotification(Notification::create($header, $judul))
-                  ->withData([
-                      'jenis' => '5'
-                  ]);
-
-              $messaging->send($message);
-
+            if($token != ""){
+                // send notification
+                if($peserta->save()){
+                    $header = "Peserta Pelatihan BLK Indramayu";
+                    $judul  = "Selamat " . $nama . ", anda sudah diterima menjadi peserta pelatihan!";
+    
+                    $message = CloudMessage::withTarget('token', $token)
+                        ->withNotification(Notification::create($header, $judul))
+                        ->withData([
+                            'jenis' => '5'
+                        ]);
+    
+                    $messaging->send($message);
+                }
             }
-
-
+        
             return redirect('/admin/dataPelatihan/pendaftaran')->with('alert danger', 'Pendaftaran berhasil dihapus!');
         }else{
             $pendaftaran->delete();
@@ -407,18 +414,20 @@ class PelatihanController extends Controller
                  ->value('token');
         // end instance factory
 
-        // send notification
-        if($pendaftaran->save()){
-            $header = "Peserta Pelatihan BLK Indramayu";
-            $judul  = $nama_lengkap . ", hasil pelatihan anda sudah keluar!";
+        if($token != ""){
+            // send notification
+            if($pendaftaran->save()){
+                $header = "Peserta Pelatihan BLK Indramayu";
+                $judul  = $nama_lengkap . ", hasil pelatihan anda sudah keluar!";
 
-            $message = CloudMessage::withTarget('token', $token)
-                ->withNotification(Notification::create($header, $judul))
-                ->withData([
-                    'jenis' => '5'
-                ]);
+                $message = CloudMessage::withTarget('token', $token)
+                    ->withNotification(Notification::create($header, $judul))
+                    ->withData([
+                        'jenis' => '5'
+                    ]);
 
-            $messaging->send($message);
+                $messaging->send($message);
+            }
         }
 
         return redirect('/admin/dataPelatihan/pendaftaran')->with('alert danger', 'Konfirmasi peserta '.$nama_lengkap.' tidak lulus');

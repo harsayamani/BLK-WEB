@@ -64,8 +64,8 @@
 
                             <li class="nav-item">
                                 <a class="nav-link" href="/profilLembaga">Profil Lembaga</a>
-
                             </li>
+                            
                             <li class="nav-item dropdown has-submenu menu-large hidden-md-down hidden-sm-down hidden-xs-down">
                                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pelatihan</a>
                                 <ul class="dropdown-menu megamenu" aria-labelledby="dropdown01">

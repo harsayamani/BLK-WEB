@@ -16,6 +16,7 @@
 //Route Admin
 
 use Illuminate\Support\Facades\Route;
+use Facades\Yugo\SMSGateway\Interfaces\SMS;
 
 Route::get('/admin', 'AdminController@index');
 
@@ -30,6 +31,12 @@ Route::get('/admin/logout', 'AdminController@logout');
 Route::get('/admin/gantiPassword', 'AdminController@ganti_password_index');
 
 Route::post('/admin/gantiPasswordPost', 'AdminController@ganti_password_post');
+
+Route::get('/admin/kelolaPesan', 'AdminController@kelola_pesan');
+
+Route::post('/admin/kelolaPesan/kirim', 'AdminController@kirim_pesan');
+
+Route::post('/admin/kelolaPesan/kirimNomor', 'AdminController@kirim_pesan_nomor');
 
 //Route Member
 
@@ -229,3 +236,8 @@ Route::get('/validasiSertifikat', 'PublicController@validasi_sertifikat');
 Route::post('/validasiSertifikat/cari', 'PublicController@cari_sertifikat');
 
 Route::get('/alurPelatihan', 'PublicController@alur_pelatihan');
+
+Route::get('sms/send', function () {
+    return SMS::send(['083120615229'], 'Hai Dunia');
+    
+});

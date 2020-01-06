@@ -180,6 +180,8 @@ return [
         JD\Cloudder\CloudderServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Nexmo\Laravel\NexmoServiceProvider::class,
+        Yugo\SMSGateway\Providers\SmsServiceProvider::class,
     ],
 
     /*
@@ -232,6 +234,7 @@ return [
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
+        'Nexmo' => \Nexmo\Laravel\Facade\Nexmo::class,
     ],
 
 ];

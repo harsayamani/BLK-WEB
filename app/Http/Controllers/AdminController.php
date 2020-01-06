@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Facades\Yugo\SMSGateway\Interfaces\SMS;
 use App\Admin;
 use App\Member;
-use App\Pendaftaran;
 use App\PendaftaranProgram;
 
 class AdminController extends Controller
@@ -95,5 +95,36 @@ class AdminController extends Controller
         }else{
             return view('/admin/gantiPassword')->with('alert danger', 'Password Lama yang Anda Masukkan Salah ');
         }
+    }
+
+    public function kelola_pesan(){
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dulu');
+        }else{
+            $member = Member::all();
+
+			return view('/Admin/kelolaPesan', compact('member'));
+		}
+    }
+
+    public function kirim_pesan(Request $request){
+        if($request->member !=null){
+            for($i=0; $i<count($request->member); $i++){
+                $pesan = $request->pesan;
+                SMS::send([$request->member[$i]], $pesan);
+            }
+            return redirect('/admin/kelolaPesan')->with('alert modal success', 'Pesan telah terkirim');
+        }else{
+            return redirect('/admin/kelolaPesan')->with('alert modal danger', 'Pesan tidak terkirim');
+        }
+    }
+
+    public function kirim_pesan_nomor(Request $request){
+        $this->validate($request, [
+            'nomor=' => '|max:16|numeric|regex:/^([1-9][0-9]+)/',
+        ]);
+
+        SMS::send([$request->nomor], $request->pesan);
+        return redirect('/admin/kelolaPesan')->with('alert modal success', 'Pesan telah terkirim');
     }
 }

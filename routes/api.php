@@ -19,8 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('getDetailInfo', 'Mobile\InfoController@getDetailInfo');
 Route::get('getBerita', 'Mobile\InfoController@getBerita');
+Route::get('getPengumuman', 'Mobile\InfoController@getPengumuman');
 Route::get('getLoker', 'Mobile\InfoController@getLoker');
 Route::get('getSemuaBerita', 'Mobile\InfoController@getSemuaBerita');
+Route::get('getSemuaPengumuman', 'Mobile\InfoController@getSemuaPengumuman');
 Route::get('getSemuaLoker', 'Mobile\InfoController@getSemuaLoker');
 Route::get('getPoster', 'Mobile\InfoController@getPoster');
 Route::get('getProfilLembaga', 'Mobile\InfoController@getProfilLembaga');
@@ -43,9 +45,12 @@ Route::post('getSemuaLokerByMinat', 'Mobile\InfoController@getSemuaLokerByMinat'
 Route::get('getPelatihan', 'Mobile\PelatihanController@getPelatihan');
 Route::post('daftarPelatihan', 'Mobile\PelatihanController@daftarPelatihan');
 Route::post('getPelatihanByMember', 'Mobile\PelatihanController@getPelatihanByMember');
+Route::post('getSertifikatMember', 'Mobile\MemberController@getSertifikatMember');
 
 //tes
 Route::get('tes', 'Mobile\FirebaseController@tes');
 Route::get('tes2', 'Mobile\FirebaseController@tes2');
 Route::get('tesLoker', 'Mobile\FirebaseController@tesLokerNotif');
+Route::get('tesKonten', 'Mobile\FirebaseController@tesKonten');
 Route::get('tesMinat', 'Mobile\FirebaseController@tesMinat');
+Route::get('tesss', 'Mobile\InfoController@tesss');

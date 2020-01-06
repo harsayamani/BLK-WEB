@@ -14,6 +14,11 @@ use App\Profil;
 use App\Loker;
 use App\Minat;
 use Exception;
+use Kreait\Firebase;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
+use DB;
 
 class KontenWebController extends Controller
 {
@@ -28,7 +33,7 @@ class KontenWebController extends Controller
             return view('Admin/kelolaKategoriKonten', compact('kategori_konten', 'i'));
         }
 
-        
+
     }
 
     public function tambah_kategori_konten(Request $request){
@@ -44,7 +49,7 @@ class KontenWebController extends Controller
         $kategori_konten->save();
 
         return redirect('/admin/dataKonten/kategoriKonten')->with('alert success', 'Kategori berhasil ditambahkan!');
-    } 
+    }
 
     public function ubah_kategori_konten(Request $request){
 
@@ -93,7 +98,7 @@ class KontenWebController extends Controller
             $url_foto = Cloudder::getPublicId();
         }catch(Exception $e){
             return redirect('/admin/dataKonten/konten')->with('alert danger', $e);
-        }   
+        }
 
         $konten = new Konten();
         $konten->judul_konten = $request->judul_konten;
@@ -102,6 +107,57 @@ class KontenWebController extends Controller
         $konten->foto = $url_foto;
         $konten->tgl_rilis = $request->tgl_rilis;
         $konten->save();
+
+        // send notification
+        if($konten->save()){
+          $factory = (new Factory)
+              ->withServiceAccount('../blk-indramayu-firebase-adminsdk-440mz-4541ed6401.json')
+              ->withDatabaseUri('https://blk-indramayu.firebaseio.com');
+
+          $messaging = $factory->createMessaging();
+
+          $data = DB::table('member')
+                   ->select('token')
+                   ->whereNotNull('token')
+                   ->get();
+          $token = array();
+
+          foreach ($data as $value) { $token[] = $value; }
+
+          $messages = array();
+
+          foreach ($token as $value) {
+            if($ktgri == "1311"){
+              $header = "Berita Terbaru!";
+              $message = CloudMessage::withTarget('token', $value->token)
+                  ->withNotification(Notification::create($header, $request->judul_konten))
+                  ->withData([
+                      'jenis' => '1'
+                  ]);
+              $messages[] = $message;
+            }else if($ktgri == "1312"){
+              $header = "Pengumuman Terbaru!";
+              $message = CloudMessage::withTarget('token', $value->token)
+                  ->withNotification(Notification::create($header, $request->judul_konten))
+                  ->withData([
+                      'jenis' => '3'
+                  ]);
+              $messages[] = $message;
+            }else{
+              $header = "Poster Terbaru!";
+              $message = CloudMessage::withTarget('token', $value->token)
+                  ->withNotification(Notification::create($header, $request->judul_konten))
+                  ->withData([
+                      'jenis' => '4'
+                  ]);
+              $messages[] = $message;
+            }
+
+          }
+
+          $messaging->sendAll($messages);
+
+        }
 
         return redirect('/admin/dataKonten/konten')->with('alert success', 'Konten berhasil ditambahkan!');
     }
@@ -131,8 +187,8 @@ class KontenWebController extends Controller
                 $url_foto= Cloudder::getPublicId();
             }catch(Exception $e){
                 return redirect('/admin/dataKonten/konten')->with('alert danger', $e);
-            }   
-    
+            }
+
             $konten = Konten::findOrFail($request->kd_konten);
             $konten->judul_konten = $request->judul_konten;
             $konten->isi_konten = $request->isi_konten;
@@ -228,7 +284,7 @@ class KontenWebController extends Controller
             return redirect('/admin/dataKonten/galeri')->with('alert success', "File berhasil ditambahkan!");
         }catch(Exception $e){
             return redirect('/admin/dataKonten/galeri')->with('alert danger', $e);
-        }  
+        }
     }
 
     public function hapus_galeri($kd_galeri, $url_galeri){
@@ -272,7 +328,7 @@ class KontenWebController extends Controller
             $url_struk_org= Cloudder::getPublicId();
         }catch(Exception $e){
             return redirect('/admin/dataKonten/profil')->with('alert danger', $e);
-        }    
+        }
 
         $profil = new Profil();
         $profil->kd_profil = $request->kd_profil;
@@ -306,7 +362,7 @@ class KontenWebController extends Controller
                 $url_visi_misi= Cloudder::getPublicId();
             }catch(Exception $e){
                 return redirect('/admin/dataKonten/profil')->with('alert danger', $e);
-            } 
+            }
 
             $profil = Profil::findOrFail($request->kd_profil);
             $profil->kd_profil = $request->kd_profil;
@@ -331,7 +387,7 @@ class KontenWebController extends Controller
             }catch(Exception $e){
                 return redirect('/admin/dataKonten/profil')->with('alert danger', $e);
             }
-            
+
             $profil = Profil::findOrFail($request->kd_profil);
             $profil->kd_profil = $request->kd_profil;
             $profil->struktur_organisasi = $url_struk_org;
@@ -352,7 +408,7 @@ class KontenWebController extends Controller
                 $visi_misi = $request->visi_misi;
                 Cloudder::upload($visi_misi);
                 $url_visi_misi= Cloudder::getPublicId();
-    
+
                 //Upload foto ke cloudinary
                 $struk_org_old = Profil::where('kd_profil', $request->kd_profil)->value('struk_org_old');
                 Cloudder::destroy($struk_org_old);
@@ -372,7 +428,7 @@ class KontenWebController extends Controller
             $profil->kontak = $request->kontak;
             $profil->alamat = $request->alamat;
             $profil->save();
-    
+
             return redirect('/admin/dataKonten/profil')->with('alert success', 'Profil berhasil diubah!');
 
         }else {
@@ -383,9 +439,9 @@ class KontenWebController extends Controller
             $profil->kontak = $request->kontak;
             $profil->alamat = $request->alamat;
             $profil->save();
-    
+
             return redirect('/admin/dataKonten/profil')->with('alert success', 'Profil berhasil diubah!');
-        }  
+        }
     }
 
     public function hapus_profil($kd_profil){
@@ -427,7 +483,7 @@ class KontenWebController extends Controller
             $url_foto = Cloudder::getPublicId();
         }catch(Exception $e){
             return redirect('/admin/dataKonten/loker')->with('alert danger', $e);
-        }   
+        }
 
         $loker = new Loker();
         $loker->judul = $request->judul;
@@ -436,6 +492,51 @@ class KontenWebController extends Controller
         $loker->foto = $url_foto;
         $loker->tgl_rilis = $request->tgl_rilis;
         $loker->save();
+
+        //send notification
+        if($loker->save()){
+          $factory = (new Factory)
+              ->withServiceAccount('../blk-indramayu-firebase-adminsdk-440mz-4541ed6401.json')
+              ->withDatabaseUri('https://blk-indramayu.firebaseio.com');
+
+          $messaging = $factory->createMessaging();
+          
+          $member = DB::table('minat_member')
+                    ->select('kd_pengguna')
+                    ->where('kd_minat', $minat)
+                    ->get();
+
+          if($member){
+              $token = array();
+
+              foreach ($member as $key) {
+                $data = DB::table('member')
+                         ->select('token')
+                         ->whereNotNull('token')
+                         ->where('kd_pengguna', $key->kd_pengguna)
+                         ->get();
+
+                foreach ($data as $value) { $token[] = $value; }
+
+              }
+
+              $messages = array();
+              $header = "Rekomendasi Pekerjaan!";
+
+              foreach ($token as $value) {
+                $message = CloudMessage::withTarget('token', $value->token)
+                    ->withNotification(Notification::create($header, $judul))
+                    ->withData([
+                        'jenis' => '2'
+                    ]);
+                $messages[] = $message;
+              }
+
+              $messaging->sendAll($messages);
+
+          }
+
+        }
 
         return redirect('/admin/dataKonten/loker')->with('alert success', 'Lowongan Pekerjaan berhasil ditambahkan!');
     }
@@ -462,8 +563,8 @@ class KontenWebController extends Controller
                 $url_foto= Cloudder::getPublicId();
             }catch(Exception $e){
                 return redirect('/admin/dataKonten/konten')->with('alert danger', $e);
-            }   
-    
+            }
+
             $loker = Loker::findOrFail($request->kd_loker);
             $loker->judul = $request->judul;
             $loker->isi = $request->isi;

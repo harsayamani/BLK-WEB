@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mobile;
 
 use App\Loker;
+use App\Konten;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -76,7 +77,8 @@ class FirebaseController extends Controller
             'judul' => $judul,
             'isi' => $isi,
             'foto' => 'contohloker.jpg',
-            'kategori_minat' => $minat
+            'tgl_rilis' => '10 Jan 2020',
+            'kd_minat' => $minat
         );
 
         $create = Loker::create($loker);
@@ -111,7 +113,7 @@ class FirebaseController extends Controller
                 $message = CloudMessage::withTarget('token', $value->token)
                     ->withNotification(Notification::create($header, $judul))
                     ->withData([
-                      'jenis' => '2',
+                        'jenis' => '2'
                     ]);
                 $messages[] = $message;
               }
@@ -130,6 +132,71 @@ class FirebaseController extends Controller
             'message' => ['Loker Gagal']
           ], 200);
         }
+    }
+
+    public function tesKonten(){
+      $factory = (new Factory)
+          ->withServiceAccount('../blk-indramayu-firebase-adminsdk-440mz-4541ed6401.json')
+          ->withDatabaseUri('https://blk-indramayu.firebaseio.com');
+
+      $messaging = $factory->createMessaging();
+
+      $judul = "Seorang Pelajar Sukses...";
+      $isi   = "Ini Isi beritanya gaes";
+      $ktgri = "1313"; //1311 berita, 1312 pengumuman, 1313 poster
+      $foto  = "url";
+      $tgl   = "20 Jan 2021";
+
+      $konten = new Konten();
+      $konten->judul_konten = $judul;
+      $konten->isi_konten = $isi;
+      $konten->kd_kategori = $ktgri;
+      $konten->foto = $foto;
+      $konten->tgl_rilis = $tgl;
+
+      if($konten->save()){
+        $data = DB::table('member')
+                 ->select('token')
+                 ->whereNotNull('token')
+                 ->get();
+        $token = array();
+
+        foreach ($data as $value) {
+            $token[] = $value;
+        }
+
+        $messages = array();
+        $header = "Berita Terbaru!";
+
+        foreach ($token as $value) {
+          if($ktgri == "1311"){
+            $message = CloudMessage::withTarget('token', $value->token)
+                ->withNotification(Notification::create($header, $judul))
+                ->withData([
+                    'jenis' => '1'
+                ]);
+            $messages[] = $message;
+          }else if($ktgri == "1312"){
+            $message = CloudMessage::withTarget('token', $value->token)
+                ->withNotification(Notification::create($header, $judul))
+                ->withData([
+                    'jenis' => '3'
+                ]);
+            $messages[] = $message;
+          }else{
+            $message = CloudMessage::withTarget('token', $value->token)
+                ->withNotification(Notification::create($header, $judul))
+                ->withData([
+                    'jenis' => '4'
+                ]);
+            $messages[] = $message;
+          }
+
+        }
+
+        $messaging->sendAll($messages);
+
+      }
     }
 
     public function tesMinat(){

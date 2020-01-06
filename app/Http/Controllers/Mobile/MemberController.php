@@ -38,7 +38,7 @@ class MemberController extends Controller
         }else{
           if ($auth->attempt($credentials)) {
               $data = DB::table('member')
-                      ->select('kd_pengguna', 'nomor_ktp', 'nama_lengkap', 'kota.nama as tempat_lahir', 'tgl_lahir', 'jenis_kelamin', 'alamat_lengkap', 'prov.nama as provinsi', 'kota.nama as kabupaten_kota', 'member.kodepos', 'pend_terakhir', 'thn_ijazah', 'nomor_kontak', 'ukuran_baju', 'ukuran_sepatu', 'username', 'password', 'email', 'status', 'member.created_at', 'member.updated_at')
+                      ->select('kd_pengguna', 'nomor_ktp', 'nama_lengkap', 'kota.nama as tempat_lahir', 'tgl_lahir', 'jenis_kelamin', 'alamat_lengkap', 'prov.nama as provinsi', 'kota.nama as kabupaten_kota', 'member.kodepos', 'pend_terakhir', 'thn_ijazah', 'nomor_kontak', 'ukuran_baju', 'ukuran_sepatu', 'username', 'password', 'email', 'member.created_at', 'member.updated_at')
                       ->join('cities as kota', 'kota.id', '=', 'member.tempat_lahir')
                       ->join('province as prov', 'prov.id', '=', 'member.provinsi')
                       ->where('username', $request->username)
@@ -96,6 +96,7 @@ class MemberController extends Controller
             ], 200);
           }else{
             $member = array(
+                'kd_pengguna'   => Member::all()->last()->kd_pengguna+1,
                 'nomor_ktp'     => $request->nomor_ktp,
                 'nama_lengkap'  => $request->nama_lengkap,
                 'tempat_lahir'  => $request->tempat_lahir,
@@ -106,9 +107,11 @@ class MemberController extends Controller
                 'alamat_lengkap'=> $request->alamat_lengkap,
                 'kodepos'       => $request->kodepos,
                 'username'      => $request->username,
-                'password'      => $request->password,
-                'email'         => $request->email,
-                'status'        => $request->status
+                'password'      => Hash::make($request->password, [
+                    'rounds' => 12
+                ]),
+                'email'         => $request->email
+                //'status'        => $request->status
             );
 
             $create = Member::create($member);
@@ -294,7 +297,7 @@ class MemberController extends Controller
 
       $data = DB::table('member')
               ->select('kd_pengguna', 'nomor_ktp', 'nama_lengkap', 'kotalahir.nama as tempat_lahir','kotalahir.id as id_kotalahir', 'tgl_lahir', 'jenis_kelamin', 'alamat_lengkap', 'prov.nama as provinsi', 'prov.id as id_provinsi' ,'kota.nama as kabupaten_kota','kota.id as id_kota','member.kodepos', 'pend_terakhir', 'thn_ijazah', 'nomor_kontak', 'ukuran_baju', 'ukuran_sepatu', 'username', 'password',
-               'email', 'status', 'member.created_at', 'member.updated_at')
+               'email', 'member.created_at', 'member.updated_at')
               ->join('cities as kotalahir', 'kotalahir.id', '=', 'member.tempat_lahir')
               ->join('cities as kota', 'kota.id', '=', 'member.kabupaten_kota')
               ->join('province as prov', 'prov.id', '=', 'member.provinsi')
@@ -312,6 +315,18 @@ class MemberController extends Controller
           'message' => ['Success!'],
           'data_member' => $data,
           'minat_member' => $minat
+      ]);
+    }
+
+    public function getSertifikatMember(Request $request){
+      $kd_pendaftaran = $request->kd_pendaftaran;
+
+      $sertifikat = DB::table('sertifikat')->where('kd_pendaftaran', $kd_pendaftaran)->get();
+
+      return response()->json([
+          'status_code' => 0,
+          'data' => $sertifikat,
+          'message' => 'Success!',
       ]);
     }
 

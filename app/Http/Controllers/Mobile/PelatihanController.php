@@ -48,7 +48,11 @@ class PelatihanController extends Controller
         $jam = str_replace(':','', $tgl);
         //$rand = $jam . rand(1, 1000);
         //$kdPendaftaran = str_replace(' ','',$rand);
-        $kdPendaftaran = $jam . '-' . $kdSkema . '-' . $kdPengguna;
+
+        //versi lama
+        //$kdPendaftaran = $jam . '-' . $kdSkema . '-' . $kdPengguna;
+        //versi terbaru
+        $kdPendaftaran = PendaftaranProgram::all()->last()->kd_pendaftaran+1;
 
         $cek = DB::table('pendaftaran_program')
                ->where('kd_skema', $kdSkema)

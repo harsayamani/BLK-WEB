@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mobile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use App\PendaftaranProgram;
 
 class InfoController extends Controller
 {
@@ -20,9 +21,9 @@ class InfoController extends Controller
                   ->get();
       }else if($tipe == 2){
           $data = DB::table('loker')
-                  ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
-                  ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
-                  ->where('id', $kd)
+                  ->select('kd_loker as id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'loker.created_at as tgl_upload')
+                  ->join('minat', 'minat.kd_minat', '=', 'loker.kd_minat')
+                  ->where('kd_loker', $kd)
                   ->get();
       }else{
           $data = false;
@@ -46,7 +47,7 @@ class InfoController extends Controller
       $berita = DB::table('konten')
                 ->select('kd_konten as id', 'judul_konten as judul', 'kategori.kategori_konten' ,'isi_konten', 'foto', 'konten.created_at as tgl_upload')
                 ->join('kategori_konten as kategori', 'kategori.kd_kategori_konten', '=', 'konten.kd_kategori')
-                ->where('kd_kategori', '1')
+                ->where('kd_kategori', '1311')
                 ->orderBy('konten.created_at', 'DESC')
                 ->take(5)
                 ->get();
@@ -70,7 +71,7 @@ class InfoController extends Controller
       $berita = DB::table('konten')
                 ->select('kd_konten as id', 'judul_konten as judul', 'kategori.kategori_konten' ,'isi_konten', 'foto', 'konten.created_at as tgl_upload')
                 ->join('kategori_konten as kategori', 'kategori.kd_kategori_konten', '=', 'konten.kd_kategori')
-                ->where('kd_kategori', '1')
+                ->where('kd_kategori', '1311')
                 ->get();
 
       if($berita){
@@ -88,11 +89,56 @@ class InfoController extends Controller
 
     }
 
+    public function getPengumuman(){
+      $pengumuman = DB::table('konten')
+                ->select('kd_konten as id', 'judul_konten as judul', 'kategori.kategori_konten' ,'isi_konten', 'foto', 'konten.created_at as tgl_upload')
+                ->join('kategori_konten as kategori', 'kategori.kd_kategori_konten', '=', 'konten.kd_kategori')
+                ->where('kd_kategori', '1312')
+                ->orderBy('konten.created_at', 'DESC')
+                ->take(5)
+                ->get();
+
+      if($pengumuman){
+        return response()->json([
+          'status_code' => 200,
+          'data' => $pengumuman,
+          'message' => 'Success!'
+        ], 200);
+      }else{
+        return response()->json([
+          'status_code' => 400,
+          'message' => 'Failed!'
+        ], 200);
+      }
+    }
+
+    public function getSemuaPengumuman(){
+      $pengumuman = DB::table('konten')
+                ->select('kd_konten as id', 'judul_konten as judul', 'kategori.kategori_konten' ,'isi_konten', 'foto', 'konten.created_at as tgl_upload')
+                ->join('kategori_konten as kategori', 'kategori.kd_kategori_konten', '=', 'konten.kd_kategori')
+                ->where('kd_kategori', '1312')
+                ->get();
+
+      if($pengumuman){
+        return response()->json([
+          'status_code' => 200,
+          'data' => $pengumuman,
+          'message' => 'Success!'
+        ], 200);
+      }else{
+        return response()->json([
+          'status_code' => 400,
+          'message' => 'Failed!'
+        ], 200);
+      }
+
+    }
+
     public function getLoker(){
       $loker = DB::table('loker')
-                ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
-                ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
-                ->orderBy('created_at', 'DESC')
+                ->select('kd_loker as id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'loker.created_at as tgl_upload')
+                ->join('minat', 'minat.kd_minat', '=', 'loker.kd_minat')
+                ->orderBy('loker.created_at', 'DESC')
                 ->take(5)
                 ->get();
 
@@ -112,8 +158,8 @@ class InfoController extends Controller
 
     public function getSemuaLoker(){
       $loker = DB::table('loker')
-                ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
-                ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
+                ->select('kd_loker as id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'loker.created_at as tgl_upload')
+                ->join('minat', 'minat.kd_minat', '=', 'loker.kd_minat')
                 ->get();
 
       if($loker){
@@ -139,10 +185,10 @@ class InfoController extends Controller
       for($i = 0; $i < sizeof($listMinat); $i++){
         $temp = $data;
         $loker = DB::table('loker')
-                  ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
-                  ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
-                  ->where('loker.kategori_minat', $listMinat[$i])
-                  ->orderBy('created_at', 'DESC')
+                  ->select('kd_loker as id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'loker.created_at as tgl_upload')
+                  ->join('minat', 'minat.kd_minat', '=', 'loker.kd_minat')
+                  ->where('loker.kd_minat', $listMinat[$i])
+                  ->orderBy('loker.created_at', 'DESC')
                   ->get()
                   ->toArray();
 
@@ -169,10 +215,10 @@ class InfoController extends Controller
       for($i = 0; $i < sizeof($listMinat); $i++){
         $temp = $data;
         $loker = DB::table('loker')
-                  ->select('id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'created_at as tgl_upload')
-                  ->join('minat', 'minat.id_minat', '=', 'loker.kategori_minat')
-                  ->where('loker.kategori_minat', $listMinat[$i])
-                  ->orderBy('created_at', 'DESC')
+                  ->select('kd_loker as id', 'judul', 'minat.minat as kategori_konten', 'isi as isi_konten' ,'foto', 'loker.created_at as tgl_upload')
+                  ->join('minat', 'minat.kd_minat', '=', 'loker.kd_minat')
+                  ->where('loker.kd_minat', $listMinat[$i])
+                  ->orderBy('loker.created_at', 'DESC')
                   ->get()
                   ->toArray();
 
@@ -205,7 +251,9 @@ class InfoController extends Controller
 
     //mengampil data minat untuk dipilih oleh member
     public function getMinat(){
-      $minat = DB::table('minat')->get();
+      $minat = DB::table('minat')
+               ->select('kd_minat as id_minat', 'minat')
+               ->get();
 
       if($minat){
         return response()->json([
@@ -223,9 +271,10 @@ class InfoController extends Controller
 
     public function getPoster(){
       $poster = DB::table('konten')
-                ->select('kd_konten as id', 'judul_konten as judul', 'isi_konten' ,'foto as poster', 'created_at as tgl_upload')
-                ->where('kd_kategori', '3')
-                ->orderBy('created_at', 'DESC')
+                ->select('kd_konten as id', 'judul_konten as judul', 'kategori.kategori_konten','isi_konten' ,'foto as poster', 'konten.created_at as tgl_upload')
+                ->join('kategori_konten as kategori', 'kategori.kd_kategori_konten', '=', 'konten.kd_kategori')
+                ->where('kd_kategori', '1313')
+                ->orderBy('konten.created_at', 'DESC')
                 ->take(5)
                 ->get();
 
@@ -279,5 +328,16 @@ class InfoController extends Controller
           'kontak' => $kontak,
           'email' => $email
       ], 200);
+    }
+
+    public function tesss(){
+        $pendaftaran = PendaftaranProgram::all()->last()->kd_pendaftaran;
+        $peserta = 12;
+        $naik = $pendaftaran+$peserta;
+        return response()->json([
+          'pendaftar akhir' => $pendaftaran,
+          'penambahan peserta' => $peserta,
+          'pendaftar terupdate' => $naik
+        ]);
     }
 }

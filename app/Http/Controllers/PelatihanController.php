@@ -9,6 +9,11 @@ use App\ProgramPelatihan;
 use App\SkemaPelatihan;
 use App\PendaftaranProgram;
 use App\Member;
+use Kreait\Firebase;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Messaging\CloudMessage;
+use Kreait\Firebase\Messaging\Notification;
+use DB;
 
 class PelatihanController extends Controller
 {
@@ -36,7 +41,7 @@ class PelatihanController extends Controller
         $gelombang->save();
 
         return redirect('/admin/dataPelatihan/gelombang')->with('alert success', 'Gelombang berhasil ditambahkan!');
-    } 
+    }
 
     public function ubah_gelombang(Request $request){
 
@@ -84,7 +89,7 @@ class PelatihanController extends Controller
         $program->save();
 
         return redirect('/admin/dataPelatihan/program')->with('alert success', 'Program berhasil ditambahkan!');
-    } 
+    }
 
     public function ubah_program(Request $request){
 
@@ -112,7 +117,7 @@ class PelatihanController extends Controller
         $skema = SkemaPelatihan::all();
         $program = ProgramPelatihan::all();
         $gelombang = Gelombang::all();
-      
+
         $i = 0;
         // dd($program);
 
@@ -144,7 +149,7 @@ class PelatihanController extends Controller
         $skema->save();
 
         return redirect('/admin/dataPelatihan/skema')->with('alert success', 'Skema berhasil ditambahkan!');
-    } 
+    }
 
     public function ubah_skema(Request $request){
 
@@ -166,7 +171,7 @@ class PelatihanController extends Controller
         $skema->save();
 
         return redirect('/admin/dataPelatihan/skema')->with('alert success', 'Skema berhasil diubah!');
-    } 
+    }
 
     public function hapus_skema($kd_skema){
         $skema = SkemaPelatihan::findOrFail($kd_skema);
@@ -179,7 +184,7 @@ class PelatihanController extends Controller
         $skema = SkemaPelatihan::all();
         $member = Member::all();
         $pendaftaran = PendaftaranProgram::orderBy('kd_skema', 'asc')->get();
-      
+
         $i = 0;
 
         if(!Session::get('loginAdmin')){
@@ -228,13 +233,59 @@ class PelatihanController extends Controller
         $kuota_skema = SkemaPelatihan::where('kd_skema', $request->kd_skema)->value('kuota');
         $count_daftar_skema = PendaftaranProgram::where('kd_skema', $request->kd_skema)->count();
 
+        // instance factory
+        $factory = (new Factory)
+            ->withServiceAccount('../blk-indramayu-firebase-adminsdk-440mz-4541ed6401.json')
+            ->withDatabaseUri('https://blk-indramayu.firebaseio.com');
+
+        $messaging = $factory->createMessaging();
+
+        $token = DB::table('member')
+                 ->where('kd_pengguna', $request->kd_pengguna)
+                 ->value('token');
+
+        $nama = DB::table('member')
+                ->where('kd_pengguna', $request->kd_pengguna)
+                ->value('nama_lengkap');
+        // end instance factory
+
         if($count_daftar_skema < $kuota_skema){
             $pendaftaran->status = 1;
             $pendaftaran->save();
+
+            // send notification
+            if($pendaftaran->save()){
+                $header = "Peserta Pelatihan BLK Indramayu";
+                $judul  = "Selamat " . $nama . ", anda sudah diterima menjadi peserta pelatihan!";
+
+                $message = CloudMessage::withTarget('token', $token)
+                    ->withNotification(Notification::create($header, $judul))
+                    ->withData([
+                        'jenis' => '5'
+                    ]);
+
+                $messaging->send($message);
+            }
+
             return redirect('/admin/dataPelatihan/pendaftaran')->with('alert success', 'Pendaftaran berhasil diubah. Anda sudah diterima menjadi peserta pelatihan!');
         }elseif ($count_daftar_skema >= $kuota_skema){
             $pendaftaran->status = 0;
             $pendaftaran->save();
+
+            // send notification
+            if($pendaftaran->save()){
+              $header = "Peserta Pelatihan BLK Indramayu";
+              $judul  = $nama . ", dikarenakan kuota pelatihan sudah terpenuhi, maka anda masuk daftar tunggu!";
+
+              $message = CloudMessage::withTarget('token', $token)
+                  ->withNotification(Notification::create($header, $judul))
+                  ->withData([
+                      'jenis' => '5'
+                  ]);
+
+              $messaging->send($message);
+            }
+
             return redirect('/admin/dataPelatihan/pendaftaran')->with('alert warning', 'Pendaftaran berhasil diubah. Dikarenakan kuota pelatihan sudah terpenuhi, maka anda masuk daftar tunggu!');
         }
     }
@@ -263,7 +314,35 @@ class PelatihanController extends Controller
         $pendaftaran = PendaftaranProgram::where('kd_pendaftaran', $kd_pendaftaran)->first();
         $pendaftaran->status = 3;
         $pendaftaran->save();
+
         $nama_lengkap = Member::where('kd_pengguna', $pendaftaran->kd_pengguna)->value('nama_lengkap');
+
+        // instance factory
+        $factory = (new Factory)
+            ->withServiceAccount('../blk-indramayu-firebase-adminsdk-440mz-4541ed6401.json')
+            ->withDatabaseUri('https://blk-indramayu.firebaseio.com');
+
+        $messaging = $factory->createMessaging();
+
+        $token = DB::table('member')
+                 ->where('kd_pengguna', $pendaftaran->kd_pengguna)
+                 ->value('token');
+        // end instance factory
+
+        // send notification
+        if($pendaftaran->save()){
+            $header = "Peserta Pelatihan BLK Indramayu";
+            $judul  = $nama_lengkap . ", hasil pelatihan anda sudah keluar!"
+
+            $message = CloudMessage::withTarget('token', $token)
+                ->withNotification(Notification::create($header, $judul))
+                ->withData([
+                    'jenis' => '5'
+                ]);
+
+            $messaging->send($message);
+        }
+
         return redirect('/admin/dataPelatihan/pendaftaran')->with('alert danger', 'Konfirmasi peserta '.$nama_lengkap.' tidak lulus');
     }
 }

@@ -23,6 +23,7 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="/member/img/favicon.ico">
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.css" rel="stylesheet" />
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -191,6 +192,16 @@
 
     <!-- JavaScript files-->
     <script src="/member/vendor/jquery/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/3.5.4/select2.min.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $(".select2").select2({
+              placeholder: 'Pilih minat'
+            });
+        });
+    </script>    
+    
     <script src="/member/vendor/popper.js/umd/popper.min.js"> </script>
     <script src="/member/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="/member/vendor/jquery.cookie/jquery.cookie.js"> </script>

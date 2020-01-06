@@ -223,3 +223,7 @@ Route::get('/jadwalPelatihan', 'PublicController@jadwal_pelatihan');
 Route::get('/jadwalPelatihan/{kd_gelombang}', 'PublicController@jadwal_pelatihan');
 
 Route::post('/jadwalPelatihan/filter', 'PublicController@filter_jadwal');
+
+Route::get('/validasiSertifikat', 'PublicController@validasi_sertifikat');
+
+Route::post('/validasiSertifikat/cari', 'PublicController@cari_sertifikat');

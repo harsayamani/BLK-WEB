@@ -13,6 +13,7 @@ use App\SkemaPelatihan;
 use App\Province;
 use App\Cities;
 use App\Minat;
+use App\MinatMember;
 use App\Sertifikat;
 use App\Gelombang;
 use Exception;
@@ -49,7 +50,7 @@ class MemberSideController extends Controller
 
     public function logout(){
         if(Session::get('loginMember')){
-            Session::flush('loginMember');
+            Session()->forget('loginMember');
             return redirect('/login')->with('alert','Anda sudah logout');
         } 
     }
@@ -121,6 +122,7 @@ class MemberSideController extends Controller
                 $program = ProgramPelatihan::where('kd_program', $skema->kd_program)->first();
                 $skema_all = SkemaPelatihan ::where('kd_skema', $pendaftaran->kd_skema)->get();   
             }
+
 			return view('/Member/dashboardMember', compact('nama_lengkap', 'kd_pengguna', 'pendaftaran', 'skema', 'program', 'member', 'skema_all'));
         }        
     }
@@ -136,7 +138,9 @@ class MemberSideController extends Controller
             $kota = Cities::all();
             $provinsi = Province::all();
             $minat = Minat::all();
-            return view('/Member/akunMember', compact('nama_lengkap', 'kd_pengguna', 'member', 'kota', 'provinsi', 'minat'));
+            $minatMember = MinatMember::where('kd_pengguna', $kd_pengguna)->get();
+
+            return view('/Member/akunMember', compact('nama_lengkap', 'kd_pengguna', 'member', 'kota', 'provinsi', 'minat', 'minatMember'));
         }
     }
 
@@ -180,7 +184,22 @@ class MemberSideController extends Controller
             }else{
                 $member->ukuran_sepatu = $request->ukuran_sepatu_lain;
             }
-    
+
+            $minatMember = MinatMember::where('kd_pengguna', $request->kd_pengguna);
+
+            if($minatMember!=null){
+                $minatMember->delete($minatMember);
+            }
+
+            if($request->kd_minat!=null){
+                for($i=0; $i<count($request->kd_minat); $i++){
+                    $minat = new MinatMember();
+                    $minat->kd_minat = $request->kd_minat[$i];
+                    $minat->kd_pengguna = $request->kd_pengguna;
+                    $minat->save();
+                }
+            }
+            
             $member->username = $request->username;
             $member->password = $request->password;
             $member->email = $request->email;
@@ -196,7 +215,8 @@ class MemberSideController extends Controller
         }else{
             $nama_lengkap = Session::get('nama_lengkap');
             $kd_pengguna = Session::get('kd_pengguna');
-            $sertifikat = Sertifikat::where('kd_pengguna', $kd_pengguna)->get();
+            $pendaftaran = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->value('kd_pendaftaran');
+            $sertifikat = Sertifikat::where('kd_pendaftaran', $pendaftaran)->get();
             $i = 0;
 
             return view('/Member/sertifikatMember', compact('nama_lengkap', 'kd_pengguna', 'sertifikat', 'i'));

@@ -155,9 +155,7 @@
                     <div class="widget">
                         <h2 class="widget-title">Galeri</h2>
                         <div class="trend-videos">
-
                             @foreach($galeri as $gal)
-                                
                             <div class="blog-box">
                                 <div class="post-media">
                                     <a href="{{JD\Cloudder\Facades\Cloudder::show($gal->url_galeri, ['width'=>800, 'height'=>460])}}" title="">

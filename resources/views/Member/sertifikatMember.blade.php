@@ -39,8 +39,8 @@
                             </a>
                         </td>
                         <td>{{$sertifikat->kd_sertifikat}}</td>
-                        <td>{{App\Member::where('kd_pengguna', $sertifikat->kd_pengguna)->value('nama_lengkap')}}</td>
-                        <td>{{App\ProgramPelatihan::where('kd_program', $sertifikat->kd_program)->value('nama_program')}}</td>
+                        <td>{{App\Member::where('kd_pengguna', App\PendaftaranProgram::where('kd_pendaftaran', $sertifikat->kd_pendaftaran)->value('kd_pengguna'))->value('nama_lengkap')}}</td>
+                        <td>{{App\ProgramPelatihan::where('kd_program', App\SkemaPelatihan::where('kd_skema', App\PendaftaranProgram::where('kd_pendaftaran', $sertifikat->kd_pendaftaran)->value('kd_skema'))->value('kd_program'))->value('nama_program')}}</td>
                         <td>
                             <a href="{{$sertifikat->gambar_sertifikat}}" type="button" class="btn btn-primary btn-sm">
                                 <i class="fa fa-certificate"></i>&nbsp;

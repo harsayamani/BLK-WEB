@@ -52,7 +52,7 @@
 
                                 <!-- Modal Tambah Sertifikat -->
 
-                                <div class="modal fade" id="tambahSertifikat" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="tambahSertifikat"  role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -67,7 +67,7 @@
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="number-input" class=" form-control-label">Kode Sertifikasi</label>
+                                                            <label for="number-input" class=" form-control-label">Kode Sertifikat</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
                                                             <input type="text" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" required>
@@ -86,7 +86,7 @@
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="text_input" class=" form-control-label">Member</label></div>
                                                         <div class="col-12 col-md-9">
-                                                            <select name="kd_pengguna" id="kd_pengguna" class="form-control">
+                                                            <select name="kd_pengguna" id="kd_pengguna" class="js-example-basic-single js-states" style="width:100%;" tabindex="-1">
                                                             <option value="">---Pilih Member---</option>
                                                             @foreach($member as $member)
                                                                 <option value="{{$member->kd_pengguna}}">{{$member->no_ktp." ".$member->nama_lengkap}}</option>
@@ -96,11 +96,10 @@
                                                     </div>
 
                                                     <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="id_jenjang" class=" form-control-label">Program</label></div>
+                                                        <div class="col col-md-3"><label for="kd_pendaftaran" class=" form-control-label">Kode Pendaftaran</label></div>
                                                         <div class="col-12 col-md-9">
-                                                            <select name="kd_program" id="kd_program" class="form-control">
-                                                                <option value="">---Pilih Program---</option>
-                                                                
+                                                            <select name="kd_pendaftaran" id="kd_pendaftaran" class="form-control">
+                                                                <option value="">---Kode Pendaftaran---</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -150,10 +149,10 @@
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="number-input" class=" form-control-label">Kode Pengguna</label>
+                                                            <label for="number-input" class="form-control-label">Kode Sertifikat</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input readonly type="text" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" required>
+                                                            <input type="text" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" required>
                                                         </div>
                                                     </div>
                                                    
@@ -162,30 +161,18 @@
                                                             <label for="file-input" class=" form-control-label">Unggah Sertifikat</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="file" id="gambar_sertifikat" name="gambar_sertifikat" accept="image/*" class="form-control-file" required>
+                                                            <input type="file" id="gambar_sertifikat" name="gambar_sertifikat" accept="image/*" class="form-control-file">
                                                             <small class="form-text text-muted" id="link_gambar" name="link_gambar"></small>
                                                         </div>
                                                     </div>
 
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="text_input" class=" form-control-label">Member</label></div>
+                                                    <div class="row form-group" hidden>
+                                                        <div class="col col-md-3"><label for="kd_pendaftaran" class=" form-control-label">Kode Pendaftaran</label></div>
                                                         <div class="col-12 col-md-9">
-                                                            <select name="kd_pengguna" id="kd_pengguna" class="form-control">
-                                                                <option value="">---Pilih Member---</option>
-                                                                @foreach($member2 as $member)
-                                                                <option value="{{$member->kd_pengguna}}">{{$member->nama_lengkap}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row form-group">
-                                                        <div class="col col-md-3"><label for="text-input" class=" form-control-label">Program</label></div>
-                                                        <div class="col-12 col-md-9">
-                                                            <select name="kd_program" id="kd_program" class="form-control">
-                                                                <option value="">---Pilih Program---</option>
-                                                                @foreach($program2 as $program)
-                                                                <option value="{{$program->kd_program}}">{{$program->nama_program}}</option>
+                                                            <select name="kd_pendaftaran" id="kd_pendaftaran" class="form-control">
+                                                                <option value="">---Kode Pendaftaran---</option>
+                                                                @foreach ($pendaftaran as $daftar)
+                                                                    <option value="{{$daftar->kd_pendaftaran}}">{{$daftar->kd_pendaftaran}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -242,15 +229,14 @@
                                                 </a>
                                             </td>
                                             <td>{{$sertifikat->kd_sertifikat}}</td>
-                                            <td>{{App\Member::where('kd_pengguna', $sertifikat->kd_pengguna)->value('nama_lengkap')}}</td>
-                                            <td>{{App\ProgramPelatihan::where('kd_program', $sertifikat->kd_program)->value('nama_program')}}</td>
+                                            <td>{{App\Member::where('kd_pengguna', App\PendaftaranProgram::where('kd_pendaftaran', $sertifikat->kd_pendaftaran)->value('kd_pengguna'))->value('nama_lengkap')}}</td>
+                                            <td>{{App\ProgramPelatihan::where('kd_program', App\SkemaPelatihan::where('kd_skema', App\PendaftaranProgram::where('kd_pendaftaran', $sertifikat->kd_pendaftaran)->value('kd_skema'))->value('kd_program'))->value('nama_program')}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm" 
                                                     data-target="#ubahSertifikat" 
                                                     data-toggle="modal"
                                                     data-kd_sertifikat="{{$sertifikat->kd_sertifikat}}"
-                                                    data-kd_pengguna="{{$sertifikat->kd_pengguna}}"
-                                                    data-kd_program="{{$sertifikat->kd_program}}"
+                                                    data-kd_pendaftaran="{{$sertifikat->kd_pendaftaran}}"
                                                     data-tgl_terbit="{{$sertifikat->tgl_terbit}}"
                                                     data-tgl_kadaluarsa="{{$sertifikat->tgl_kadaluarsa}}">
                                                     <i class="fa fa-edit"></i>&nbsp; 
@@ -274,8 +260,15 @@
         </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <script>
+        $('.js-example-basic-single').select2({
+            theme: "classic",
+        });
+    </script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script> 
     
+
     <script>
         $('#tgl_terbit').datepicker({
             format: 'dd mmm yyyy',
@@ -313,10 +306,10 @@
 
         $.get('/ajax-program/' + kd_pengguna, function(data){
 
-            $('#kd_program').empty();
+            $('#kd_pendaftaran').empty();
 
                 $.each(data, function(index, programObj){
-                    $('#kd_program').append('<option value="'+programObj.kd_program+'">'+programObj.nama_program+'</option>');
+                    $('#kd_pendaftaran').append('<option value="'+programObj.kd_pendaftaran+'" selected>'+programObj.kd_pendaftaran+'</option>');
                 });
             });
         });
@@ -326,16 +319,14 @@
         $(document).ready(function(){
               $('#ubahSertifikat').on('show.bs.modal', function (event) {
               var button = $(event.relatedTarget);
-              var kd_pengguna = button.data('kd_pengguna');
               var kd_sertifikat = button.data('kd_sertifikat');
-              var kd_program = button.data('kd_program');
+              var kd_pendaftaran = button.data('kd_pendaftaran');
               var tgl_terbit = button.data('tgl_terbit');
               var tgl_kadaluarsa = button.data('tgl_kadaluarsa');
              
               var modal = $(this);
-              modal.find('.modal-body #kd_pengguna').val(kd_pengguna);
               modal.find('.modal-body #kd_sertifikat').val(kd_sertifikat);
-              modal.find('.modal-body #kd_program').val(kd_program);
+              modal.find('.modal-body #kd_pendaftaran').val(kd_pendaftaran);
               modal.find('.modal-body #tgl_terbit2').val(tgl_terbit);
               modal.find('.modal-body #tgl_kadaluarsa2').val(tgl_kadaluarsa);
             });

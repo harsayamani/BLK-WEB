@@ -317,22 +317,28 @@
                     </div>
                 </div>
 
-                {{-- <div class="row form-group">
+                <div class="row form-group">
                     <div class="col col-12">
                         <label><strong>MINAT</strong></label>
                     </div>
-                </div> --}}
+                </div>
 
-                {{-- <div class="row ">
+                <div class="row form-group">
                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Minat</label></div>
                     <div class="col-12 col-md-9">
-                        <select class="form-control" id="js-example-basic-multiple" name="minat[]" multiple="multiple" style="width: 100%;">
+                        <select class="select2" name="kd_minat[]" multiple="multiple" style="width: 100%;">
                             @foreach ($minat as $min)
-                                <option value="{{$min->kd_minat}}">{{$min->minat}}</option>
+                                <option value="{{$min->kd_minat}}" 
+                                @foreach ($minatMember as $mem)
+                                    @if($min->kd_minat == $mem->kd_minat)
+                                        selected
+                                    @endif
+                                @endforeach
+                                >{{$min->minat}}</option>
                             @endforeach
                         </select>
                     </div>
-                </div> --}}
+                </div>
 
                 <div class="row form-group">
                     <div class="col col-12">

@@ -12,6 +12,9 @@ use App\Link;
 use App\ProgramPelatihan;
 use App\SkemaPelatihan;
 use App\Gelombang;
+use App\Sertifikat;
+use App\Member;
+use Illuminate\Contracts\Session\Session;
 
 class PublicController extends Controller
 {
@@ -115,4 +118,20 @@ class PublicController extends Controller
         return view('Public/jadwalPelatihan', compact('skema', 'gelombang'));
     }
 
+    public function validasi_sertifikat(){
+        $sertifikat = [];
+        return view('Public/validasiSertifikat', compact('sertifikat'));
+    }
+
+    public function cari_sertifikat(Request $request){
+        $sertifikat = Sertifikat::where('kd_sertifikat', $request->kd_sertifikat)->first();
+
+        if($sertifikat!=null){
+            // $program = ProgramPelatihan::where('kd_program', $sertifikat->kd_program)->value('nama_program');
+            // $pengguna = Member::where('kd_pengguna', $sertifikat->kd_pengguna)->value('nama_lengkap');
+            return view('Public/validasiSertifikat', compact('sertifikat'))->with('alert modal success', 'Sertifikat ditemukan!');
+        }else{
+            return redirect('/validasiSertifikat')->with('alert modal danger', 'Sertifikat tidak ditemukan!');
+        }
+    }
 }

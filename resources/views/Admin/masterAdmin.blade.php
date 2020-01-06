@@ -22,6 +22,8 @@
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+
 
 <body> 
 <!-- /#left-panel -->
@@ -174,6 +176,7 @@
 
     <!-- /#right-panel -->
     <!-- Scripts -->
+    
     <script src="/assets/js/lib/data-table/datatables.min.js"></script>
     <script src="/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
     <script src="/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
@@ -184,7 +187,7 @@
     <script src="/assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="/assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="/assets/js/init/datatables-init.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
@@ -198,5 +201,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script> 
     <script src="/assets/js/widgets.js"></script>
+
 </body>
 </html>

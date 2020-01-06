@@ -52,7 +52,7 @@ class AdminController extends Controller
         if(!Session::get('loginAdmin')){
             return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dulu');
         }else{
-            Session::flush('loginAdmin');
+            Session()->forget('loginAdmin');
             return redirect('admin/login')->with('alert','Anda sudah logout');	}
     }
 
@@ -62,10 +62,11 @@ class AdminController extends Controller
         }else{
             $member_count = Member::all()->count();
             $peserta_count = PendaftaranProgram::where('status', 1)->get()->count();
+            $pendaftar_count = PendaftaranProgram::all()->count();
             $lulus_count = PendaftaranProgram::where('status', 2)->get()->count();
             $tidak_lulus_count = PendaftaranProgram::where('status', 3)->get()->count();
 
-			return view('/Admin/dashboardAdmin', compact('member_count', 'peserta_count', 'lulus_count', 'tidak_lulus_count'));
+			return view('/Admin/dashboardAdmin', compact('member_count', 'pendaftar_count', 'peserta_count', 'lulus_count', 'tidak_lulus_count'));
 		}
     }
 

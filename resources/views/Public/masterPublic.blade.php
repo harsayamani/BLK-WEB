@@ -91,7 +91,7 @@
                                 <a class="nav-link" href="/galeri">Galeri</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="tech-category-03.html">Validasi Sertifikat</a>
+                                <a class="nav-link" href="/validasiSertifikat">Validasi Sertifikat</a>
                             </li>
                         </ul>
                     </div>
@@ -146,6 +146,9 @@
     <script src="/public/js/tether.min.js"></script>
     <script src="/public/js/bootstrap.min.js"></script>
     <script src="/public/js/custom.js"></script>
+    <script>
+        $('#myModal').modal('show')
+    </script>
 
 </body>
 </html>

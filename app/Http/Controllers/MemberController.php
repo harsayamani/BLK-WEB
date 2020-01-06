@@ -186,16 +186,17 @@ class MemberController extends Controller
 
         $member = Member::orderBy('nama_lengkap', 'asc')->get();
         $program = ProgramPelatihan::all();
-        $sertifikat = Sertifikat::all();
+        $sertifikat = Sertifikat::orderBy('kd_pendaftaran', 'asc')->get();
         $program2 = ProgramPelatihan::all();
         $member2 = Member::all();
+        $pendaftaran = PendaftaranProgram::all();
 
         $i = 0;
 
         if(!Session::get('loginAdmin')){
             return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
         }else{
-            return view('Admin/kelolaSertifikat', compact('member', 'program', 'sertifikat', 'i', 'program2', 'member2'));
+            return view('Admin/kelolaSertifikat', compact('member', 'program', 'sertifikat', 'i', 'program2', 'member2', 'pendaftaran'));
         }
     }
 
@@ -218,8 +219,7 @@ class MemberController extends Controller
         $sertifikat = new Sertifikat();
         $sertifikat->kd_sertifikat = $request->kd_sertifikat;
         $sertifikat->gambar_sertifikat = $url_gambar;
-        $sertifikat->kd_pengguna = $request->kd_pengguna;
-        $sertifikat->kd_program = $request->kd_program;
+        $sertifikat->kd_pendaftaran = $request->kd_pendaftaran;
         $sertifikat->tgl_terbit = $request->tgl_terbit;
         $sertifikat->tgl_kadaluarsa = $request->tgl_kadaluarsa;
         $sertifikat->save();
@@ -233,30 +233,40 @@ class MemberController extends Controller
 
     public function ubah_sertifikat(Request $request){
 
-        try{
-            //Upload gambar ke cloudinary
-            $gambar_sertifikat = $request->gambar_sertifikat;
-            Cloudder::upload($gambar_sertifikat);
-            list($width, $height) = getimagesize($gambar_sertifikat);
-            $url_gambar= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
-        }catch(Exception $e){
-            return redirect('/admin/dataMember/sertifikat')->with('alert danger', $e);
-        }      
+        if($request->gambar_sertifikat == null){
+            $sertifikat = Sertifikat::findOrFail($request->kd_sertifikat);
+            $sertifikat->kd_sertifikat = $request->kd_sertifikat;
+            $sertifikat->kd_pendaftaran = $request->kd_pendaftaran;
+            $sertifikat->tgl_terbit = $request->tgl_terbit2;
+            $sertifikat->tgl_kadaluarsa = $request->tgl_kadaluarsa2;
+            $sertifikat->save();
+        }else{
+            try{
+                //Upload gambar ke cloudinary
+                $gambar_sertifikat = $request->gambar_sertifikat;
+                Cloudder::upload($gambar_sertifikat);
+                list($width, $height) = getimagesize($gambar_sertifikat);
+                $url_gambar= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
+            }catch(Exception $e){
+                return redirect('/admin/dataMember/sertifikat')->with('alert danger', $e);
+            }  
 
-        $sertifikat = Sertifikat::findOrdFail($request->kd_sertifikat);
-        $sertifikat->kd_sertifikat = $request->kd_sertifikat;
-        $sertifikat->gambar_sertifikat = $url_gambar;
-        $sertifikat->kd_pengguna = $request->kd_pengguna;
-        $sertifikat->kd_program = $request->kd_program;
-        $sertifikat->tgl_terbit = $request->tgl_terbit;
-        $sertifikat->tgl_kadaluarsa = $request->tgl_kadaluarsa;
-        $sertifikat->save();
-        
+            $sertifikat = Sertifikat::findOrFail($request->kd_sertifikat);
+            $sertifikat->kd_sertifikat = $request->kd_sertifikat;
+            $sertifikat->gambar_sertifikat = $url_gambar;
+            $sertifikat->kd_pendaftaran = $request->kd_pendaftaran;
+            $sertifikat->tgl_terbit = $request->tgl_terbit2;
+            $sertifikat->tgl_kadaluarsa = $request->tgl_kadaluarsa2;
+            $sertifikat->save();
+        }
+
         return redirect('/admin/dataMember/sertifikat')->with('alert success', 'Sertifikat berhasil diubah!');
     }
 
     public function hapus_sertifikat($kd_sertifikat){
         $sertifikat = Sertifikat::findOrFail($kd_sertifikat);
+        $pendaftaran = PendaftaranProgram::where('kd_pendaftaran', $sertifikat->kd_pendaftaran)->first();
+        $pendaftaran->status = 1;
         $sertifikat->delete($sertifikat);
 
         return redirect('/admin/dataMember/sertifikat')->with('alert danger', 'Sertifikat berhasil dihapus!');
@@ -288,12 +298,10 @@ class MemberController extends Controller
         $skema = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->get();
 
         if($skema->count()>0){
-            $kd_skema = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->value('kd_skema');
-            $kd_program = SkemaPelatihan::where('kd_skema', $kd_skema)->value('kd_program');
-            $program = ProgramPelatihan::where('kd_program', $kd_program)->get();
-        }
-        
-        return response()->json($program);     
+            return response()->json($skema); 
+            // $kd_program = SkemaPelatihan::where('kd_skema', $kd_skema)->value('kd_program');
+            // $program = ProgramPelatihan::where('kd_program', $kd_program)->get();
+        }    
     }
 
     public function ajax2(Request $request){

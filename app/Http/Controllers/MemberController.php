@@ -228,7 +228,7 @@ class MemberController extends Controller
         $sertifikat->tgl_kadaluarsa = $request->tgl_kadaluarsa;
         $sertifikat->save();
 
-        $pendaftaran = PendaftaranProgram::where('kd_pengguna', $request->kd_pengguna)->first();
+        $pendaftaran = PendaftaranProgram::where('kd_pendaftaran', $request->kd_pendaftaran)->first();
         $pendaftaran->status = 2;
         $pendaftaran->save();
 
@@ -304,9 +304,11 @@ class MemberController extends Controller
 
     public function hapus_sertifikat($kd_sertifikat){
         $sertifikat = Sertifikat::findOrFail($kd_sertifikat);
-        $pendaftaran = PendaftaranProgram::where('kd_pendaftaran', $sertifikat->kd_pendaftaran)->first();
-        $pendaftaran->status = 1;
-        $sertifikat->delete($sertifikat);
+        if($sertifikat->delete($sertifikat)){
+            $pendaftaran = PendaftaranProgram::where('kd_pendaftaran', $sertifikat->kd_pendaftaran)->first();
+            $pendaftaran->status = 1;
+            $pendaftaran->save();
+        }
 
         return redirect('/admin/dataMember/sertifikat')->with('alert danger', 'Sertifikat berhasil dihapus!');
     }

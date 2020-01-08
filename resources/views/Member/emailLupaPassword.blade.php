@@ -305,7 +305,7 @@
                                                                 <div class="container">
                                                                     <center><p>Untuk pengubahan password klik tautan di bawah ini</p></center>
                                                                     <hr>
-                                                                    <center><a href="http://localhost:8000/gantiPassword/{{$kd_pengguna}}"><p>http://localhost:8000/gantiPassword/{{$kd_pengguna}}</p></a></center>
+                                                                    <center><a href="http://localhost:8000/gantiPasswordLupa/{{$nama}}/{{$kd_pengguna}}"><p>DISINI</p></a></center>
                                                                     <hr>
                                                                     <center><p>Kami harap anda menjaga sebaik-baiknya informasi ini dari yang bukan otoritasnya
                                                                     <br> Terimakasih</p></center>

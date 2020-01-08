@@ -70,7 +70,7 @@
                                                             <label for="number-input" class=" form-control-label">Kode Sertifikat</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" required>
+                                                            <input type="text" id="kd_sertifikat" name="kd_sertifikat" placeholder="Masukkan Kode Sertifikat " class="form-control" value="{{str_random(8)}}" required>
                                                         </div>
                                                     </div>
                                                    

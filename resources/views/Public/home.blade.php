@@ -11,7 +11,7 @@
                 <div class="masonry-box post-media">
                      <img src="
                         <?php
-                            $url = JD\Cloudder\Facades\Cloudder::show($loker_last->foto, ['width'=>788, 'height'=>443, "crop"=>"scale"]);
+                            $url = JD\Cloudder\Facades\Cloudder::show($loker_last->foto, ['width'=>588, 'height'=>320, "crop"=>"scale"]);
                             echo $url;
                         ?>
                      " alt="" class="img-fluid">
@@ -31,7 +31,7 @@
                 <div class="masonry-box post-media">
                      <img src="
                      <?php
-                        $url = JD\Cloudder\Facades\Cloudder::show($pengumuman_last->foto, ['width'=>394, 'height'=>449, "crop"=>"scale"]);
+                        $url = JD\Cloudder\Facades\Cloudder::show($pengumuman_last->foto, ['width'=>494, 'height'=>549, "crop"=>"scale"]);
                         echo $url;
                     ?>
                      " alt="" width="399px" height="449px" class="img-fluid">
@@ -50,7 +50,7 @@
             <div class="last-slot">
                 <div class="masonry-box post-media">
                      <img src="<?php
-                     $url = JD\Cloudder\Facades\Cloudder::show($berita_last->foto, ['width'=>394, 'height'=>449, "crop"=>"scale"]);
+                     $url = JD\Cloudder\Facades\Cloudder::show($berita_last->foto, ['width'=>494, 'height'=>549, "crop"=>"scale"]);
                      echo $url;
                  ?>" alt="" class="img-fluid">
                      <div class="shadoweffect">
@@ -86,7 +86,7 @@
                                     <a href="/konten/{{$kon->kd_konten}}" title="">
                                         <img src="
                                         <?php
-                                            $url = JD\Cloudder\Facades\Cloudder::show($kon->foto, ['width'=>600, 'height'=>500]);
+                                            $url = JD\Cloudder\Facades\Cloudder::show($kon->foto, ['width'=>600, 'height'=>500, "crop"=>"scale"]);
                                             echo $url;
                                         ?>
                                         " alt="" class="img-fluid">
@@ -97,7 +97,7 @@
                                  
                             <div class="blog-meta big-meta col-md-8">
                             <h4><a href="/konten/{{$kon->kd_konten}}" title="">{{$kon->judul_konten}}</a></h4>
-                            <p>{!!substr($kon->isi_konten, 0, 60)!!}</p>
+                            <p>{!!substr($kon->isi_konten, 0, 80)!!}...</p>
                             <small class="firstsmall"><a class="bg-orange" href="/kontenKategori/{{$kon->kd_kategori}}" title="">{{App\KategoriKonten::where('kd_kategori_konten', $kon->kd_kategori)->value('kategori_konten')}}</a></small>
                             <small><a href="#" title="">{{$kon->tgl_rilis}}</a></small>
                             </div><!-- end meta -->
@@ -164,7 +164,7 @@
                                     <div class="w-100 justify-content-between">
                                         <img src="
                                         <?php
-                                            $url = JD\Cloudder\Facades\Cloudder::show($populer->foto, ['width'=>600, 'height'=>500]);
+                                            $url = JD\Cloudder\Facades\Cloudder::show($populer->foto, ['width'=>600, 'height'=>500, "crop"=>"scale"]);
                                             echo $url;
                                         ?>
                                         " alt="" class="img-fluid float-left">
@@ -186,7 +186,7 @@
                                     <div class="w-100 justify-content-between">
                                         <img src="
                                         <?php
-                                            $url = JD\Cloudder\Facades\Cloudder::show($populer->foto, ['width'=>600, 'height'=>500]);
+                                            $url = JD\Cloudder\Facades\Cloudder::show($populer->foto, ['width'=>600, 'height'=>500, "crop"=>"scale"]);
                                             echo $url;
                                         ?>
                                         " alt="" class="img-fluid float-left">

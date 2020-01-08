@@ -47,6 +47,7 @@
                                                             <h4><a href="#" title="">{{App\ProgramPelatihan::where('kd_program', $skm->kd_program)->value('nama_program')}}</a></h4>
                                                             <p>Pendaftaran : <br>{{$skm->tgl_awal_pendaftaran}} - {{$skm->tgl_akhir_pendaftaran}}</p>
                                                             <p>Pelaksanaan : <br>{{$skm->tgl_awal_pelaksanaan}} - {{$skm->tgl_akhir_pelaksanaan}}</p>
+                                                            <p><b>Kuota Sisa : {{$skm->kuota - App\PendaftaranProgram::where('kd_skema', $skm->kd_skema)->get()->count()}}</b></p>
                                                     </div><!-- end blog-meta -->
                                                 </div><!-- end blog-box -->
                                             </div><!-- end col -->

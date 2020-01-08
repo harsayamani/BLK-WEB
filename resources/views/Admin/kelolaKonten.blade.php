@@ -201,7 +201,7 @@
                                                     data-toggle="modal"
                                                     data-kd_konten="{{$konten->kd_konten}}"
                                                     data-judul_konten="{{$konten->judul_konten}}"
-                                                    data-isi_konten="{!!$konten->isi_konten!!}"
+                                                    data-isi_konten="{{$konten->isi_konten}}"
                                                     data-kd_kategori_konten="{{$konten->kd_kategori}}"
                                                     data-tgl_rilis="{{$konten->tgl_rilis}}">
                                                     <i class="fa fa-edit"></i>&nbsp; 

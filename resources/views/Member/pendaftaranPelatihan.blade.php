@@ -57,7 +57,9 @@
                                 <select name="kd_skema" id="kd_skema" class="form-control">
                                     <option value="">---Pilih Skema Pelatihan---</option>
                                     @foreach ($skema as $skm)
-                                    <option value="{{$skm->kd_skema}}">{{App\Gelombang::where('kd_gelombang', $skm->kd_gelombang)->value('nama_gelombang')." - ".App\ProgramPelatihan::where('kd_program', $skm->kd_program)->value('nama_program')}}</option>
+                                        @if($skm->kuota - App\PendaftaranProgram::where('kd_skema', $skm->kd_skema)->get()->count()!=0)
+                                        <option value="{{$skm->kd_skema}}">{{App\Gelombang::where('kd_gelombang', $skm->kd_gelombang)->value('nama_gelombang')." - ".App\ProgramPelatihan::where('kd_program', $skm->kd_program)->value('nama_program')}} sisa {{$skm->kuota - App\PendaftaranProgram::where('kd_skema', $skm->kd_skema)->get()->count()}} kuota</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

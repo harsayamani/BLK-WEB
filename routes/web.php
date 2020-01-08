@@ -190,6 +190,10 @@ Route::post('/lupaPassword/proses', 'MemberSideController@lupa_password_proses')
 
 Route::get('/gantiPassword/{kd_pengguna}', 'MemberSideController@ganti_password');
 
+Route::get('/gantiPasswordLupa/{nama_lengkap}/{kd_pengguna}', 'MemberSideController@ganti_password_lupa');
+
+Route::post('/gantiPasswordLupa/proses', 'MemberSideController@ganti_password_lupa_proses');
+
 Route::post('/gantiPassword/proses/{kd_pengguna}', 'MemberSideController@ganti_password_proses');
 
 Route::get('/member/akun', 'MemberSideController@akun');

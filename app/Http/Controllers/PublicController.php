@@ -22,8 +22,8 @@ class PublicController extends Controller
         $link_dinas =  Link::all();
         $konten = Konten::orderBy('created_at', 'desc')->paginate(10);
         $loker_last = Loker::all()->last();
-        $berita_last = Konten::where('kd_kategori', 1311)->first();
-        $pengumuman_last = Konten::where('kd_kategori', 1312)->first();
+        $berita_last = Konten::where('kd_kategori', 1311)->orderBy('created_at', 'desc')->first();
+        $pengumuman_last = Konten::where('kd_kategori', 1312)->orderBy('created_at', 'desc')->first();
         $galeri = Galeri::orderBy('created_at', 'desc')->paginate(3);
         $konten_populer = Konten::orderBy('stat', 'desc')->paginate(3);
         $loker_populer = Loker::orderBy('stat', 'desc')->paginate(3);

@@ -37,7 +37,7 @@
                                     <a href="/loker/{{$kon->kd_loker}}" title="">
                                         <img src="
                                         <?php
-                                            $url = JD\Cloudder\Facades\Cloudder::show($kon->foto, ['width'=>600, 'height'=>500]);
+                                            $url = JD\Cloudder\Facades\Cloudder::show($kon->foto, ['width'=>600, 'height'=>500, "crop"=>"scale"]);
                                             echo $url;
                                         ?>
                                         " alt="" class="img-fluid">
@@ -114,7 +114,7 @@
                                     <div class="w-100 justify-content-between">
                                         <img src="
                                         <?php
-                                            $url = JD\Cloudder\Facades\Cloudder::show($populer->foto, ['width'=>600, 'height'=>500]);
+                                            $url = JD\Cloudder\Facades\Cloudder::show($populer->foto, ['width'=>600, 'height'=>500, "crop"=>"scale"]);
                                             echo $url;
                                         ?>
                                         " alt="" class="img-fluid float-left">
@@ -136,7 +136,7 @@
                                     <div class="w-100 justify-content-between">
                                         <img src="
                                         <?php
-                                            $url = JD\Cloudder\Facades\Cloudder::show($populer->foto, ['width'=>600, 'height'=>500]);
+                                            $url = JD\Cloudder\Facades\Cloudder::show($populer->foto, ['width'=>600, 'height'=>500, "crop"=>"scale"]);
                                             echo $url;
                                         ?>
                                         " alt="" class="img-fluid float-left">

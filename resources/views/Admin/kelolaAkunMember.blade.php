@@ -52,7 +52,7 @@
 
                                 <!-- Modal Tambah Akun-->
 
-                                <div class="modal fade" id="tambahAkun" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="tambahAkun" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -119,7 +119,7 @@
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="tempat_lahir" class=" form-control-label">Tempat Lahir</label></div>
                                                         <div class="col-12 col-md-9">
-                                                            <select class="form-control" name="tempat_lahir" id="tempat_lahir">
+                                                            <select class="form-control js-example-basic-single" name="tempat_lahir" id="tempat_lahir" style="width:100%">
                                                                 <option value="">---Pilih Tempat Lahir---</option>
                                                                 @foreach($kota as $city)
                                                                 <option value="{{$city->id}}">{{$city->type." ".$city->nama}}</option>
@@ -164,7 +164,7 @@
                                                     <div class="row form-group">
                                                         <div class="col col-md-3"><label for="text_input" class=" form-control-label">Provinsi</label></div>
                                                         <div class="col-12 col-md-9">
-                                                            <select name="provinsi" id="provinsi" class="form-control">
+                                                            <select name="provinsi" id="provinsi" class="form-control js-example-basic-single" style="width:100%">
                                                                 <option value="">---Pilih Provinsi---</option>
                                                                 @foreach($provinsi as $province)
                                                                 <option value="{{$province->id}}">{{$province->nama}}</option>
@@ -723,6 +723,12 @@
         </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <script>
+        $('.js-example-basic-single').select2({
+            theme: "classic",
+        });
+    </script>
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
     <script>
@@ -751,7 +757,7 @@
             $('#kabupaten_kota').empty();
 
                 $.each(data, function(index, kotaObj){
-                    $('#kabupaten_kota').append('<option value="'+kotaObj.id+'">'+kotaObj.type+" "+kotaObj.nama+'</option>');
+                    $('#kabupaten_kota').append('<option value="'+kotaObj.id+'" selected>'+kotaObj.type+" "+kotaObj.nama+'</option>');
                 });
             });
         });
@@ -769,7 +775,7 @@
             $('#kabupaten_kota2').empty();
 
                 $.each(data, function(index, kotaObj){
-                    $('#kabupaten_kota2').append('<option value="'+kotaObj.id+'">'+kotaObj.type+" "+kotaObj.nama+'</option>');
+                    $('#kabupaten_kota2').append('<option value="'+kotaObj.id+'" selected>'+kotaObj.type+" "+kotaObj.nama+'</option>');
                 });
             });
         });

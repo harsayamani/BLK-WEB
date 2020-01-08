@@ -123,7 +123,7 @@
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="tempat_lahir" class=" form-control-label">Tempat Lahir</label></div>
                     <div class="col-12 col-md-9">
-                        <select class="form-control" name="tempat_lahir" id="tempat_lahir">
+                        <select class="select2" style="width:100%" name="tempat_lahir" id="tempat_lahir">
                             <option value="">---Pilih Tempat Lahir---</option>
                             @foreach($kota as $city)
                             <option value="{{$city->id}}" @if($member->tempat_lahir == $city->id) selected @endif>{{$city->type." ".$city->nama}}</option>
@@ -168,7 +168,7 @@
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="text_input" class=" form-control-label">Provinsi</label></div>
                     <div class="col-12 col-md-9">
-                        <select name="provinsi" id="provinsi" class="form-control">
+                        <select name="provinsi" id="provinsi" class="select2" style="width:100%">
                             <option value="">---Pilih Provinsi---</option>
                             @foreach($provinsi as $province)
                             <option value="{{$province->id}}" @if($member->provinsi == $province->id) selected @endif>{{$province->nama}}</option>
@@ -180,7 +180,7 @@
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="text-input" class=" form-control-label">Kabupatan/Kota</label></div>
                     <div class="col-12 col-md-9">
-                        <select name="kabupaten_kota" id="kabupaten_kota" data-dependent="kodepos" class="form-control">\
+                        <select name="kabupaten_kota" id="kabupaten_kota" data-dependent="kodepos" class="select2" style="width:100%">
                             <option value="" selected>---Pilih Kabupaten/Kota---</option>
                             <option value="{{$member->kabupaten_kota}}" selected>{{App\Cities::where('id', $member->kabupaten_kota)->value('type')." ".App\Cities::where('id', $member->kabupaten_kota)->value('nama')}}</option>
                         </select>

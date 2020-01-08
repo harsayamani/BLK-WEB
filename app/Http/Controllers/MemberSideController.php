@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail as Mail;
+use Illuminate\Support\Facades\Crypt;
+use Mail;
 use App\Member;
 use App\PendaftaranProgram;
 use App\ProgramPelatihan;
@@ -17,6 +18,7 @@ use App\MinatMember;
 use App\Sertifikat;
 use App\Gelombang;
 use Exception;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class MemberSideController extends Controller
 {
@@ -94,9 +96,9 @@ class MemberSideController extends Controller
                 'rounds' => 12
             ]);
             $member->save();
-            return redirect('/login')->with('alert success', 'Anda sudah daftar, silahkan login untuk masuk');
+            return redirect('/login')->with('alert-success', 'Anda sudah daftar, silahkan login untuk masuk');
         }else{
-            return redirect('/daftarAkun')->with('alert success', 'Password ulang tidak sama');
+            return redirect('/daftarAkun')->with('alert', 'Password ulang tidak sama');
         }
     }
 
@@ -215,7 +217,7 @@ class MemberSideController extends Controller
         }else{
             $nama_lengkap = Session::get('nama_lengkap');
             $kd_pengguna = Session::get('kd_pengguna');
-            $pendaftaran = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->value('kd_pendaftaran');
+            $pendaftaran = PendaftaranProgram::where('kd_pengguna', $kd_pengguna)->orderBy('created_at', 'desc')->value('kd_pendaftaran');
             $sertifikat = Sertifikat::where('kd_pendaftaran', $pendaftaran)->get();
             $i = 0;
 
@@ -233,55 +235,90 @@ class MemberSideController extends Controller
 
     public function lupa_password_proses(Request $request){
         $member = Member::where('email', $request->email)->first();
+        $kd_pengguna = Crypt::encrypt($member->kd_pengguna);
 
         if($member == null){
             return redirect('/lupaPassword')->with('alert', 'Email tidak terdaftar');
         }else{
-            try{
-                Mail::send('Member/emailLupaPassword', ['nama' => $member->nama_lengkap, 'kd_pengguna' => $member->kd_pengguna], function ($message) use ($request)
+            FacadesMail::send('Member/emailLupaPassword', ['nama' => $member->nama_lengkap, 'kd_pengguna' => $kd_pengguna], function ($message) use ($request)
                 {
                     $message->subject('Konfirmasi Pengubahan Password Akun BLK Kabupaten Indramayu');
                     $message->from('support@blkindramayu.com', 'Balai Latihan Kerja Kabupaten Indramayu');
                     $message->to($request->email);
                 });
-                return redirect('/lupaPassword')->with('alert-success', 'Cek email anda untuk dilakukan pengubahan password');
-            }catch(Exception $e){
-                return redirect('/lupaPassword')->with('alert', $e);
-            }
+            return redirect('/lupaPassword')->with('alert-success', 'Cek email anda, untuk dilakukan pengubahan password');
         }
     }
 
-    public function ganti_password($kd_pengguna){
-        $member = Member::where('kd_pengguna', $kd_pengguna)->first();
+    public function ganti_password_lupa($nama_lengkap, $kd_pengguna){
+        $kd_pengguna_dec = Crypt::decrypt($kd_pengguna);
 
-        return view('/Member/gantiPasswordMember', compact('member'));
+        $member = Member::where('nama_lengkap', $nama_lengkap)->first();
+
+        $kd_pengguna = Crypt::encrypt($member->kd_pengguna);
+
+        if($kd_pengguna_dec==Crypt::decrypt($kd_pengguna)){
+            return view('/Member/gantiPasswordLupa', compact('member'));
+        }else{
+            return redirect('/login')->with('alert', 'Konfirmasi pengubahan password kedaluarsa!');
+        }
     }
 
-    public function ganti_password_proses(Request $request, $kd_pengguna){
+    public function ganti_password_lupa_proses(Request $request){
         $this->validate($request, [
             'password_baru' => '|min:8'
         ]);
 
-        $password_lama = $request->password_lama;
-        $password_baru = $request->password_baru;
-        $password_baru_ulang = $request->password_baru_ulang;
-        $password = Member::where('kd_pengguna', $kd_pengguna)->value('password');
-
-        if(Hash::check($password_lama, $password)){
-            if($password_baru == $password_baru_ulang){
-                $member = Member::findOrFail($kd_pengguna);
-                $password_baru = Hash::make($password_baru, [
-                    'rounds' => 12
-                ]);
-                $member->password = $password_baru;
-                $member->save();
-                return redirect()->back()->with('alert-success', 'Password berhasil diubah');
-            }else{
-                return redirect()->back()->with('alert', 'Password ulang tidak sama');
-            }
+        if($request->password_baru_ulang == $request->password_baru){
+            $member = Member::findOrFail($request->kd_pengguna);
+            $member->password = Hash::make($request->password_baru, [
+                'rounds' => 12
+            ]);
+            $member->save();
+            return redirect('/login')->with('alert-success', 'Password berhasil diubah');
         }else{
-            return redirect()->back()->with('alert', 'Password tidak terdaftar');
+            return redirect()->back()->with('alert', 'Password ulang tidak sama');
         }
+    }
+
+    public function ganti_password($kd_pengguna){
+        if(!Session::get('kd_pengguna')){
+            return redirect('/login')->with('alert', 'Anda harus login terlebih dulu');
+        }else{
+            $member = Member::where('kd_pengguna', $kd_pengguna)->first();
+            return view('/Member/gantiPasswordMember', compact('member'));
+        }
+    }
+
+    public function ganti_password_proses(Request $request, $kd_pengguna){
+        if(!Session::get('kd_pengguna')){
+            return redirect('/login')->with('alert', 'Anda harus login terlebih dulu');
+        }else{
+            $this->validate($request, [
+                'password_baru' => '|min:8'
+            ]);
+    
+            $password_lama = $request->password_lama;
+            $password_baru = $request->password_baru;
+            $password_baru_ulang = $request->password_baru_ulang;
+            $password = Member::where('kd_pengguna', $kd_pengguna)->value('password');
+    
+            if(Hash::check($password_lama, $password)){
+                if($password_baru == $password_baru_ulang){
+                    $member = Member::findOrFail($kd_pengguna);
+                    $password_baru = Hash::make($password_baru, [
+                        'rounds' => 12
+                    ]);
+                    $member->password = $password_baru;
+                    $member->save();
+                    return redirect('/member/dashboard')->with('alert modal success', 'Password berhasil diubah');
+                }else{
+                    return redirect()->back()->with('alert', 'Password ulang tidak sama');
+                }
+            }else{
+                return redirect()->back()->with('alert', 'Password tidak terdaftar');
+            }
+        } 
     }
 
     public function jadwal_pelatihan(){

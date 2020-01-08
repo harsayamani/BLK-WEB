@@ -46,11 +46,22 @@
               <div class="form d-flex align-items-center">
                 <div class="content">
                   
+                  @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{$error}}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                  @endif
+
                   @if(Session::has('alert'))
                       <div class="form-group alert alert-danger">
                           <div>{{Session::get('alert')}}</div>
                       </div>
                   @endif
+
                   @if(Session::has('alert-success'))
                       <div class="form-group alert alert-success">
                           <div>{{Session::get('alert-success')}}</div>
@@ -107,5 +118,9 @@
     <script src="/member/vendor/jquery-validation/jquery.validate.min.js"></script>
     <!-- Main File-->
     <script src="/member/js/front.js"></script>
+
+    <script>
+      $('#myModal').modal('show')
+    </script>
   </body>
 </html>

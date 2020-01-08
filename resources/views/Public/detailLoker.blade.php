@@ -34,7 +34,7 @@
                         <div class="single-post-media">
                             <img src="
                             <?php
-                                $url = JD\Cloudder\Facades\Cloudder::show($loker->foto, ['width'=>640, 'height'=>320]);
+                                $url = JD\Cloudder\Facades\Cloudder::show($loker->foto, ['width'=>1920, 'height'=>1080]);
                                 echo $url;
                             ?>
                             " alt="" class="img-fluid">

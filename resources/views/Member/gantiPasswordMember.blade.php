@@ -45,7 +45,15 @@
             <div class="col-lg-6 bg-white">
               <div class="form d-flex align-items-center">
                 <div class="content">
-                    
+                    @if ($errors->any())
+                      <div class="alert alert-danger" role="alert">
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{$error}}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                    @endif
                     @if(Session::has('alert'))
                         <div class="form-group alert alert-danger">
                             <div>{{Session::get('alert')}}</div>

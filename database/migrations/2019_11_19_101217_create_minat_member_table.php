@@ -16,7 +16,9 @@ class CreateMinatMemberTable extends Migration
         Schema::create('minat_member', function (Blueprint $table) {
             $table->increments('kd_minat_member');
             $table->integer('kd_pengguna');
-            $table->integer('kd_minat');
+            $table->foreign('kd_pengguna')->references('kd_pengguna')->on('member');
+            $table->unsignedInteger('kd_minat');
+            $table->foreign('kd_minat')->references('kd_minat')->on('minat');
             $table->timestamps();
         });
     }

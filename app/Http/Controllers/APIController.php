@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Curl\Curl;
 
 class APIController extends Controller
 {
     public function getCURL($endpoint,$data=array(),$type="get"){
 		$URL = env('RO_URL_API');
-		$curl = new \Curl\Curl();
+		$curl = new Curl();
 		$curl->setopt(CURLOPT_SSL_VERIFYPEER, FALSE);
 		$data+=array('key'=>env('RO_API_KEY'));
 		if($type=="get"){

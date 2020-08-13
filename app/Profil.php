@@ -8,5 +8,5 @@ class Profil extends Model
 {
     protected $table = 'profil';
     protected $primaryKey = 'kd_profil';
-    protected $guarded = array();
+    protected $fillable = ['kd_profil', 'visi_misi', 'struktur_organisasi', 'profil_lembaga', 'alamat', 'kontak', 'email'];
 }

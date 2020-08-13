@@ -18,11 +18,14 @@ class CreateMemberTable extends Migration
             $table->bigInteger('nomor_ktp');
             $table->string('nama_lengkap', 30);
             $table->integer('tempat_lahir');
+            $table->foreign('tempat_lahir')->references('id')->on('cities');
             $table->string('tgl_lahir', 10);
             $table->string('jenis_kelamin');
             $table->longText('alamat_lengkap');
             $table->integer('provinsi');
+            $table->foreign('provinsi')->references('id')->on('province');
             $table->integer('kabupaten_kota');
+            $table->foreign('kabupaten_kota')->references('id')->on('cities');
             $table->integer('kodepos');
             $table->string('pend_terakhir')->nullable($value = true);
             $table->integer('thn_ijazah')->nullable($value = true);

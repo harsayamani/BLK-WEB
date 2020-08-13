@@ -16,7 +16,9 @@ class CreateSkemaPelatihanTable extends Migration
         Schema::create('skema_pelatihan', function (Blueprint $table) {
             $table->integer('kd_skema')->primary();
             $table->integer('kd_program');
+            $table->foreign('kd_program')->references('kd_program')->on('program_pelatihan');
             $table->integer('kd_gelombang');
+            $table->foreign('kd_gelombang')->references('kd_gelombang')->on('gelombang');
             $table->string('tgl_awal_pendaftaran');
             $table->string('tgl_akhir_pendaftaran');
             $table->string('tgl_seleksi');

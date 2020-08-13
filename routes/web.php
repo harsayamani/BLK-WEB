@@ -168,7 +168,17 @@ Route::get('/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{kd_pendaftaran}',
 
 Route::get('/admin/dataPelatihan/pendaftaran/tidakLulus/{kd_pendaftaran}', 'PelatihanController@konfirmasi_tidak_lulus');
 
-Route::get('admin/dataPelatihan/exportExcel', 'PelatihanController@export_excel');
+Route::get('/admin/dataPelatihan/exportExcel', 'PelatihanController@export_excel');
+
+//Route Minat
+
+Route::get('/admin/dataPelatihan/minat', 'PelatihanController@minat');
+
+Route::post('/admin/dataPelatihan/minat/tambahMinat', 'PelatihanController@tambah_minat');
+
+Route::post('/admin/dataPelatihan/minat/ubahMinat', 'PelatihanController@ubah_minat');
+
+Route::get('/admin/dataPelatihan/minat/hapusMinat/{kd_minat}', 'PelatihanController@hapus_minat');
 
 //LEVEL USER MEMBER
 

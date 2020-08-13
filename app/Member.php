@@ -13,14 +13,33 @@ class Member extends Authenticatable
     protected $table = 'member';
     protected $primaryKey = 'kd_pengguna';
     protected $guarded = array();
-    // public $incrementing = false;
+    public $incrementing = false;
 
-    // protected $hidden = [
-    //   'password','remember_token'
-    // ];
+    protected $hidden = [
+      'password','remember_token'
+    ];
 
-    // public function setPasswordAttribute($value)
-    // {
-    //   $this->attributes['password'] = bcrypt($value);
-    // }
+    public function setPasswordAttribute($value)
+    {
+      $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function tempatLahir()
+    {
+        return $this->belongsTo('App\Cities', 'id');
+    }
+
+    public function kabupatenKota()
+    {
+        return $this->belongsTo('App\Cities', 'id');
+    }
+
+    public function provinsi()
+    {
+        return $this->belongsTo('App\Province', 'id');
+    }
+
+    public function pendaftaranProgram() {
+      return $this->hasMany('App\PendaftaranProgram', 'kd_pengguna');
+    }
 }

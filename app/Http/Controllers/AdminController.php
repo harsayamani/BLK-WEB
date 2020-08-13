@@ -25,6 +25,15 @@ class AdminController extends Controller
         if(Session::get('loginAdmin')){
             return redirect('/admin/dashboard');
         }else{
+            $admin = Admin::get();
+            
+            if($admin->count()<1){
+                $adm = new Admin();
+                $adm->username = "admin";
+                $adm->password = "adminblk";
+                $adm->save();
+            }
+
             return view('/Admin/loginAdmin', compact('member'));
         }
     }

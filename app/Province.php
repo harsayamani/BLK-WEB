@@ -8,5 +8,9 @@ class Province extends Model
 {
     protected $table = 'province';
     protected $primaryKey = 'id';
-    protected $guarded = array();
+    protected $fillable = ['id', 'nama'];
+
+    public function member() {
+        return $this->hasMany('App\Member', 'id');
+    }
 }

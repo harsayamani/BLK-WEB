@@ -16,7 +16,8 @@ class CreateGaleriTable extends Migration
         Schema::create('galeri', function (Blueprint $table) {
             $table->increments('kd_galeri');
             $table->string('url_galeri');
-            $table->integer('kd_media');
+            $table->unsignedInteger('kd_media');
+            $table->foreign('kd_media')->references('kd_media')->on('media');
             $table->timestamps();
         });
     }

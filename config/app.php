@@ -182,6 +182,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Nexmo\Laravel\NexmoServiceProvider::class,
         Yugo\SMSGateway\Providers\SmsServiceProvider::class,
+        
     ],
 
     /*

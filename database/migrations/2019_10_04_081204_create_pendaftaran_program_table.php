@@ -16,7 +16,9 @@ class CreatePendaftaranProgramTable extends Migration
         Schema::create('pendaftaran_program', function (Blueprint $table) {
             $table->integer('kd_pendaftaran')->primary();
             $table->integer('kd_pengguna');
+            $table->foreign('kd_pengguna')->references('kd_pengguna')->on('member');
             $table->integer('kd_skema');
+            $table->foreign('kd_skema')->references('kd_skema')->on('skema_pelatihan');
             $table->integer('status');
             $table->timestamps();
         });

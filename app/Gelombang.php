@@ -8,5 +8,9 @@ class Gelombang extends Model
 {
     protected $table = 'gelombang';
     protected $primaryKey = 'kd_gelombang';
-    protected $guarded = array();
+    protected $fillable = ['kd_gelombang', 'nama_gelombang'];
+
+    public function skema() {
+        return $this->hasMany('App\SkemaPelatihan', 'kd_gelombang');
+    }
 }

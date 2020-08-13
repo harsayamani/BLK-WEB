@@ -8,5 +8,9 @@ class Media extends Model
 {
     protected $table = 'media';
     protected $primaryKey = 'kd_media';
-    protected $guarded = array();
+    protected $fillable = ['kd_media', 'nama_media'];
+
+    public function galeri() {
+        return $this->hasMany('App\Galeri', 'kd_media');
+    }
 }

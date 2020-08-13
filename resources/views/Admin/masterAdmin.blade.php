@@ -65,6 +65,9 @@
                     </li>
 
                     <li class="menu-title">Data Pelatihan</li><!-- /.menu-title -->
+                    <li class="@yield('active_menu_kelola_minat')">
+                        <a href="/admin/dataPelatihan/minat"><i class="menu-icon fa fa-star"></i>Minat</a>
+                    </li>
                     <li class="@yield('active_menu_kelola_program')">
                         <a href="/admin/dataPelatihan/program"><i class="menu-icon fa fa-tasks"></i>Program Pelatihan</a>
                     </li>
@@ -247,8 +250,5 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script> 
     <script src="/assets/js/widgets.js"></script>
-
-    
-
 </body>
 </html>

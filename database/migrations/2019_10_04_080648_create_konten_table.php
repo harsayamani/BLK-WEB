@@ -18,6 +18,7 @@ class CreateKontenTable extends Migration
             $table->string('judul_konten');
             $table->longText('isi_konten');
             $table->integer('kd_kategori');
+            $table->foreign('kd_kategori')->references('kd_kategori_konten')->on('kategori_konten');
             $table->string('foto');
             $table->string('tgl_rilis');
             $table->timestamps();

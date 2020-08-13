@@ -17,24 +17,27 @@ use App\Sertifikat;
 use App\PendaftaranProgram;
 use App\Minat;
 use Exception;
-use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
 use Illuminate\Support\Facades\DB as DB;
+use Ixudra\Curl\Facades\Curl;
 
 class MemberController extends Controller
 {
     public function akun_member(){
 
-        $member = Member::all();
-        $api = new API;
+        $member = Member::orderBy('created_at', 'desc')->get();
         $i = 0;
-        $minat = Minat::all();
+        $minat = Minat::get();
 
-        $city = Cities::all()->count();
+        $city = Cities::get()->count();
         if($city<1){
-            $ac = $api->getCURL('city');
+            $ac = Curl::to('https://api.rajaongkir.com/starter/city')
+            ->withData( array( 'key' => '37eaa119bd2711119af3fd2ab3261030') )
+            ->asJson()
+            ->get();
+
             foreach ($ac->rajaongkir->results as $key) {
                 $n = new Cities;
                 $n->id = $key->city_id;
@@ -47,9 +50,12 @@ class MemberController extends Controller
             }
         }
 
-        $province = Province::all()->count();
+        $province = Province::get()->count();
         if($province<1){
-            $ap = $api->getCURL('province');
+            $ap = Curl::to('https://api.rajaongkir.com/starter/province')
+            ->withData( array( 'key' => '37eaa119bd2711119af3fd2ab3261030') )
+            ->asJson()
+            ->get();
             foreach ($ap->rajaongkir->results as $key) {
                 $n = new \App\Province;
                 $n->id = $key->province_id;
@@ -58,8 +64,8 @@ class MemberController extends Controller
             }
         }
 
-        $provinsi = Province::all();
-        $kota = Cities::all();
+        $provinsi = Province::get();
+        $kota = Cities::get();
 
         if(!Session::get('loginAdmin')){
             return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');

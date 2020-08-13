@@ -17,7 +17,8 @@ class CreateLokerTable extends Migration
             $table->increments('kd_loker');
             $table->string('judul');
             $table->longText('isi');
-            $table->integer('kd_minat');
+            $table->unsignedInteger('kd_minat');
+            $table->foreign('kd_minat')->references('kd_minat')->on('minat');
             $table->string('foto');
             $table->string('tgl_rilis');
             $table->timestamps();

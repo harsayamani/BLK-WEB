@@ -14,7 +14,6 @@ use App\Profil;
 use App\Loker;
 use App\Minat;
 use Exception;
-use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
 use Kreait\Firebase\Messaging\Notification;
@@ -24,7 +23,7 @@ class KontenWebController extends Controller
 {
     public function kategori_konten(){
 
-        $kategori_konten = KategoriKonten::all();
+        $kategori_konten = KategoriKonten::get();
         $i = 0;
 
         if(!Session::get('loginAdmin')){

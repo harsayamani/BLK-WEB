@@ -9,6 +9,7 @@ use App\ProgramPelatihan;
 use App\SkemaPelatihan;
 use App\PendaftaranProgram;
 use App\Member;
+use App\Minat;
 use Kreait\Firebase;
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\Messaging\CloudMessage;
@@ -431,5 +432,68 @@ class PelatihanController extends Controller
         }
 
         return redirect('/admin/dataPelatihan/pendaftaran')->with('alert danger', 'Konfirmasi peserta '.$nama_lengkap.' tidak lulus');
+    }
+
+    public function minat(){
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
+        }else{
+            $minat = Minat::orderBy('created_at', 'desc')->get();
+            $i = 0;
+            return view('Admin/kelolaMinat', compact('minat', 'i'));
+        }
+    }
+
+    public function tambah_minat(Request $request){
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
+        }else{
+            $this->validate($request, [
+                'kd_minat' => '|unique:minat|numeric|regex:/^([1-9][0-9]+)/',
+                'minat' => '|max:50',
+            ]);
+
+            $minat = new Minat();
+            $minat->kd_minat = $request->kd_minat;
+            $minat->minat = $request->minat;
+            
+            if($minat->save()){
+                return redirect()->back()->with('alert success', 'Minat berhasil ditambah!');
+            }else{
+                return redirect()->back()->with('alert success', 'Terjadi kesalahan!');
+            }
+            
+        }  
+    }
+
+    public function ubah_minat(Request $request){
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
+        }else{
+            $minat = Minat::findOrFail($request->kd_minat);
+            $minat->minat = $request->minat;
+            
+            if($minat->save()){
+                return redirect()->back()->with('alert success', 'Minat berhasil diubah!');
+            }else{
+                return redirect()->back()->with('alert success', 'Terjadi kesalahan!');
+            }
+            
+        }  
+    }
+
+    public function hapus_minat($kd_minat){
+        if(!Session::get('loginAdmin')){
+            return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
+        }else{
+            $minat = Minat::findOrFail($kd_minat);
+            
+            if($minat->delete($minat)){
+                return redirect()->back()->with('alert danger', 'Minat berhasil dihapus!');
+            }else{
+                return redirect()->back()->with('alert danger', 'Terjadi kesalahan!');
+            }
+            
+        }  
     }
 }

@@ -1,8 +1,8 @@
 @extends('Admin/masterAdmin')
 
-@section('judul_tab', 'Kategori Konten - AdminBLK')
+@section('judul_tab', 'Minat - AdminBLK')
     
-@section('active_menu_kelola_kategori_konten', 'active')
+@section('active_menu_kelola_minat', 'active')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Kategori Konten</h1>
+                                <h1>Minat</h1>
                             </div>
                         </div>
                     </div>
@@ -21,8 +21,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Data Konten</a></li>
-                                    <li class="active">Kategori Konten</li>
+                                    <li><a href="#">Data Pelatihan</a></li>
+                                    <li class="active">Minat</li>
                                 </ol>
                             </div>
                         </div>
@@ -39,42 +39,42 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Kelola Kategori Konten</strong>
+                                <strong class="card-title">Kelola Minat</strong>
                             </div>
                         
                             <div class="card-body">
 
                                 <div class="col-lg-3 col-md-6">
-                                    <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahKategoriKonten"><i class="fa fa-plus-square"></i>
-                                    Tambah Kategori Konten
+                                    <button type="button" class="btn btn-info mb-1" data-toggle="modal" data-target="#tambahMinat"><i class="fa fa-plus-square"></i>
+                                    Tambah Minat
                                     </button>
                                 </div>
 
-                                <!-- Modal Tambah Kategori Konten -->
+                                <!-- Modal Tambah Minat -->
 
-                                <div class="modal fade" id="tambahKategoriKonten" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="tambahMinat" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h3 class="modal-title" id="mediumModalLabel"><strong>Tambah Kategori Konten</strong></h3>
+                                                <h3 class="modal-title" id="mediumModalLabel"><strong>Tambah Minat</strong></h3>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>      
                                             <div class="modal-body">
-                                                <form action="{{ url('/admin/dataKonten/kategoriKonten/tambahKategoriKonten')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                                <form action="{{ url('/admin/dataPelatihan/minat/tambahMinat')}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                     {{ csrf_field()}}
 
                                                     <div class="row form-group" hidden>
                                                         <div class="col col-md-3">
-                                                            <label for="number-input" class=" form-control-label">Kode Kategori</label>
+                                                            <label for="number-input" class=" form-control-label">Kode Minat</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="number" id="kd_kategori_konten" name="kd_kategori_konten" class="form-control" readonly
-                                                            @if(count($kategori_konten)>0)
-                                                                value="{{App\KategoriKonten::all()->last()->kd_kategori_konten+1}}" 
+                                                            <input type="number" id="kd_minat" name="kd_minat" class="form-control" readonly
+                                                            @if($minat->count()>0)
+                                                                value="{{App\Minat::all()->last()->kd_minat+1}}" 
                                                             @else
-                                                                value="1311" 
+                                                                value="7811" 
                                                             @endif
                                                             >
                                                         </div>
@@ -82,10 +82,10 @@
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Nama Kategori</label>
+                                                            <label for="text-input" class=" form-control-label">Minat</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="kategori_konten" name="kategori_konten" placeholder="Masukkan Kategori Konten" class="form-control" required>
+                                                            <input type="text" id="minat" name="minat" placeholder="Masukkan minat" class="form-control" required>
                                                         </div>
                                                     </div>
 
@@ -99,36 +99,36 @@
                                     </div>
                                 </div>
 
-                                <!-- Modal Ubah KategoriKonten -->
-                                <div class="modal fade" id="ubahKategoriKonten" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
+                                <!-- Modal Ubah Minat -->
+                                <div class="modal fade" id="ubahMinat" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h3 class="modal-title" id="mediumModalLabel"><strong>Ubah Kategori Konten</strong></h3>
+                                                <h3 class="modal-title" id="mediumModalLabel"><strong>Ubah Minat</strong></h3>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>      
                                             <div class="modal-body">
-                                                <form action="{{ url('/admin/dataKonten/kategoriKonten/ubahKategoriKonten') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+                                                <form action="{{ url('/admin/dataPelatihan/minat/ubahMinat') }}" method="post" enctype="multipart/form-data" class="form-horizontal">
                                                     
                                                     {{ csrf_field()}}
 
                                                     <div class="row form-group" hidden>
                                                         <div class="col col-md-3">
-                                                            <label for="number-input" class=" form-control-label">Kode Kategori</label>
+                                                            <label for="number-input" class=" form-control-label">Kode Minat</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="number" id="kd_kategori_konten" name="kd_kategori_konten" class="form-control" readonly>
+                                                            <input type="number" id="kd_minat" name="kd_minat" class="form-control" readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="row form-group">
                                                         <div class="col col-md-3">
-                                                            <label for="text-input" class=" form-control-label">Nama Kategori</label>
+                                                            <label for="text-input" class=" form-control-label">Minat</label>
                                                         </div>
                                                         <div class="col-12 col-md-9">
-                                                            <input type="text" id="kategori_konten" name="kategori_konten" placeholder="Masukkan Kategori Konten" class="form-control" required>
+                                                            <input type="text" id="minat" name="minat" placeholder="Masukkan minat" class="form-control" required>
                                                         </div>
                                                     </div>
 
@@ -148,29 +148,32 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Kategori</th>
+                                            <th>Minat</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($kategori_konten as $kategori)
+                                    @foreach($minat as $min)
                                         <tr>
                                             <td>{{$i+=1}}</td>
-                                            <td>{{$kategori->kategori_konten}}</td>
+                                            <td>{{$min->minat}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm" 
-                                                    data-target="#ubahKategoriKonten" 
+                                                    data-target="#ubahMinat" 
                                                     data-toggle="modal"
-                                                    data-kd_kategori_konten="{{$kategori->kd_kategori_konten}}"
-                                                    data-kategori_konten="{{$kategori->kategori_konten}}"
+                                                    data-kd_minat="{{$min->kd_minat}}"
+                                                    data-minat="{{$min->minat}}"
                                                 >
                                                     <i class="fa fa-edit"></i>&nbsp; 
                                                     Ubah
                                                 </button>
-                                                <a href="/admin/dataKonten/kategoriKonten/hapusKategoriKonten/{{$kategori->kd_kategori_konten}}" type="button" class="btn btn-danger btn-sm">
+
+                                                @if(\App\MinatMember::where('kd_minat', $min->kd_minat)->get()->count()==0)
+                                                <a href="/admin/dataPelatihan/minat/hapusMinat/{{$min->kd_minat}}" type="button" class="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash"></i>&nbsp;
                                                     Hapus
                                                 </a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -187,14 +190,14 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-              $('#ubahKategoriKonten').on('show.bs.modal', function (event) {
-              var button = $(event.relatedTarget);
-              var kd_kategori_konten = button.data('kd_kategori_konten');
-              var kategori_konten = button.data('kategori_konten');
-             
-              var modal = $(this);
-              modal.find('.modal-body #kd_kategori_konten').val(kd_kategori_konten);
-              modal.find('.modal-body #kategori_konten').val(kategori_konten);
+                $('#ubahMinat').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var kd_minat = button.data('kd_minat');
+                var minat = button.data('minat');
+                
+                var modal = $(this);
+                modal.find('.modal-body #kd_minat').val(kd_minat);
+                modal.find('.modal-body #minat').val(minat);
             });
         }); 
     </script> 

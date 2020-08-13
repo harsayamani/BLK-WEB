@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use JD\Cloudder\Facades\Cloudder;
-use App\Http\Controllers\APIController as API;
 use Illuminate\Support\Facades\Mail as FacadesMail;
 use App\Member;
 use App\Cities;

@@ -795,7 +795,6 @@
                         $('#kodepos').val(res.kodepos);
                     }
                 })
-              
             })
 
             // init

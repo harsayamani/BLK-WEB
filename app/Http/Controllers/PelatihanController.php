@@ -182,16 +182,17 @@ class PelatihanController extends Controller
     }
 
     public function pendaftaran(){
-        $skema = SkemaPelatihan::all();
-        $member = Member::all();
+        $skema = SkemaPelatihan::get();
+        $member = Member::get();
         $pendaftaran = PendaftaranProgram::orderBy('kd_skema', 'asc')->get();
+        $program = ProgramPelatihan::get();
 
         $i = 0;
 
         if(!Session::get('loginAdmin')){
             return redirect('/admin/login')->with('alert', 'Anda harus login terlebih dahulu');
         }else{
-            return view('Admin/kelolaPendaftaranPelatihan', compact('pendaftaran', 'skema', 'member', 'i'));
+            return view('Admin/kelolaPendaftaranPelatihan', compact('pendaftaran', 'skema', 'member', 'i', 'program'));
         }
     }
 

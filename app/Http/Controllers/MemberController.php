@@ -112,9 +112,7 @@ class MemberController extends Controller
         }
 
         $member->username = $request->username;
-        $member->password = Hash::make($request->password, [
-            'rounds' => 12
-        ]);
+        $member->password = $request->password;
         $member->email = $request->email;
         $member->save();
 
@@ -130,7 +128,7 @@ class MemberController extends Controller
                 $message->to($request->email);
             });
         }catch(Exception $e){
-            return redirect('/admin/dataMember/akunMember')->with('alert danger', $e);
+            return redirect('/admin/dataMember/akunMember')->with('alert danger', $e->getMessage());
         }
 
         return redirect('/admin/dataMember/akunMember')->with('alert success', 'Akun berhasil ditambahkan!');

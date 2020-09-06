@@ -174,211 +174,94 @@
 
                                 <br>
 
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Nama Pendaftar</th>
-                                            <th>Program</th>
-                                            <th>Gelombang</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($pendaftaran as $daftar)
-                                        @if($daftar->status == 0)
-                                        <tr>
-                                            <td>{{$i+=1}}</td>
-                                            <td>{{App\Member::where('kd_pengguna', $daftar->kd_pengguna)->value('nama_lengkap')}}</td>
-                                            <td>{{App\ProgramPelatihan::where('kd_program', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_program'))->value('nama_program')}}</td>
-                                            <td>{{App\Gelombang::where('kd_gelombang', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_gelombang'))->value('nama_gelombang')}}</td>
-                                            <td>
-                                                @if($daftar->status == 0)
-                                                <button class="btn btn-warning" disabled>Daftar Tunggu</button>
-                                                @elseif($daftar->status == 1)
-                                                <button class="btn btn-primary" disabled>Peserta</button>
-                                                @elseif($daftar->status == 2)
-                                                <button class="btn btn-success" disabled>Lulus</button>
-                                                @elseif($daftar->status == 3)
-                                                <button class="btn btn-danger" disabled>Tidak Lulus</button>
+                                <div id="accordion">
+                                    @foreach($program as $prog)
+                                    <div class="card">
+                                      <div class="card-header" id="heading{{$prog->kd_program}}">
+                                        <h5 class="mb-0">
+                                          <button class="btn btn-primary" data-toggle="collapse" data-target="#collapse{{$prog->kd_program}}" aria-expanded="true" aria-controls="collapse{{$prog->kd_program}}">
+                                            Program {{$prog->nama_program}}
+                                          </button>
+                                        </h5>
+                                      </div>
+                                  
+                                      <div id="collapse{{$prog->kd_program}}" class="collapse" aria-labelledby="heading{{$prog->kd_program}}" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <table class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Nama Pendaftar</th>
+                                                        <th>Program</th>
+                                                        <th>Gelombang</th>
+                                                        <th>Status</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($pendaftaran as $daftar)
+                                                @if($daftar->skema->kd_program == $prog->kd_program)
+                                                    <tr>
+                                                        <td>@php
+                                                            $i = 0;
+                                                            $i+=1;
+                                                            echo $i;
+                                                        @endphp</td>
+                                                        <td>{{App\Member::where('kd_pengguna', $daftar->kd_pengguna)->value('nama_lengkap')}}</td>
+                                                        <td>{{App\ProgramPelatihan::where('kd_program', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_program'))->value('nama_program')}}</td>
+                                                        <td>{{App\Gelombang::where('kd_gelombang', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_gelombang'))->value('nama_gelombang')}}</td>
+                                                        <td>
+                                                            @if($daftar->status == 0)
+                                                            <button class="btn btn-warning" disabled>Daftar Tunggu</button>
+                                                            @elseif($daftar->status == 1)
+                                                            <button class="btn btn-primary" disabled>Peserta</button>
+                                                            @elseif($daftar->status == 2)
+                                                            <button class="btn btn-success" disabled>Lulus</button>
+                                                            @elseif($daftar->status == 3)
+                                                            <button class="btn btn-danger" disabled>Tidak Lulus</button>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            
+                                                            <div class="col-4">
+                                                                <button type="button" class="btn btn-success btn-sm" 
+                                                                    data-target="#ubahPendaftaran" 
+                                                                    data-toggle="modal"
+                                                                    data-kd_pendaftaran="{{$daftar->kd_pendaftaran}}"
+                                                                    data-kd_skema="{{$daftar->kd_skema}}"
+                                                                    data-kd_pengguna="{{$daftar->kd_pengguna}}">
+                                                                    <i class="fa fa-edit"></i>&nbsp; 
+                                                                    Ubah
+                                                                </button>
+                                                            </div>
+            
+                                                            <div class="col-4">
+                                                                <a href="/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
+                                                                    <i class="fa fa-trash"></i>&nbsp;
+                                                                    Hapus
+                                                                </a>
+                                                            </div>
+            
+                                                            <div class="col-6">
+                                                                @if($daftar->status == 1)
+                                                                    <a href="/admin/dataPelatihan/pendaftaran/tidakLulus/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
+                                                                        Konfirmasi Tidak Lulus
+                                                                    </a>
+                                                                @endif
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 @endif
-                                            </td>
-                                            <td>
-                                                
-                                                <div class="col-4">
-                                                    <button type="button" class="btn btn-success btn-sm" 
-                                                        data-target="#ubahPendaftaran" 
-                                                        data-toggle="modal"
-                                                        data-kd_pendaftaran="{{$daftar->kd_pendaftaran}}"
-                                                        data-kd_skema="{{$daftar->kd_skema}}"
-                                                        data-kd_pengguna="{{$daftar->kd_pengguna}}">
-                                                        <i class="fa fa-edit"></i>&nbsp; 
-                                                        Ubah
-                                                    </button>
-                                                </div>
+                                                @endforeach
+                                                </tbody>
+                                            </table>  
+                                        </div>
+                                      </div>
+                                    </div>
+                                    @endforeach  
+                                </div>
 
-                                                <div class="col-4">
-                                                    <a href="/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>&nbsp;
-                                                        Hapus
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @if($daftar->status == 1)
-                                                        <a href="/admin/dataPelatihan/pendaftaran/tidakLulus/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
-                                                            Konfirmasi Tidak Lulus
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @elseif($daftar->status == 1)
-                                        <tr>
-                                            <td>{{$i+=1}}</td>
-                                            <td>{{App\Member::where('kd_pengguna', $daftar->kd_pengguna)->value('nama_lengkap')}}</td>
-                                            <td>{{App\ProgramPelatihan::where('kd_program', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_program'))->value('nama_program')}}</td>
-                                            <td>{{App\Gelombang::where('kd_gelombang', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_gelombang'))->value('nama_gelombang')}}</td>
-                                            <td>
-                                                @if($daftar->status == 0)
-                                                <button class="btn btn-warning" disabled>Daftar Tunggu</button>
-                                                @elseif($daftar->status == 1)
-                                                <button class="btn btn-primary" disabled>Peserta</button>
-                                                @elseif($daftar->status == 2)
-                                                <button class="btn btn-success" disabled>Lulus</button>
-                                                @elseif($daftar->status == 3)
-                                                <button class="btn btn-danger" disabled>Tidak Lulus</button>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                
-                                                <div class="col-4">
-                                                    <button type="button" class="btn btn-success btn-sm" 
-                                                        data-target="#ubahPendaftaran" 
-                                                        data-toggle="modal"
-                                                        data-kd_pendaftaran="{{$daftar->kd_pendaftaran}}"
-                                                        data-kd_skema="{{$daftar->kd_skema}}"
-                                                        data-kd_pengguna="{{$daftar->kd_pengguna}}">
-                                                        <i class="fa fa-edit"></i>&nbsp; 
-                                                        Ubah
-                                                    </button>
-                                                </div>
-
-                                                <div class="col-4">
-                                                    <a href="/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>&nbsp;
-                                                        Hapus
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @if($daftar->status == 1)
-                                                        <a href="/admin/dataPelatihan/pendaftaran/tidakLulus/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
-                                                            Konfirmasi Tidak Lulus
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @elseif($daftar->status == 2)
-                                        <tr>
-                                            <td>{{$i+=1}}</td>
-                                            <td>{{App\Member::where('kd_pengguna', $daftar->kd_pengguna)->value('nama_lengkap')}}</td>
-                                            <td>{{App\ProgramPelatihan::where('kd_program', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_program'))->value('nama_program')}}</td>
-                                            <td>{{App\Gelombang::where('kd_gelombang', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_gelombang'))->value('nama_gelombang')}}</td>
-                                            <td>
-                                                @if($daftar->status == 0)
-                                                <button class="btn btn-warning" disabled>Daftar Tunggu</button>
-                                                @elseif($daftar->status == 1)
-                                                <button class="btn btn-primary" disabled>Peserta</button>
-                                                @elseif($daftar->status == 2)
-                                                <button class="btn btn-success" disabled>Lulus</button>
-                                                @elseif($daftar->status == 3)
-                                                <button class="btn btn-danger" disabled>Tidak Lulus</button>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                
-                                                <div class="col-4">
-                                                    <button type="button" class="btn btn-success btn-sm" 
-                                                        data-target="#ubahPendaftaran" 
-                                                        data-toggle="modal"
-                                                        data-kd_pendaftaran="{{$daftar->kd_pendaftaran}}"
-                                                        data-kd_skema="{{$daftar->kd_skema}}"
-                                                        data-kd_pengguna="{{$daftar->kd_pengguna}}">
-                                                        <i class="fa fa-edit"></i>&nbsp; 
-                                                        Ubah
-                                                    </button>
-                                                </div>
-
-                                                <div class="col-4">
-                                                    <a href="/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>&nbsp;
-                                                        Hapus
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @if($daftar->status == 1)
-                                                        <a href="/admin/dataPelatihan/pendaftaran/tidakLulus/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
-                                                            Konfirmasi Tidak Lulus
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @elseif($daftar->status == 3)
-                                        <tr>
-                                            <td>{{$i+=1}}</td>
-                                            <td>{{App\Member::where('kd_pengguna', $daftar->kd_pengguna)->value('nama_lengkap')}}</td>
-                                            <td>{{App\ProgramPelatihan::where('kd_program', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_program'))->value('nama_program')}}</td>
-                                            <td>{{App\Gelombang::where('kd_gelombang', App\SkemaPelatihan::where('kd_skema', $daftar->kd_skema)->value('kd_gelombang'))->value('nama_gelombang')}}</td>
-                                            <td>
-                                                @if($daftar->status == 0)
-                                                <button class="btn btn-warning" disabled>Daftar Tunggu</button>
-                                                @elseif($daftar->status == 1)
-                                                <button class="btn btn-primary" disabled>Peserta</button>
-                                                @elseif($daftar->status == 2)
-                                                <button class="btn btn-success" disabled>Lulus</button>
-                                                @elseif($daftar->status == 3)
-                                                <button class="btn btn-danger" disabled>Tidak Lulus</button>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                
-                                                <div class="col-4">
-                                                    <button type="button" class="btn btn-success btn-sm" 
-                                                        data-target="#ubahPendaftaran" 
-                                                        data-toggle="modal"
-                                                        data-kd_pendaftaran="{{$daftar->kd_pendaftaran}}"
-                                                        data-kd_skema="{{$daftar->kd_skema}}"
-                                                        data-kd_pengguna="{{$daftar->kd_pengguna}}">
-                                                        <i class="fa fa-edit"></i>&nbsp; 
-                                                        Ubah
-                                                    </button>
-                                                </div>
-
-                                                <div class="col-4">
-                                                    <a href="/admin/dataPelatihan/pendaftaran/hapusPendaftaran/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
-                                                        <i class="fa fa-trash"></i>&nbsp;
-                                                        Hapus
-                                                    </a>
-                                                </div>
-
-                                                <div class="col-6">
-                                                    @if($daftar->status == 1)
-                                                        <a href="/admin/dataPelatihan/pendaftaran/tidakLulus/{{$daftar->kd_pendaftaran}}" type="button" class="btn btn-danger btn-sm">
-                                                            Konfirmasi Tidak Lulus
-                                                        </a>
-                                                    @endif
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
-                                    </tbody>
-                                </table>    
+                                
                             </div>
                         </div>
                     </div>
